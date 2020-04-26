@@ -33,7 +33,7 @@ export default {
             .slice(-10),
           type: 'link',
           label: '我的主页',
-          icon: 'home-circle',
+          icon: 'bx-home-circle',
           class: 'me'
         },
         {
@@ -50,7 +50,7 @@ export default {
             .slice(-10),
           type: 'button',
           label: '添加服务器',
-          icon: 'plus'
+          icon: 'bx-plus'
         },
         {
           id: Math.random()
@@ -58,7 +58,7 @@ export default {
             .slice(-10),
           type: 'link',
           label: '查找服务器',
-          icon: 'search'
+          icon: 'bx-search'
         },
         {
           id: Math.random()
@@ -72,7 +72,7 @@ export default {
             .slice(-10),
           type: 'button',
           label: '下载APP',
-          icon: 'download'
+          icon: 'bx-download'
         }
       ]
     }
@@ -128,26 +128,40 @@ nav#app-nav {
       border-radius: 8px;
       background-color: rgba(var(--vs-primary), 1);
     }
+    i.bx {
+      color: var(--vs-theme-bg) !important;
+    }
   }
-  &:not(.active):hover {
+  &:not(.active):hover,
+  &:not(.active):active,
+  &:not(.active):focus {
     &::before {
       height: 12px;
     }
     .icon-button {
       border-radius: 8px;
+      background-color: rgba(var(--vs-primary), 1);
+    }
+    i.bx {
+      color: var(--vs-theme-bg);
     }
   }
   .icon-button {
     cursor: pointer;
     width: 48px;
     height: 48px;
-    background: var(--vs-theme-bg);
+    background: var(--vs-theme-bg2);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 48px;
-    transition: border-radius 0.2s linear, background-color 0.2s linear;
+    transition: border-radius 325ms linear, background-color 0.2s linear;
     will-change: border-radius, background-color;
+
+    i.bx {
+      color: rgb(var(--vs-primary));
+      font-size: 24px;
+    }
   }
 }
 .divier {

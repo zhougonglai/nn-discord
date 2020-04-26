@@ -1,0 +1,14 @@
+button.tap {
+  outline: 0;
+  border: none;
+  display: flex;
+  width: 100%;
+  color: var(--text-muted);
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  white-space: nowrap;
+  background-color: var(--background-tertiary);
+  border-radius: 4px;
+}
