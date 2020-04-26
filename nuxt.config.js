@@ -14,7 +14,13 @@ module.exports = {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href: 'https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css'
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -23,11 +29,20 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    'vuesax/dist/vuesax.css',
+    'boxicons/css/boxicons.min.css',
+    '~/styles/global.scss'
+  ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    {
+      src: '~/plugins/vuesax',
+      ssr: false
+    }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -35,6 +50,9 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module'
   ],
+  server: {
+    host: '0.0.0.0' // default: localhost
+  },
   /*
    ** Nuxt.js modules
    */

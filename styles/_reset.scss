@@ -1,0 +1,47 @@
+body,
+html {
+  background-color: var(--vs-theme-layout);
+  color: var(--vs-theme-color);
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-overflow-scrolling: touch;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  --vs-theme-bg: #f4f7f8;
+  --vs-theme-color: #2c3e50;
+  --vs-theme-layout: #fff;
+  --vs-theme-bg2: #eef2f5;
+  --vs-theme-code: #3f3d56;
+  --vs-theme-code2: #363449;
+  @extend %light;
+}
+
+body[vs-theme='dark'] {
+  --vs-theme-bg: #18191c;
+  --vs-theme-color: #fff;
+  --vs-theme-layout: #1e2023;
+  --vs-theme-bg2: #141417;
+  --vs-theme-code: #141417;
+  --vs-theme-code2: #161619;
+
+  @extend %dark;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  display: block;
+  background: var(--vs-theme-layout);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vs-theme-color);
+  border-radius: 5px;
+}
+
+::selection {
+  background: rgba(37, 100, 255, 0.15);
+}
