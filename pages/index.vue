@@ -1,12 +1,5 @@
 <template lang="pug">
 main#app-page
-  vs-dialog(width="300px" blur v-model="search.status")
-    template(#header)
-      h4.not-margin 搜索服务器.频道或私信
-    .con-content
-      vs-input(v-model="search.keyword" shadow placeholder="想要去哪里?")
-        template(#icon)
-          i.bx.bx-search-alt
   nav.sidebar
     .searchBar
       button.tap(@click="search.status = true") 寻找或开始新的对话
@@ -39,7 +32,7 @@ main#app-page
           rect(x="40" y="402" width="144" height="20" rx="10" opacity="0.1")
           circle(cx="16" cy="412" r="16" opacity="0.1")
     section.panels
-      vs-avatar(badge badge-color="success")
+      .avatar(badge badge-color="success")
         i.bx.bx-user
       .nameTag
         .usernameContainer 码上有媳妇
@@ -88,8 +81,8 @@ export default {
 <style lang="scss" scoped>
 main#app-page {
   position: absolute;
-  left: 72px;
-  top: 0;
+  left: 190px;
+  top: 52px;
   right: 0;
   bottom: 0;
   background: var(--vs-theme-bg);

@@ -18,7 +18,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: 'https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css'
+        href: 'https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css'
       }
     ]
   },
@@ -29,20 +29,11 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: [
-    'vuesax/dist/vuesax.css',
-    'boxicons/css/boxicons.min.css',
-    '~/styles/global.scss'
-  ],
+  css: ['modern-normalize/modern-normalize.css', '~/styles/global.scss'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    {
-      src: '~/plugins/vuesax',
-      ssr: false
-    }
-  ],
+  plugins: [],
   /*
    ** Nuxt.js dev-modules
    */

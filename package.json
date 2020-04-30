@@ -1,5 +1,5 @@
 {
-  "name": "nn-discord",
+  "name": "nn",
   "version": "1.0.0",
   "description": "My supreme Nuxt.js project",
   "author": "zhougonglai",
@@ -17,6 +17,7 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "boxicons": "^2.0.5",
     "lodash": "^4.17.15",
+    "modern-normalize": "^0.6.0",
     "nuxt": "^2.0.0",
     "vuesax": "^4.0.1-alpha.16"
   },

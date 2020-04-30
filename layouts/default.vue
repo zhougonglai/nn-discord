@@ -1,26 +1,23 @@
 <template lang="pug">
 #app
+  header#app-header
+    Logo#logo
+    .search-input 搜索好友/社区
+      i.bx.bx-search
   nav#app-nav(aria-label="侧边栏")
-    template(v-for="nav in navs")
+    template(v-if="navs.length")
       .nav-item(
-        v-if="nav.type === 'link'"
+        v-for="nav in navs"
         :key="nav.id"
         :class="[{active: active === nav.id}]"
         @click="active = nav.id")
-          .icon-button
-            i.bx(:class="[nav.icon]")
-      .divier(v-else-if="nav.type === 'divier'" :key="nav.id")
-      .nav-item(
-        v-if="nav.type === 'button'"
-        :key="nav.id"
-        :class="[{active: active === nav.id}]"
-        @click="active = nav.id" )
-          .icon-button
-            i.bx(:class="[nav.icon]")
-          //-  :color="active === nav.id ? 'var(--vs-theme-bg)' : 'rgb(var(--vs-primary))'"
+          .avatar(:data-src="nav.avatar" :style="{'background-image':`url(${nav.url})`}")
+          | {{nav.label}}
   nuxt
 </template>
 <script>
+import Logo from '~/assets/logo.svg'
+
 export default {
   name: 'DefaultLayout',
   head() {
@@ -29,6 +26,9 @@ export default {
         'vs-theme': this.theme.type
       }
     }
+  },
+  components: {
+    Logo
   },
   data() {
     return {
@@ -42,16 +42,9 @@ export default {
           id: Math.random()
             .toString(16)
             .slice(-10),
-          type: 'link',
           label: '我的主页',
-          icon: 'bx-home-circle',
+          url: 'http://dummyimage.com/125x125',
           class: 'me'
-        },
-        {
-          id: Math.random()
-            .toString(16)
-            .slice(-10),
-          type: 'divier'
         }
       ],
       helpNav: [
@@ -59,31 +52,29 @@ export default {
           id: Math.random()
             .toString(16)
             .slice(-10),
-          type: 'button',
-          label: '添加服务器',
-          icon: 'bx-plus'
+          label: 'FIFA18',
+          url: 'http://dummyimage.com/125x125'
         },
         {
           id: Math.random()
             .toString(16)
             .slice(-10),
-          type: 'link',
-          label: '查找服务器',
-          icon: 'bx-search'
+          label: 'Xbox',
+          url: 'http://dummyimage.com/125x125'
         },
         {
           id: Math.random()
             .toString(16)
             .slice(-10),
-          type: 'divier'
+          label: 'gog',
+          url: 'http://dummyimage.com/125x125'
         },
         {
           id: Math.random()
             .toString(16)
             .slice(-10),
-          type: 'button',
-          label: '下载APP',
-          icon: 'bx-download'
+          label: 'MOMO模拟器',
+          url: 'http://dummyimage.com/125x125'
         }
       ]
     }
@@ -101,22 +92,58 @@ export default {
 <style lang="scss" scoped>
 nav#app-nav {
   position: absolute;
-  top: 0;
+  top: 52px;
   left: 0;
   bottom: 0;
-  width: 72px;
+  width: 190px;
+  padding-left: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: var(--vs-theme-layout);
+  background: var(--vs-theme-layout2);
 }
-.nav-item {
-  width: 72px;
-  height: 72px;
+header#app-header {
+  height: 52px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding: 0 20px;
+
+  #logo {
+    fill: #72767d;
+    cursor: pointer;
+
+    &:hover {
+      fill: #9fa4ab;
+    }
+  }
+
+  .search-input {
+    cursor: pointer;
+    margin-left: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    width: 200px;
+    height: 28px;
+    border-radius: 14px;
+    background-color: var(--vs-theme-layout3);
+    color: var(--deprecated-quickswitcher-input-background);
+  }
+}
+
+.nav-item {
+  width: 100%;
+  height: 52px;
+  display: flex;
+  align-items: center;
   position: relative;
+  margin-top: 10px;
+  border-radius: 36px 0 0 36px;
+  padding: 3px;
+  cursor: pointer;
+  transition: background 0.2s linear;
+  color: var(--nav-label);
   &::after {
     content: '';
     position: absolute;
@@ -132,45 +159,44 @@ nav#app-nav {
     transition: height 0.2s linear, background 325ms linear;
   }
   &.active {
+    background-color: var(--nav-hover);
+    color: var(--nav-label-active);
     &::after {
-      height: 40px;
-      background: rgb(var(--vs-primary));
+      height: 100%;
     }
     .icon-button {
       border-radius: 8px;
       background-color: rgb(var(--vs-primary));
     }
     i.bx {
-      color: var(--vs-theme-bg) !important;
+      color: var(--interactive-active) !important;
     }
   }
   &:not(.active):hover,
   &:not(.active):active,
   &:not(.active):focus {
+    background-color: var(--nav-hover);
+    color: var(--nav-label-active);
     &::after {
       height: 24px;
-      background: rgb(var(--vs-primary));
     }
-    .icon-button {
-      border-radius: 8px;
-      background-color: rgba(var(--vs-primary), 1);
+    .avatar {
+      background-color: rgb(var(--vs-primary));
     }
     i.bx {
       color: var(--vs-theme-bg);
     }
   }
-  .icon-button {
-    cursor: pointer;
+  .avatar {
     width: 48px;
     height: 48px;
-    background: var(--vs-theme-bg2);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 48px;
+    margin-right: 10px;
     transition: border-radius 325ms linear, background-color 0.2s linear;
     will-change: border-radius, background-color;
-
     i.bx {
       color: rgb(var(--vs-primary));
       font-size: 24px;
