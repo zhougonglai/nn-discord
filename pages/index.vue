@@ -1,11 +1,18 @@
 <template lang="pug">
 main#app-page
+  vs-dialog(width="300px" blur v-model="search.status")
+    template(#header)
+      h4.not-margin 搜索服务器.频道或私信
+    .con-content
+      vs-input(v-model="search.keyword" shadow placeholder="想要去哪里?")
+        template(#icon)
+          i.bx.bx-search-alt
   nav.sidebar
     .searchBar
-      button.tap 寻找或开始新的对话
+      button.tap(@click="search.status = true") 寻找或开始新的对话
     .scrollerWrap
       .scroller
-        .list
+        .list.padding
           .list-item(v-for="friend in friends" :key="friend.id")
             .list-item-pre
               i.bx.bxs-face
@@ -31,10 +38,25 @@ main#app-page
           circle(cx="16" cy="368" r="16" opacity="0.2")
           rect(x="40" y="402" width="144" height="20" rx="10" opacity="0.1")
           circle(cx="16" cy="412" r="16" opacity="0.1")
-  .container
-    section.container
-      .tabBar 好友
-      .toolbar 工具栏
+    section.panels
+      vs-avatar(badge badge-color="success")
+        i.bx.bx-user
+      .nameTag
+        .usernameContainer 码上有媳妇
+        small.subtext #5983
+      .tools
+        i.bx.bxs-microphone
+        i.bx.bx-headphone
+        i.bx.bxs-cog
+  section.container
+    .toolbar
+      .title
+        i.bx.bx-user
+        | 好友
+      .divier
+      .tabBar
+        .tab 在线
+      .tools 工具栏
     .tabBody 添加好友
 </template>
 
@@ -43,28 +65,11 @@ export default {
   name: 'HomePage',
   data() {
     return {
+      search: {
+        status: false,
+        keyword: ''
+      },
       friends: [
-        {
-          id: Math.random()
-            .toString(16)
-            .slice(-10),
-          label: '好友',
-          type: 'link'
-        },
-        {
-          id: Math.random()
-            .toString(16)
-            .slice(-10),
-          label: '好友',
-          type: 'link'
-        },
-        {
-          id: Math.random()
-            .toString(16)
-            .slice(-10),
-          label: '好友',
-          type: 'link'
-        },
         {
           id: Math.random()
             .toString(16)
@@ -74,6 +79,9 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    openSearch() {}
   }
 }
 </script>
@@ -124,18 +132,74 @@ main#app-page {
         padding: 16px 0;
       }
     }
+
+    section.panels {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      margin-bottom: 1px;
+
+      .nameTag {
+        flex: 1;
+        margin: 0 8px;
+      }
+      .tools {
+        i {
+          cursor: pointer;
+          margin-right: 8px;
+          font-size: 20px;
+        }
+      }
+    }
   }
+  section.container {
+    flex: 1;
+    .toolbar {
+      display: flex;
+      padding: 0 8px;
+      font-size: 16px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .tabBar {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.divier {
+  width: 1px;
+  height: 20px;
+  margin: 0 8px;
+  background: darkgray;
 }
 .list {
   display: flex;
   flex-direction: column;
   width: 100%;
+  box-sizing: border-box;
+  &.padding {
+    padding: 16px;
+  }
   &-item {
     display: flex;
     height: 48px;
     align-items: center;
     justify-content: center;
     padding: 0 8px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &.active,
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: var(--background-modifier-hover);
+    }
 
     &-pre {
       width: 40px;

@@ -45,3 +45,9 @@ body[vs-theme='dark'] {
 ::selection {
   background: rgba(37, 100, 255, 0.15);
 }
+
+.vs-input-content {
+  .vs-input {
+    width: 100%;
+  }
+}

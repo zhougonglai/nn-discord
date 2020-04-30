@@ -23,9 +23,20 @@
 <script>
 export default {
   name: 'DefaultLayout',
+  head() {
+    return {
+      bodyAttrs: !this.theme.auto && {
+        'vs-theme': this.theme.type
+      }
+    }
+  },
   data() {
     return {
       active: '',
+      theme: {
+        auto: false,
+        type: 'dark' // dark light, system
+      },
       homeNav: [
         {
           id: Math.random()
@@ -106,27 +117,28 @@ nav#app-nav {
   align-items: center;
   justify-content: center;
   position: relative;
-  &::before {
+  &::after {
     content: '';
     position: absolute;
-    left: 0;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     width: 8px;
     height: 0;
-    border-radius: 0 4px 4px 0;
-    margin-left: -4px;
+    border-radius: 4px 0 0 4px;
+    margin-right: -4px;
     background: var(--vs-theme-color);
     contain: layout size;
-    transition: height 0.2s linear;
+    transition: height 0.2s linear, background 325ms linear;
   }
   &.active {
-    &::before {
+    &::after {
       height: 40px;
+      background: rgb(var(--vs-primary));
     }
     .icon-button {
       border-radius: 8px;
-      background-color: rgba(var(--vs-primary), 1);
+      background-color: rgb(var(--vs-primary));
     }
     i.bx {
       color: var(--vs-theme-bg) !important;
@@ -135,8 +147,9 @@ nav#app-nav {
   &:not(.active):hover,
   &:not(.active):active,
   &:not(.active):focus {
-    &::before {
-      height: 12px;
+    &::after {
+      height: 24px;
+      background: rgb(var(--vs-primary));
     }
     .icon-button {
       border-radius: 8px;
@@ -167,6 +180,6 @@ nav#app-nav {
 .divier {
   width: 30px;
   height: 1px;
-  background: rgba(var(--vs-dark), 0.4);
+  background: darkgray;
 }
 </style>
