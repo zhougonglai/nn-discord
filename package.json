@@ -6,20 +6,27 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate",
+    "build": "nuxt generate",
+    "build:serve": "nuxt build",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+  },
+  "engines": {
+    "node": "12.x"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "agora-rtc-sdk": "^3.1.0",
+    "agora-rtm-sdk": "^1.2.2",
     "boxicons": "^2.0.5",
+    "dialog-polyfill": "^0.5.1",
     "lodash": "^4.17.15",
     "modern-normalize": "^0.6.0",
     "nuxt": "^2.0.0",
-    "vuesax": "^4.0.1-alpha.16"
+    "vuesax": "^4.0.1-alpha.16",
+    "web-animations-js": "^2.3.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",
@@ -29,6 +36,9 @@
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.0.1",
+    "mockjs": "^1.1.0",
+    "nodemon": "^2.0.3",
+    "nuxt-i18n": "^6.11.0",
     "prettier": "^1.16.4",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",

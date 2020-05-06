@@ -1,0 +1,32 @@
+@keyframes scale {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s linear;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.scale-enter-active,
+.scale-leave-active {
+  transition: transform 0.2s linear;
+}
+
+.scale-enter,
+.scale-leave-to {
+  transform: scale(0);
+}
+
+.scale-enter-to,
+.scale-leave {
+  transform: scale(1);
+}

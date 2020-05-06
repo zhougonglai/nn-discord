@@ -1,3 +1,19 @@
+.d-flex {
+  display: flex;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.no-padding {
+  padding: 0;
+}
+
 @each $i in 1, 2, 3, 4, 5 {
   .ma-#{$i} {
     margin: $n * $i;

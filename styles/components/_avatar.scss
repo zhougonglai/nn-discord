@@ -1,0 +1,17 @@
+.avatar {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 48px;
+  margin-right: 10px;
+  background-size: contain;
+  background-position: center;
+  transition: border-radius 325ms linear, background-color 0.2s linear;
+  will-change: border-radius, background-color;
+  i.bx {
+    color: rgb(var(--vs-primary));
+    font-size: 24px;
+  }
+}

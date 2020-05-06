@@ -1,0 +1,41 @@
+button.nn-btn {
+  outline: 0;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  font-weight: 500;
+  white-space: nowrap;
+  line-height: 24px;
+  border-radius: 16px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  text-align: center;
+  height: 32px;
+  background-color: var(--vs-theme-color);
+  color: var(--vs-theme-layout2);
+
+  &.small {
+    min-width: 68px;
+    font-size: small;
+    height: 28px;
+  }
+
+  &.text {
+    background-color: var(--background-mentioned);
+    color: var(--vs-theme-color);
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: var(--background-mentioned-hover);
+    }
+  }
+
+  &.icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 12px;
+  }
+}

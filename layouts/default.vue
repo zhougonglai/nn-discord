@@ -1,21 +1,37 @@
 <template lang="pug">
 #app
   header#app-header
-    Logo#logo
-    .search-input 搜索好友/社区
+    #logo
+      Logo
+    .search-input(@click="openSearch") 搜索好友/社区
       i.bx.bx-search
   nav#app-nav(aria-label="侧边栏")
-    template(v-if="navs.length")
+    .nav-item(v-if="user" :class="[{active: active === user.id}]" @click="active = user.id")
+      .avatar(:style="{'background-image':`url(${user.imageUrl})`}")
+      | {{user.nickName}}
+    template(v-if="helpNav.length")
       .nav-item(
-        v-for="nav in navs"
+        v-for="nav in helpNav"
         :key="nav.id"
         :class="[{active: active === nav.id}]"
         @click="active = nav.id")
-          .avatar(:data-src="nav.avatar" :style="{'background-image':`url(${nav.url})`}")
+          .avatar(:style="{'background-image':`url(${nav.url})`}")
           | {{nav.label}}
   nuxt
+  footer#app-footer
+    .tools
+      .item
+        i.bx.bxs-microphone
+      .item
+        i.bx.bxs-music
+      .item
+        i.bx.bx-headphone
+      .item 自由
+      .item
+        i.bx.bxs-cog
 </template>
 <script>
+import { mapState, mapActions } from 'vuex'
 import Logo from '~/assets/logo.svg'
 
 export default {
@@ -37,55 +53,63 @@ export default {
         auto: false,
         type: 'dark' // dark light, system
       },
-      homeNav: [
-        {
-          id: Math.random()
-            .toString(16)
-            .slice(-10),
-          label: '我的主页',
-          url: 'http://dummyimage.com/125x125',
-          class: 'me'
-        }
-      ],
+      search: {
+        open: false
+      },
       helpNav: [
         {
           id: Math.random()
             .toString(16)
             .slice(-10),
           label: 'FIFA18',
-          url: 'http://dummyimage.com/125x125'
+          url: require('~/assets/imgs/FIFA18@2x.jpg')
         },
         {
           id: Math.random()
             .toString(16)
             .slice(-10),
           label: 'Xbox',
-          url: 'http://dummyimage.com/125x125'
+          url: require('~/assets/imgs/xbox@2x.jpg')
         },
         {
           id: Math.random()
             .toString(16)
             .slice(-10),
           label: 'gog',
-          url: 'http://dummyimage.com/125x125'
+          url: require('~/assets/imgs/GOG_Galaxy@2x.jpg')
         },
         {
           id: Math.random()
             .toString(16)
             .slice(-10),
           label: 'MOMO模拟器',
-          url: 'http://dummyimage.com/125x125'
+          url: require('~/assets/imgs/MuMu@2x.jpg')
         }
       ]
     }
   },
   computed: {
-    navs() {
-      return this.homeNav.concat(this.helpNav)
-    }
+    ...mapState(['user'])
   },
-  created() {
-    this.active = this.navs[0].id
+  async created() {
+    await this.getUser()
+    await this.getCommunityGroup()
+    await this.getFriendsGroup()
+  },
+  mounted() {
+    this.active = this.user.id
+  },
+  methods: {
+    openSearch() {
+      this.search.open = true
+    },
+    closeSearch() {
+      this.search.open = false
+    },
+    toggleSearchDialog() {
+      this.search.open = !this.search.open
+    },
+    ...mapActions(['getUser', 'getCommunityGroup', 'getFriendsGroup'])
   }
 }
 </script>
@@ -94,7 +118,7 @@ nav#app-nav {
   position: absolute;
   top: 52px;
   left: 0;
-  bottom: 0;
+  bottom: 60px;
   width: 190px;
   padding-left: 10px;
   display: flex;
@@ -109,11 +133,15 @@ header#app-header {
   padding: 0 20px;
 
   #logo {
-    fill: #72767d;
     cursor: pointer;
+    svg {
+      fill: #72767d;
+    }
 
     &:hover {
-      fill: #9fa4ab;
+      svg {
+        fill: #9fa4ab;
+      }
     }
   }
 
@@ -129,6 +157,30 @@ header#app-header {
     border-radius: 14px;
     background-color: var(--vs-theme-layout3);
     color: var(--deprecated-quickswitcher-input-background);
+  }
+}
+
+footer#app-footer {
+  position: absolute;
+  background-color: var(--vs-theme-layout2);
+  display: flex;
+  height: 60px;
+  padding: 0 20px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .tools {
+    display: flex;
+    align-items: center;
+    .item {
+      font-size: 18px;
+      i {
+        font-size: 30px;
+      }
+      & + .item {
+        margin-left: 10px;
+      }
+    }
   }
 }
 
@@ -185,21 +237,6 @@ header#app-header {
     }
     i.bx {
       color: var(--vs-theme-bg);
-    }
-  }
-  .avatar {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 48px;
-    margin-right: 10px;
-    transition: border-radius 325ms linear, background-color 0.2s linear;
-    will-change: border-radius, background-color;
-    i.bx {
-      color: rgb(var(--vs-primary));
-      font-size: 24px;
     }
   }
 }

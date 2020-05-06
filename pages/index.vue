@@ -1,59 +1,106 @@
 <template lang="pug">
 main#app-page
   nav.sidebar
-    .searchBar
-      button.tap(@click="search.status = true") 寻找或开始新的对话
+    //- .sidebar-header
+    //-   .panel.left
+    //-     .text 亚龙的社区
+    //-     .subtext 153.2W 成员
+    //-   .panel.right
+    //-     .subtext NN号 236584
+    //-     .subtext 153.2W 关注
+    //-   .panel.bottom
+    //-     nn-button(size="small") +加入
+    .tabs
+      .tab-bar(:class="{active: active === 'social'}" @click="active = 'social'")
+        .tab-bar-pre
+          i.bx.bxs-heart-circle
+        transition(name="scale")
+          .tab-bar-content(v-if="active === 'social'")  社区
+        transition(name="scale")
+          .tab-bar-after(v-if="active === 'social'") +
+      .tab-bar(:class="{active: active === 'group'}" @click="active = 'group'")
+        i.bx.bxs-group
+        transition(name="scale")
+          .tab-bar-content(v-if="active === 'group'") 好友
+        transition(name="scale")
+          .tab-bar-after(v-if="active === 'group'") +
     .scrollerWrap
       .scroller
-        .list.padding
-          .list-item(v-for="friend in friends" :key="friend.id")
-            .list-item-pre
-              i.bx.bxs-face
-            .list-item-content {{friend.label}}
-        svg.empty(width="184" height="428" viewBox="0 0 184 428")
-          rect(x="40" y="6" width="144" height="20" rx="10")
-          circle(cx="16" cy="16" r="16")
-          rect(x="40" y="50" width="144" height="20" rx="10" opacity="0.9")
-          circle(cx="16" cy="60" r="16" opacity="0.9")
-          rect(x="40" y="94" width="144" height="20" rx="10" opacity="0.8")
-          circle(cx="16" cy="104" r="16" opacity="0.8")
-          rect(x="40" y="138" width="144" height="20" rx="10" opacity="0.7")
-          circle(cx="16" cy="148" r="16" opacity="0.7")
-          rect(x="40" y="182" width="144" height="20" rx="10" opacity="0.6")
-          circle(cx="16" cy="192" r="16" opacity="0.6")
-          rect(x="40" y="226" width="144" height="20" rx="10" opacity="0.5")
-          circle(cx="16" cy="236" r="16" opacity="0.5")
-          rect(x="40" y="270" width="144" height="20" rx="10" opacity="0.4")
-          circle(cx="16" cy="280" r="16" opacity="0.4")
-          rect(x="40" y="314" width="144" height="20" rx="10" opacity="0.3")
-          circle(cx="16" cy="324" r="16" opacity="0.3")
-          rect(x="40" y="358" width="144" height="20" rx="10" opacity="0.2")
-          circle(cx="16" cy="368" r="16" opacity="0.2")
-          rect(x="40" y="402" width="144" height="20" rx="10" opacity="0.1")
-          circle(cx="16" cy="412" r="16" opacity="0.1")
-    section.panels
-      .avatar(badge badge-color="success")
-        i.bx.bx-user
-      .nameTag
-        .usernameContainer 码上有媳妇
-        small.subtext #5983
-      .tools
-        i.bx.bxs-microphone
-        i.bx.bx-headphone
-        i.bx.bxs-cog
-  section.container
-    .toolbar
-      .title
-        i.bx.bx-user
-        | 好友
-      .divier
-      .tabBar
-        .tab 在线
-      .tools 工具栏
-    .tabBody 添加好友
-</template>
+        template(v-if="active === 'social'")
+          .list.padding.my-1
+            .list-item(v-for="menu in menus" :key="menu.id" :class="{active: activeLink === menu.id }")
+              .list-item-pre
+                i.bx.bxs-home-circle
+              .list-item-content {{menu.label}}
+          .list.group.padding.my-1(v-if="communityGroup.length" key="community")
+            .list-group(
+              v-for="group in communityGroup"
+              :key="group.id"
+              :class="{expand: activeCommunityGroup.includes(group.id)}")
+              .list-header(@click="expandCommunityGroup(group)")
+                .list-header-pre
+                  i.bx.bxs-chevron-down
+                | {{group.label}}
+              template(v-if="activeCommunityGroup.includes(group.id)")
+                .list-item(
+                  v-for="item in group.children"
+                  :key="item.id")
+                  .list-item-pre
+                    template(v-if="item.avatar.type === 'img'")
+                      .avatar(:style="{'background-image':`url(${item.avatar.source})`}")
+                    template(v-else-if="item.avatar.type === 'icon'")
+                      i.bx(:class="[item.avatar.source]")
+                    template(v-else) {{item.avatar.source}}
+                    template(v-if="item.status")
+                      span.HOLD(v-if="item.status === 'HOLD'")
+                        span
+                        span
+                        span
+                      span.DND(v-else-if="item.status === 'DND'")
+                        i.bx.bxs-moon
+                      span.AFK(v-else-if="item.status === 'AFK'")
+                        i.bx.bxs-no-entry
+                  .list-item-content {{item.label}}
+                  .list-item-brief(v-if="item.brief")
+                    span(:class="[item.brief.type, item.brief.class ? item.brief.class : '']") {{item.brief.payload > 99 ? 99 : item.brief.payload}}
+        template(v-else)
+          .list.group.padding.my-1(v-if="communityGroup.length" key="friend")
+            .list-group(
+              v-for="friend in friendsGroup"
+              :key="friend.id"
+              :class="{expand: activeFriendsGroup.includes(friend.id)}")
+              .list-header(@click="expandFriendsGroup(friend)")
+                .list-header-pre
+                  i.bx.bxs-chevron-down
+                | {{friend.label}}
+              template(v-if="activeFriendsGroup.includes(friend.id)")
+                .list-item(
+                  v-for="item in friend.children"
+                  :key="item.id")
+                  .list-item-pre
+                    template(v-if="item.avatar.type === 'img'")
+                      .avatar(:style="{'background-image':`url(${item.avatar.source})`}")
+                    template(v-else-if="item.avatar.type === 'icon'")
+                      i.bx(:class="[item.avatar.source]")
+                    template(v-else) {{item.avatar.source}}
+                    template(v-if="item.status")
+                      span.HOLD(v-if="item.status === 'HOLD'")
+                        span
+                        span
+                        span
+                      span.DND(v-else-if="item.status === 'DND'")
+                        i.bx.bxs-moon
+                      span.AFK(v-else-if="item.status === 'AFK'")
+                        i.bx.bxs-no-entry
+                  .list-item-content {{item.label}}
+                  .list-item-brief(v-if="item.brief")
+                    span(:class="[item.brief.type, item.brief.class ? item.brief.class : '']") {{item.brief.payload > 99 ? 99 : item.brief.payload}}
 
+  nuxt-child
+</template>
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   name: 'HomePage',
   data() {
@@ -62,50 +109,93 @@ export default {
         status: false,
         keyword: ''
       },
-      friends: [
+      menus: [
         {
           id: Math.random()
             .toString(16)
             .slice(-10),
-          label: '好友',
-          type: 'link'
+          label: '个人首页'
         }
-      ]
+      ],
+      active: 'social',
+      activeLink: ''
     }
   },
+  computed: {
+    ...mapState([
+      'communityGroup',
+      'friendsGroup',
+      'activeCommunityGroup',
+      'activeFriendsGroup'
+    ])
+  },
+  created() {
+    this.activeLink = this.menus[0].id
+  },
   methods: {
-    openSearch() {}
+    ...mapMutations(['expandCommunityGroup', 'expandFriendsGroup'])
   }
 }
 </script>
 <style lang="scss" scoped>
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
 main#app-page {
   position: absolute;
   left: 190px;
   top: 52px;
   right: 0;
-  bottom: 0;
+  bottom: 60px;
   background: var(--vs-theme-bg);
   display: flex;
   align-items: stretch;
   flex: 1 1 auto;
   justify-content: flex-start;
-  nav.sidebar {
+  .sidebar {
     width: 240px;
     background: var(--background-secondary);
     display: flex;
     flex-direction: column;
-    .searchBar {
-      padding: 0 10px;
-      height: 48px;
-      z-index: 2;
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--elevation-low);
-      button {
-        text-align: left;
+    &-header {
+      height: 130px;
+      display: grid;
+      background-image: url('http://dummyimage.com/240x130/02adea&text=a bgImg');
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      .panel {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        .subtext {
+          font-size: 12px;
+        }
+      }
+      .left {
+        grid-area: 1 / 1 / 2 / 2;
+        .subtext {
+          margin-top: 10px;
+        }
+      }
+      .right {
+        grid-area: 1 / 2 / 2 / 3;
+        .subtext:last-of-type {
+          margin-top: 10px;
+        }
+      }
+      .bottom {
+        grid-area: 2 / 1 / 3 / 3;
       }
     }
     .scrollerWrap {
@@ -125,43 +215,157 @@ main#app-page {
         padding: 16px 0;
       }
     }
+  }
+}
 
-    section.panels {
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px;
-      margin-bottom: 1px;
-
-      .nameTag {
-        flex: 1;
-        margin: 0 8px;
+.tab {
+  &s {
+    display: flex;
+  }
+  &-bar {
+    height: 52px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: var(--background-primary);
+    border-radius: 0 0 10px 10px;
+    padding: 0 10px;
+    transition: background 0.2s linear;
+    will-change: background;
+    position: relative;
+    &:first-of-type {
+      border-radius: 0 0 10px 0;
+    }
+    &:last-of-type {
+      border-radius: 0 0 0 10px;
+    }
+    &.active {
+      background-color: var(--background-secondary);
+    }
+    i.bx {
+      font-size: 20px;
+    }
+    &-pre {
+      margin-right: 5px;
+    }
+    &-content {
+      flex: 1;
+      margin-left: 5px;
+      font-size: small;
+      font-weight: bold;
+    }
+    &-after {
+      position: absolute;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      font-size: 22px;
+      line-height: 18px;
+      text-align: center;
+      border-radius: 5px;
+      overflow: hidden;
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: #fff;
+        opacity: 0;
       }
-      .tools {
-        i {
-          cursor: pointer;
-          margin-right: 8px;
-          font-size: 20px;
+      &:hover {
+        &::after {
+          opacity: 0.2;
         }
       }
     }
   }
-  section.container {
-    flex: 1;
-    .toolbar {
-      display: flex;
-      padding: 0 8px;
-      font-size: 16px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      .tabBar {
-        flex: 1;
-      }
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+}
+
+.HOLD {
+  display: inline-flex;
+  align-items: center;
+  height: 14px;
+  background-color: var(--theme-success);
+  position: absolute;
+  right: -7px;
+  bottom: 0;
+  border-radius: 7px;
+  padding: 0 3px;
+  span {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--interactive-active);
+    margin: 0 1px;
+    animation: blink 1.4s infinite both;
+    &:nth-of-type(2) {
+      animation-delay: 0.2s;
+    }
+    &:nth-of-type(3) {
+      animation-delay: 0.4s;
     }
   }
+}
+
+.DND {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--background-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  i.bx {
+    color: var(--theme-warn);
+    font-size: 14px;
+  }
+}
+
+.AFK {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--background-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  i.bx {
+    font-size: 14px;
+    color: var(--theme-error);
+  }
+}
+
+.bage {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  color: var(--interactive-active);
+  &.error {
+    background-color: var(--theme-error);
+  }
+}
+
+.action {
+  font-size: 14px;
 }
 
 .divier {
@@ -169,43 +373,5 @@ main#app-page {
   height: 20px;
   margin: 0 8px;
   background: darkgray;
-}
-.list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  box-sizing: border-box;
-  &.padding {
-    padding: 16px;
-  }
-  &-item {
-    display: flex;
-    height: 48px;
-    align-items: center;
-    justify-content: center;
-    padding: 0 8px;
-    border-radius: 4px;
-    cursor: pointer;
-
-    &.active,
-    &:hover,
-    &:active,
-    &:focus {
-      background-color: var(--background-modifier-hover);
-    }
-
-    &-pre {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    &-content {
-      flex: 1;
-      font-weight: bold;
-    }
-  }
 }
 </style>

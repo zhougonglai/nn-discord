@@ -22,40 +22,28 @@ module.exports = {
       }
     ]
   },
-  /*
-   ** Customize the progress-bar color
-   */
   loading: { color: '#fff' },
-  /*
-   ** Global CSS
-   */
-  css: ['modern-normalize/modern-normalize.css', '~/styles/global.scss'],
+  css: [
+    // 'boxicons/css/boxicons.min.css',
+    'modern-normalize/modern-normalize.css',
+    'dialog-polyfill/dialog-polyfill.css',
+    '~/styles/global.scss'
+  ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
-  /*
-   ** Nuxt.js dev-modules
-   */
-  buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+  plugins: [
+    {
+      src: '~/plugins/nn-wc',
+      ssr: false
+    }
   ],
+  buildModules: ['@nuxtjs/dotenv', '@nuxtjs/eslint-module'],
   server: {
-    host: '0.0.0.0' // default: localhost
+    host: '0.0.0.0'
   },
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
   /*
-   ** Nuxt.js modules
-   */
-  modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
-  ],
-  /*
-   ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},

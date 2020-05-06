@@ -1,5 +1,4 @@
-body,
-html {
+body {
   background-color: var(--vs-theme-layout);
   color: var(--vs-theme-color);
   text-rendering: optimizeLegibility;
@@ -48,8 +47,6 @@ body[vs-theme='dark'] {
   background: rgba(37, 100, 255, 0.15);
 }
 
-.vs-input-content {
-  .vs-input {
-    width: 100%;
-  }
+a {
+  text-decoration: none;
 }
