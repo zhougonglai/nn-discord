@@ -209,6 +209,7 @@ main#app-page {
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding-bottom: 35vh;
       }
       svg.empty {
         fill: var(--background-primary);
