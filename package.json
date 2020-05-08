@@ -8,7 +8,7 @@
     "dev": "nuxt",
     "start": "nuxt start",
     "build": "nuxt generate",
-    "build:serve": "nuxt build",
+    "build:ssr": "nuxt build",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "engines": {

@@ -5,19 +5,21 @@
       Logo
     .search-input(@click="openSearch") 搜索好友/社区
       i.bx.bx-search
-  nav#app-nav(aria-label="侧边栏")
-    .nav-item(v-if="user" :class="[{active: active === user.id}]" @click="active = user.id")
-      .avatar(:style="{'background-image':`url(${user.imageUrl})`}")
-      | {{user.nickName}}
-    template(v-if="helpNav.length")
-      .nav-item(
-        v-for="nav in helpNav"
-        :key="nav.id"
-        :class="[{active: active === nav.id}]"
-        @click="active = nav.id")
-          .avatar(:style="{'background-image':`url(${nav.url})`}")
-          | {{nav.label}}
-  nuxt
+  main#app-main
+    nav#app-nav(aria-label="侧边栏")
+      n-link.nav-item(
+        v-if="user"
+        :to="{name: 'user-id', params: {id: user.id}}")
+        .avatar(:style="{'background-image':`url(${user.imageUrl})`}")
+        | {{user.nickName}}
+      template(v-if="helpNav.length")
+        n-link.nav-item(
+          :to="{name: 'community', params: { community: nav.label}}"
+          v-for="nav in helpNav"
+          :key="nav.id")
+            .avatar(:style="{'background-image':`url(${nav.url})`}")
+            | {{nav.label}}
+    nuxt
   footer#app-footer
     .tools
       .item
@@ -91,12 +93,12 @@ export default {
   computed: {
     ...mapState(['user'])
   },
-  async created() {
-    await this.getUser()
+  async mounted() {
+    if (!this.user) {
+      await this.getUser()
+    }
     await this.getCommunityGroup()
     await this.getFriendsGroup()
-  },
-  mounted() {
     this.active = this.user.id
   },
   methods: {
@@ -114,11 +116,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-nav#app-nav {
+main#app-main {
   position: absolute;
   top: 52px;
   left: 0;
+  right: 0;
   bottom: 60px;
+  display: block;
+  display: flex;
+}
+nav#app-nav {
   width: 190px;
   padding-left: 10px;
   display: flex;
@@ -196,6 +203,7 @@ footer#app-footer {
   cursor: pointer;
   transition: background 0.2s linear;
   color: var(--nav-label);
+  overflow: hidden;
   &::after {
     content: '';
     position: absolute;
@@ -210,7 +218,7 @@ footer#app-footer {
     contain: layout size;
     transition: height 0.2s linear, background 325ms linear;
   }
-  &.active {
+  &.nuxt-link-active {
     background-color: var(--nav-hover);
     color: var(--nav-label-active);
     &::after {
@@ -224,9 +232,9 @@ footer#app-footer {
       color: var(--interactive-active) !important;
     }
   }
-  &:not(.active):hover,
-  &:not(.active):active,
-  &:not(.active):focus {
+  &:not(.nuxt-link-active):hover,
+  &:not(.nuxt-link-active):active,
+  &:not(.nuxt-link-active):focus {
     background-color: var(--nav-hover);
     color: var(--nav-label-active);
     &::after {

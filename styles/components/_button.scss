@@ -6,9 +6,10 @@ button.nn-btn {
   justify-content: center;
   min-width: 100px;
   font-weight: 500;
+  min-height: 40px;
   white-space: nowrap;
   line-height: 24px;
-  border-radius: 16px;
+  border-radius: 4px;
   cursor: pointer;
   text-overflow: ellipsis;
   text-align: center;
@@ -16,10 +17,18 @@ button.nn-btn {
   background-color: var(--vs-theme-color);
   color: var(--vs-theme-layout2);
 
+  &.rund {
+    border-radius: 16px;
+  }
+
+  &.block {
+    width: 100%;
+  }
+
   &.small {
     min-width: 68px;
     font-size: small;
-    height: 28px;
+    min-height: 28px;
   }
 
   &.text {

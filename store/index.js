@@ -1,4 +1,4 @@
-const Mock = require('mockjs')
+import Mock from 'mockjs'
 
 const types = (str) => Symbol(`USER_${str}`).toString()
 

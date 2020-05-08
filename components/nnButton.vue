@@ -2,7 +2,9 @@
 button.nn-btn(
   :class=`[
     size ? size : '',
-    type ? type : ''
+    type ? type : '',
+    rund ? 'rund' : '',
+    block? 'block': ''
   ]`
   v-bind="$attrs"
   v-on="listeners")
@@ -19,6 +21,14 @@ export default {
     type: {
       type: String,
       default: ''
+    },
+    rund: {
+      type: Boolean,
+      default: false
+    },
+    block: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

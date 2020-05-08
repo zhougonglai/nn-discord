@@ -10,24 +10,26 @@ section#container
         .user-item.user-nickname {{user.nickName}}
         .user-item.user-memberNo NNID：{{user.id}}
         p.user-descript {{user.signature}}
-    nn-btn.user-editor(type="text") 编辑资料
+    nn-btn.user-editor(rund type="text" size="small") 编辑资料
   .tabs
     .tab-bars
-      nuxt-link.tab-bar(to="/" exact) 个人中心
-      //- nuxt-link.tab-bar(to="/profile") 社区资料
-      //- nuxt-link.tab-bar(to="/notice") 公告
-      nuxt-link.tab-bar(to="/safe") 账户安全
-      nuxt-link.tab-bar(to="/social") 游戏账号授权
+      nuxt-link.tab-bar(:to="{name: 'user-id', params: {id: user.id}}" exact) 个人中心
+      nuxt-link.tab-bar(:to="{name: 'user-id-safe', params: {id: user.id}}" ) 账户安全
+      nuxt-link.tab-bar(:to="{name: 'user-id-social', params: {id: user.id}}" ) 游戏账号授权
       .tab-tools
-        nn-btn 充值
+        nn-btn(rund size="small") 充值
     .tab-body
       nuxt-child
 </template>
 <script>
 import { mapState } from 'vuex'
+import nnBtn from '~/components/nnButton'
 
 export default {
   name: 'Container',
+  components: {
+    [nnBtn.name]: nnBtn
+  },
   computed: {
     ...mapState(['user'])
   }
