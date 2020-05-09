@@ -1,8 +1,8 @@
 <template lang="pug">
-#social social
+nuxt-child
 </template>
 <script>
 export default {
-  name: 'Social'
+  name: 'Community'
 }
 </script>

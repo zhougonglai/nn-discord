@@ -1,3 +1,3 @@
 <template lang="pug">
-#profile profile
+.ctx {{$route.params.community}}
 </template>

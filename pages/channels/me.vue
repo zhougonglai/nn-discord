@@ -27,10 +27,11 @@ main#app-page
     .scrollerWrap
       .scroller(v-if="active === 'social'" key="social")
         .list.padding.my-1
-          .list-item(v-for="menu in menus" :key="menu.id" :class="{active: activeLink === menu.id }")
-            .list-item-pre
-              i.bx.bxs-home-circle
-            .list-item-content {{menu.label}}
+          n-link(:to="{name: 'channels-me'}" v-slot="{ href, isActive }")
+            a.list-item(:href="href" :class="[isActive && 'active']")
+              .list-item-pre
+                i.bx.bxs-home-circle
+              .list-item-content 个人首页
         .list.group.padding.my-1(v-if="communityGroup.length" key="community")
           .list-group(
             v-for="group in communityGroup"
@@ -41,8 +42,9 @@ main#app-page
                 i.bx.bxs-chevron-down
               | {{group.label}}
             template(v-if="activeCommunityGroup.includes(group.id)")
-              .list-item(
+              n-link.list-item(
                 v-for="item in group.children"
+                :to="`/channels/me/${item.id}`"
                 :key="item.id")
                 .list-item-pre
                   template(v-if="item.avatar.type === 'img'")
@@ -73,8 +75,9 @@ main#app-page
                 i.bx.bxs-chevron-down
               | {{friend.label}}
             template(v-if="activeFriendsGroup.includes(friend.id)")
-              .list-item(
+              n-link.list-item(
                 v-for="item in friend.children"
+                :to="`/channels/me/${item.id}`"
                 :key="item.id")
                 .list-item-pre
                   template(v-if="item.avatar.type === 'img'")
@@ -98,11 +101,11 @@ main#app-page
 </template>
 <script>
 import { mapState, mapMutations } from 'vuex'
-import nnButton from '~/components/nnButton'
-import nnCheckbox from '~/components/nnCheckbox'
+import nnButton from '~/components/wc/nnButton'
+import nnCheckbox from '~/components/wc/nnCheckbox'
 
 export default {
-  name: 'HomePage',
+  name: 'Me',
   components: {
     [nnButton.name]: nnButton,
     [nnCheckbox.name]: nnCheckbox
@@ -113,14 +116,6 @@ export default {
         status: false,
         keyword: ''
       },
-      menus: [
-        {
-          id: Math.random()
-            .toString(16)
-            .slice(-10),
-          label: '个人首页'
-        }
-      ],
       active: 'social',
       activeLink: ''
     }
@@ -132,9 +127,6 @@ export default {
       'activeCommunityGroup',
       'activeFriendsGroup'
     ])
-  },
-  mounted() {
-    this.activeLink = this.menus[0].id
   },
   methods: {
     ...mapMutations(['expandCommunityGroup', 'expandFriendsGroup'])

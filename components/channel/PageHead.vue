@@ -10,23 +10,26 @@ section#container
         .user-item.user-nickname {{user.nickName}}
         .user-item.user-memberNo NNID：{{user.id}}
         p.user-descript {{user.signature}}
-    nn-btn.user-editor(rund type="text" size="small") 编辑资料
+      nn-btn.user-editor(rund type="text" size="small") 编辑资料
   .tabs
     .tab-bars
-      nuxt-link.tab-bar(:to="{name: 'user-id', params: {id: user.id}}" exact) 个人中心
-      nuxt-link.tab-bar(:to="{name: 'user-id-safe', params: {id: user.id}}" ) 账户安全
-      nuxt-link.tab-bar(:to="{name: 'user-id-social', params: {id: user.id}}" ) 游戏账号授权
+      n-link.tab-bar(to="/channels/me/" exact) 个人中心
+      n-link.tab-bar(to="/channels/me/community") 社区资料
+      n-link.tab-bar(to="/channels/me/notice") 公告
+      n-link.tab-bar(to="/channels/me/safe") 账户安全
+      n-link.tab-bar(to="/channels/me/author") 账号授权
+      n-link.tab-bar(to="/channels/me/member") 成员
       .tab-tools
         nn-btn(rund size="small") 充值
     .tab-body
-      nuxt-child
+      slot
 </template>
 <script>
 import { mapState } from 'vuex'
-import nnBtn from '~/components/nnButton'
+import nnBtn from '~/components/wc/nnButton'
 
 export default {
-  name: 'Container',
+  name: 'PageHead',
   components: {
     [nnBtn.name]: nnBtn
   },
@@ -35,6 +38,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 section#container {
   flex: 1;

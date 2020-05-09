@@ -1,8 +1,8 @@
 <template lang="pug">
-#safe safe
+.channel channel {{$route.params.channel}}
 </template>
 <script>
 export default {
-  name: 'Safe'
+  name: 'Channel'
 }
 </script>

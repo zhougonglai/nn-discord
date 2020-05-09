@@ -34,8 +34,8 @@
 <script>
 import Phone from '~/assets/icons/phone.svg'
 import Lock from '~/assets/icons/lock.svg'
-import nnCheckbox from '~/components/nnCheckbox'
-import nnBtn from '~/components/nnButton'
+import nnCheckbox from '~/components/wc/nnCheckbox'
+import nnBtn from '~/components/wc/nnButton'
 
 export default {
   name: 'SignIn',

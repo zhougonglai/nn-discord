@@ -34,6 +34,7 @@ export const actions = {
   getCommunityGroup({ commit }) {
     const friensGroup = [
       {
+        id: '@id',
         label: '@cname',
         avatar: {
           type: 'img',
@@ -56,6 +57,7 @@ export const actions = {
     ]
     const communityGroup = [
       {
+        id: '@id',
         label: '@cname',
         'avatar|1': [
           {

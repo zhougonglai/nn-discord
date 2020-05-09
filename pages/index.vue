@@ -11,11 +11,8 @@ export default {
   mounted() {
     this.$nextTick(async () => {
       this.$nuxt.$loading.start()
-      const user = await this.getUser()
-      this.$router.push(
-        { name: 'user-id', params: { id: user.id } },
-        this.$nuxt.$loading.finish
-      )
+      await this.getUser()
+      this.$router.push({ name: 'channels-me' }, this.$nuxt.$loading.finish)
     })
   },
   methods: {

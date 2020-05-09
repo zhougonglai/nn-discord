@@ -7,16 +7,16 @@
       i.bx.bx-search
   main#app-main
     nav#app-nav(aria-label="侧边栏")
-      n-link.nav-item(
-        v-if="user"
-        :to="{name: 'user-id', params: {id: user.id}}")
+      n-link.nav-item(v-if="user" to="/channels/me/" active-class="active")
         .avatar(:style="{'background-image':`url(${user.imageUrl})`}")
         | {{user.nickName}}
       template(v-if="helpNav.length")
-        n-link.nav-item(
-          :to="{name: 'community', params: { community: nav.label}}"
+        n-link(
+          :to="`/channels/${nav.label}`"
           v-for="nav in helpNav"
-          :key="nav.id")
+          :key="nav.id"
+          v-slot="{href}")
+          a.nav-item(:href="href" :class="[ nav.label === $route.params.channel ? 'active' : '']")
             .avatar(:style="{'background-image':`url(${nav.url})`}")
             | {{nav.label}}
     nuxt
@@ -218,7 +218,7 @@ footer#app-footer {
     contain: layout size;
     transition: height 0.2s linear, background 325ms linear;
   }
-  &.nuxt-link-active {
+  &.active {
     background-color: var(--nav-hover);
     color: var(--nav-label-active);
     &::after {
@@ -232,9 +232,9 @@ footer#app-footer {
       color: var(--interactive-active) !important;
     }
   }
-  &:not(.nuxt-link-active):hover,
-  &:not(.nuxt-link-active):active,
-  &:not(.nuxt-link-active):focus {
+  &:not(.active):hover,
+  &:not(.active):active,
+  &:not(.active):focus {
     background-color: var(--nav-hover);
     color: var(--nav-label-active);
     &::after {
