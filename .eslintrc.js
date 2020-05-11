@@ -17,5 +17,11 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'no-return-await': 'off'
-  }
+  },
+  'prettier/prettier': [
+    'error',
+    {
+      endOfLine: 'crlf'
+    }
+  ]
 }
