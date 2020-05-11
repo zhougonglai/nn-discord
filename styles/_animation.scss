@@ -9,7 +9,9 @@
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s linear, transform 0.2s ease-in-out;
+  transition-property: opacity, transform;
+  transition-delay: 0.2s;
+  transition-timing-function: ease-in-out;
 }
 .fade-enter,
 .fade-leave-to {

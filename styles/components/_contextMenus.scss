@@ -7,6 +7,14 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.45);
     width: fit-content;
 
+    &.bottom.left {
+      transform-origin: top left;
+    }
+
+    &.bottom.right {
+      transform-origin: top right;
+    }
+
     &.bottom {
       bottom: calc(-100% - 15px);
     }
