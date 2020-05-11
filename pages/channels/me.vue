@@ -11,21 +11,21 @@ main#app-page
       .panel.bottom
         nn-btn(rund size="small") +加入
     .tabs
-      .tab-bar(:class="{active: active === 'social'}" @click="active = 'social'")
+      .tab-bar(:class="{active: active === 'community'}" @click="active = 'community'")
         .tab-bar-pre
           i.bx.bxs-heart-circle
         transition(name="scale")
-          .tab-bar-content(v-if="active === 'social'")  社区
+          .tab-bar-content(v-if="active === 'community'")  社区
         transition(name="scale")
-          .tab-bar-after(v-if="active === 'social'") +
-      .tab-bar(:class="{active: active === 'group'}" @click="active = 'group'")
+          .tab-bar-after(v-if="active === 'community'") +
+      .tab-bar(:class="{active: active === 'friends'}" @click="active = 'friends'")
         i.bx.bxs-group
         transition(name="scale")
-          .tab-bar-content(v-if="active === 'group'") 好友
+          .tab-bar-content(v-if="active === 'friends'") 好友
         transition(name="scale")
-          .tab-bar-after(v-if="active === 'group'") +
+          .tab-bar-after(v-if="active === 'friends'") +
     .scrollerWrap
-      .scroller(v-if="active === 'social'" key="social")
+      .scroller(v-if="active === 'community'" key="community")
         .list.padding.my-1
           n-link(:to="{name: 'channels-me'}" v-slot="{ href, isActive }")
             a.list-item(:href="href" :class="[isActive && 'active']")
@@ -65,7 +65,7 @@ main#app-page
                 .list-item-brief(v-if="item.brief")
                   span(:class="[item.brief.type, item.brief.class ? item.brief.class : '']") {{item.brief.payload > 99 ? 99 : item.brief.payload}}
       .scroller(v-else key="friend")
-        .list.group.padding.my-1(v-if="communityGroup.length" key="friend")
+        .list.group.padding.my-1(v-if="activeFriendsGroup.length" key="friends")
           .list-group(
             v-for="friend in friendsGroup"
             :key="friend.id"
@@ -116,7 +116,7 @@ export default {
         status: false,
         keyword: ''
       },
-      active: 'social',
+      active: 'community',
       activeLink: ''
     }
   },
@@ -127,6 +127,15 @@ export default {
       'activeCommunityGroup',
       'activeFriendsGroup'
     ])
+  },
+  watch: {
+    active(newVal) {
+      if (newVal === 'community') {
+        this.$router.push({ name: 'channels-me' })
+      } else if (newVal === 'friends') {
+        this.$router.push({ name: 'channels-me-friends' })
+      }
+    }
   },
   methods: {
     ...mapMutations(['expandCommunityGroup', 'expandFriendsGroup'])
