@@ -32,6 +32,7 @@
   nn-btn.block(@click="login") 登录
 </template>
 <script>
+import { mapActions } from 'vuex'
 import Phone from '~/assets/icons/phone.svg'
 import Lock from '~/assets/icons/lock.svg'
 import nnCheckbox from '~/components/wc/nnCheckbox'
@@ -60,7 +61,12 @@ export default {
     }
   },
   methods: {
-    login() {}
+    async login() {
+      this.$nuxt.$loading.start()
+      await this.getUser()
+      this.$router.push({ name: 'channels-me' }, this.$nuxt.$loading.finish)
+    },
+    ...mapActions(['getUser'])
   }
 }
 </script>
