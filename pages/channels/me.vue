@@ -11,13 +11,21 @@ main#app-page
       .panel.bottom
         nn-btn(rund size="small") +加入
     .tabs
-      .tab-bar(:class="{active: active === 'community'}" @click="active = 'community'")
+      .tab-bar(
+        :class="{active: active === 'community'}"
+        @click="active = 'community'"
+        v-click-outside="outClick"
+        @contextmenu.prevent="communityMenu")
         .tab-bar-pre
           i.bx.bxs-heart-circle
         transition(name="scale")
           .tab-bar-content(v-if="active === 'community'")  社区
         transition(name="scale")
           .tab-bar-after(v-if="active === 'community'") +
+        transition(name="fade")
+          .context-menus.left.bottom(v-if="contextmenu.community.status")
+            .context-menu(@click="menuClick('fold')") 创建文件夹
+            .context-menu(@click="menuClick('channel')") 创建频道
       .tab-bar(:class="{active: active === 'friends'}" @click="active = 'friends'")
         i.bx.bxs-group
         transition(name="scale")
@@ -116,6 +124,14 @@ export default {
         status: false,
         keyword: ''
       },
+      contextmenu: {
+        community: {
+          status: false
+        },
+        friends: {
+          status: false
+        }
+      },
       active: 'community',
       activeLink: ''
     }
@@ -138,6 +154,25 @@ export default {
     }
   },
   methods: {
+    communityMenu() {
+      this.contextmenu.community.status = true
+    },
+    outClick() {
+      if (this.contextmenu.community.status) {
+        this.contextmenu.community.status = false
+      }
+    },
+    menuClick(target) {
+      const action = {
+        fold: () => {
+          this.outClick()
+        },
+        channel: () => {
+          this.outClick()
+        }
+      }
+      action[target]()
+    },
     ...mapMutations(['expandCommunityGroup', 'expandFriendsGroup'])
   }
 }

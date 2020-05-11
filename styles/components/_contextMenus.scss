@@ -1,0 +1,51 @@
+.context {
+  &-menus {
+    position: absolute;
+    z-index: 9;
+    padding: 10px;
+    background-color: #18191c;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.45);
+    width: fit-content;
+
+    &.bottom {
+      bottom: calc(-100% - 15px);
+    }
+    &.right {
+      right: 15px;
+      border-radius: 18px 6px 18px 6px;
+      .context-menu {
+        &:first-of-type {
+          border-radius: 15px 5px 3px 3px;
+        }
+        &:last-of-type {
+          border-radius: 3px 3px 15px 5px;
+        }
+      }
+    }
+    &.left {
+      left: 15px;
+      border-radius: 6px 18px 6px 18px;
+      .context-menu {
+        &:first-of-type {
+          border-radius: 5px 15px 3px 3px;
+        }
+        &:last-of-type {
+          border-radius: 3px 3px 5px 15px;
+        }
+      }
+    }
+  }
+
+  &-menu {
+    padding: 6px 8px;
+    min-width: 160px;
+    color: #9fa4ab;
+
+    &:active,
+    &:hover,
+    &:focus {
+      background-color: #2a2c30;
+      color: #dcddde;
+    }
+  }
+}
