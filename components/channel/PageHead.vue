@@ -31,11 +31,11 @@ import nnBtn from '~/components/wc/nnButton'
 export default {
   name: 'PageHead',
   components: {
-    [nnBtn.name]: nnBtn
+    [nnBtn.name]: nnBtn,
   },
   computed: {
-    ...mapState(['user'])
-  }
+    ...mapState(['user']),
+  },
 }
 </script>
 

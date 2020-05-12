@@ -16,27 +16,27 @@ export default {
   props: {
     size: {
       type: String,
-      default: ''
+      default: '',
     },
     type: {
       type: String,
-      default: ''
+      default: '',
     },
     rund: {
       type: Boolean,
-      default: false
+      default: false,
     },
     block: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     listeners() {
       return {
-        ...this.$listeners
+        ...this.$listeners,
       }
-    }
-  }
+    },
+  },
 }
 </script>

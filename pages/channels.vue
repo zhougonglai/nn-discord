@@ -3,6 +3,6 @@ nuxt-child
 </template>
 <script>
 export default {
-  name: 'Community'
+  name: 'Community',
 }
 </script>

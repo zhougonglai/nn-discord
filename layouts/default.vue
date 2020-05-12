@@ -38,60 +38,45 @@ import Logo from '~/assets/logo.svg'
 
 export default {
   name: 'DefaultLayout',
-  head() {
-    return {
-      bodyAttrs: !this.theme.auto && {
-        'vs-theme': this.theme.type
-      }
-    }
-  },
   components: {
-    Logo
+    Logo,
   },
   data() {
     return {
       active: '',
       theme: {
         auto: false,
-        type: 'dark' // dark light, system
+        type: 'dark', // dark light, system
       },
       search: {
-        open: false
+        open: false,
       },
       helpNav: [
         {
-          id: Math.random()
-            .toString(16)
-            .slice(-10),
+          id: Math.random().toString(16).slice(-10),
           label: 'FIFA18',
-          url: require('~/assets/imgs/FIFA18@2x.jpg')
+          url: require('~/assets/imgs/FIFA18@2x.jpg'),
         },
         {
-          id: Math.random()
-            .toString(16)
-            .slice(-10),
+          id: Math.random().toString(16).slice(-10),
           label: 'Xbox',
-          url: require('~/assets/imgs/xbox@2x.jpg')
+          url: require('~/assets/imgs/xbox@2x.jpg'),
         },
         {
-          id: Math.random()
-            .toString(16)
-            .slice(-10),
+          id: Math.random().toString(16).slice(-10),
           label: 'gog',
-          url: require('~/assets/imgs/GOG_Galaxy@2x.jpg')
+          url: require('~/assets/imgs/GOG_Galaxy@2x.jpg'),
         },
         {
-          id: Math.random()
-            .toString(16)
-            .slice(-10),
+          id: Math.random().toString(16).slice(-10),
           label: 'MOMO模拟器',
-          url: require('~/assets/imgs/MuMu@2x.jpg')
-        }
-      ]
+          url: require('~/assets/imgs/MuMu@2x.jpg'),
+        },
+      ],
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
   },
   async mounted() {
     if (!this.user) {
@@ -111,8 +96,15 @@ export default {
     toggleSearchDialog() {
       this.search.open = !this.search.open
     },
-    ...mapActions(['getUser', 'getCommunityGroup', 'getFriendsGroup'])
-  }
+    ...mapActions(['getUser', 'getCommunityGroup', 'getFriendsGroup']),
+  },
+  head() {
+    return {
+      bodyAttrs: !this.theme.auto && {
+        'vs-theme': this.theme.type,
+      },
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>

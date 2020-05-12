@@ -3,6 +3,6 @@
 </template>
 <script>
 export default {
-  name: 'Channel'
+  name: 'Channel',
 }
 </script>
