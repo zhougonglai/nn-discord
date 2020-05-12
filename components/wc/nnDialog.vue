@@ -8,38 +8,35 @@
     .nn-dialog-body
       slot
     footer.nn-dialog-footer(slot="footer") footer
-  .backdrop(v-if="backdrop && open")
+  .backdrop(v-if="backdrop && open" @click="close")
 </template>
 <script>
-import dialogPolyfill from 'dialog-polyfill'
-
 export default {
   name: 'NnDialog',
   props: {
     open: {
       default: false,
-      type: Boolean
+      type: Boolean,
     },
     backdrop: {
       default: true,
-      type: Boolean
+      type: Boolean,
     },
     title: {
       default: '',
-      type: String
+      type: String,
     },
-    parent: {
-      type: [Element, HTMLElement],
-      default: null
-    }
   },
-  mounted() {
+  async mounted() {
+    const dialogPolyfill = await import('dialog-polyfill').then(
+      (m) => m.default
+    )
     dialogPolyfill.registerDialog(this.$refs.con)
   },
   methods: {
     close() {
       this.$emit('update:open', false)
-    }
-  }
+    },
+  },
 }
 </script>

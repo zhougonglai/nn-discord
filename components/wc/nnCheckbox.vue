@@ -18,14 +18,14 @@ export default {
   props: {
     value: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     toggleValue(e) {
       this.$emit('input', !this.value)
       this.$emit('change', e)
-    }
-  }
+    },
+  },
 }
 </script>

@@ -9,23 +9,16 @@ import { debounce } from 'lodash'
 
 export default {
   name: 'SignLayout',
-  head() {
-    return {
-      bodyAttrs: !this.theme.auto && {
-        'vs-theme': this.theme.type
-      }
-    }
-  },
   data() {
     return {
       theme: {
         auto: false,
-        type: 'dark' // dark light, system
+        type: 'dark', // dark light, system
       },
       parallax: {
         translateX: '50%',
-        translateY: '50%'
-      }
+        translateY: '50%',
+      },
     }
   },
   mounted() {
@@ -39,7 +32,14 @@ export default {
         }, 60)
       )
     })
-  }
+  },
+  head() {
+    return {
+      bodyAttrs: !this.theme.auto && {
+        'vs-theme': this.theme.type,
+      },
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>

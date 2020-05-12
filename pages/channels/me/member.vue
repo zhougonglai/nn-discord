@@ -7,7 +7,7 @@ import PageHead from '~/components/channel/PageHead'
 export default {
   name: 'Member',
   components: {
-    [PageHead.name]: PageHead
-  }
+    [PageHead.name]: PageHead,
+  },
 }
 </script>

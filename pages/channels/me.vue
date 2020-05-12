@@ -1,5 +1,7 @@
 <template lang="pug">
 main#app-page
+  nn-dialog(:open.sync="dialog.community.channel.status" title="创建频道")
+    | 频道资料
   nav.sidebar
     .sidebar-header
       .panel.left
@@ -111,29 +113,41 @@ main#app-page
 import { mapState, mapMutations } from 'vuex'
 import nnButton from '~/components/wc/nnButton'
 import nnCheckbox from '~/components/wc/nnCheckbox'
+import nnDialog from '~/components/wc/nnDialog'
 
 export default {
   name: 'Me',
   components: {
+    [nnDialog.name]: nnDialog,
     [nnButton.name]: nnButton,
-    [nnCheckbox.name]: nnCheckbox
+    [nnCheckbox.name]: nnCheckbox,
   },
   data() {
     return {
       search: {
         status: false,
-        keyword: ''
+        keyword: '',
+      },
+      dialog: {
+        community: {
+          channel: {
+            status: false,
+          },
+          fold: {
+            status: false,
+          },
+        },
       },
       contextmenu: {
         community: {
-          status: false
+          status: false,
         },
         friends: {
-          status: false
-        }
+          status: false,
+        },
       },
       active: 'community',
-      activeLink: ''
+      activeLink: '',
     }
   },
   computed: {
@@ -141,8 +155,8 @@ export default {
       'communityGroup',
       'friendsGroup',
       'activeCommunityGroup',
-      'activeFriendsGroup'
-    ])
+      'activeFriendsGroup',
+    ]),
   },
   watch: {
     active(newVal) {
@@ -151,7 +165,7 @@ export default {
       } else if (newVal === 'friends') {
         this.$router.push({ name: 'channels-me-friends' })
       }
-    }
+    },
   },
   methods: {
     communityMenu() {
@@ -169,12 +183,13 @@ export default {
         },
         channel: () => {
           this.outClick()
-        }
+          this.dialog.community.channel.status = true
+        },
       }
       action[target]()
     },
-    ...mapMutations(['expandCommunityGroup', 'expandFriendsGroup'])
-  }
+    ...mapMutations(['expandCommunityGroup', 'expandFriendsGroup']),
+  },
 }
 </script>
 <style lang="scss" scoped>
