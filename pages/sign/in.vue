@@ -45,7 +45,7 @@ export default {
     Phone,
     Lock,
     [nnCheckbox.name]: nnCheckbox,
-    [nnBtn.name]: nnBtn
+    [nnBtn.name]: nnBtn,
   },
   data() {
     return {
@@ -56,8 +56,8 @@ export default {
         user_type: 0,
         region_code: '',
         mobile_num: '',
-        password: ''
-      }
+        password: '',
+      },
     }
   },
   methods: {
@@ -66,8 +66,8 @@ export default {
       await this.getUser()
       this.$router.push({ name: 'channels-me' }, this.$nuxt.$loading.finish)
     },
-    ...mapActions(['getUser'])
-  }
+    ...mapActions(['getUser']),
+  },
 }
 </script>
 <style lang="scss" scoped>

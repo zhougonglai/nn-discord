@@ -16,8 +16,8 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['getUser'])
-  }
+    ...mapActions(['getUser']),
+  },
 }
 </script>
 <style lang="scss" scoped>
