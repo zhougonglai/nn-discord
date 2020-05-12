@@ -14,8 +14,8 @@ button.nn-btn {
   text-overflow: ellipsis;
   text-align: center;
   height: 32px;
-  background-color: var(--vs-theme-color);
-  color: var(--vs-theme-layout2);
+  background-color: #dcddde;
+  color: #36393f;
   position: relative;
   overflow: hidden;
 
@@ -28,23 +28,10 @@ button.nn-btn {
     animation: ripple 1s linear infinite;
   }
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background-color: black;
-    opacity: 0;
-  }
-
   &:hover,
   &:active,
   &:focus {
-    &::before {
-      opacity: 0.1;
-    }
+    background-color: white;
   }
 
   &.rund {
@@ -62,12 +49,13 @@ button.nn-btn {
   }
 
   &.text {
-    background-color: var(--background-mentioned);
-    color: var(--vs-theme-color);
+    background-color: transparent;
+    color: #dcddde;
+    border: 1px solid #dcddde;
     &:hover,
     &:focus,
     &:active {
-      background-color: var(--background-mentioned-hover);
+      background-color: rgba(#dcddde, 0.2);
     }
   }
 

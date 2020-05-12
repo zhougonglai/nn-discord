@@ -5,7 +5,7 @@ button.nn-btn(
     size ? size : '',
     type ? type : '',
     rund ? 'rund' : '',
-    block? 'block': ''
+    block? 'block': '',
   ]`
   v-bind="$attrs"
   v-on="listeners")

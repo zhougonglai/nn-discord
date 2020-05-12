@@ -17,7 +17,7 @@ main#app-page
             | 文 文字
     template(v-slot:footer)
       .footer
-        nn-btn(rund) 取消
+        nn-btn(rund type="text" @click="dialog.community.channel.status = false") 取消
         nn-btn(rund) 创建频道
   nav.sidebar
     .sidebar-header
@@ -385,7 +385,7 @@ main#app-page {
   height: 14px;
   background-color: var(--theme-success);
   position: absolute;
-  right: -7px;
+  right: 7px;
   bottom: 0;
   border-radius: 7px;
   padding: 0 3px;
@@ -408,7 +408,7 @@ main#app-page {
 .DND {
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 7px;
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -425,7 +425,7 @@ main#app-page {
 .AFK {
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 7px;
   width: 14px;
   height: 14px;
   border-radius: 50%;

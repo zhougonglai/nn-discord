@@ -23,7 +23,7 @@
 .fade-enter-active,
 .fade-leave-active {
   transition-property: opacity, transform;
-  transition-delay: 0.2s;
+  transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
 }
 .fade-enter,

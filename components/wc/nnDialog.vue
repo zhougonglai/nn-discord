@@ -1,7 +1,7 @@
 <template lang="pug">
 .content
   dialog.nn-dialog(ref="con" :open="open")
-    button.nn-btn.icon.nn-dialog-close(@click="close")
+    .icon.nn-dialog-close(@click="close")
       i.bx.bx-x
     header.nn-dialog-header
       h4.no-margin
