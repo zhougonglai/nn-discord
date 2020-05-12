@@ -1,7 +1,24 @@
 <template lang="pug">
 main#app-page
   nn-dialog(:open.sync="dialog.community.channel.status" title="创建频道")
-    | 频道资料
+    .body
+      h4 频道资料
+      .nn-radio-group
+        .nn-radio-item(
+          :class="{active: dialog.community.channel.value === 'audio'}"
+          @click="dialog.community.channel.value = 'audio'")
+          nn-radio(v-model="dialog.community.channel.value" label="audio" name="audio")
+            i.bx.bxs-volume-full
+            | 语音
+        .nn-radio-item(
+          :class="{active: dialog.community.channel.value === 'text'}"
+          @click="dialog.community.channel.value = 'text'")
+          nn-radio(v-model="dialog.community.channel.value" label="text" name="text")
+            | 文 文字
+    template(v-slot:footer)
+      .footer
+        nn-btn(rund) 取消
+        nn-btn(rund) 创建频道
   nav.sidebar
     .sidebar-header
       .panel.left
@@ -114,6 +131,7 @@ import { mapState, mapMutations } from 'vuex'
 import nnButton from '~/components/wc/nnButton'
 import nnCheckbox from '~/components/wc/nnCheckbox'
 import nnDialog from '~/components/wc/nnDialog'
+import nnRadio from '~/components/wc/nnRadio'
 
 export default {
   name: 'Me',
@@ -121,6 +139,7 @@ export default {
     [nnDialog.name]: nnDialog,
     [nnButton.name]: nnButton,
     [nnCheckbox.name]: nnCheckbox,
+    [nnRadio.name]: nnRadio,
   },
   data() {
     return {
@@ -132,6 +151,17 @@ export default {
         community: {
           channel: {
             status: false,
+            value: 'audio',
+            types: [
+              {
+                type: 'audio',
+                label: '语音',
+              },
+              {
+                type: 'text',
+                label: '文字',
+              },
+            ],
           },
           fold: {
             status: false,
@@ -268,6 +298,13 @@ main#app-page {
       }
     }
   }
+}
+
+.footer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tab {

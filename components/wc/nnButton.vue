@@ -1,5 +1,6 @@
 <template lang="pug">
 button.nn-btn(
+  ref="button"
   :class=`[
     size ? size : '',
     type ? type : '',
@@ -35,7 +36,22 @@ export default {
     listeners() {
       return {
         ...this.$listeners,
+        click: (event) => this.clickButton(event),
       }
+    },
+  },
+  methods: {
+    clickButton(e) {
+      this.$emit('click', e)
+      const ripples = document.createElement('span')
+      ripples.style.left = e.offsetX + 'px'
+      ripples.style.top = e.offsetY + 'px'
+      ripples.classList.add('wave')
+      this.$refs.button.appendChild(ripples)
+
+      setTimeout(() => {
+        ripples.remove()
+      }, 1000)
     },
   },
 }
