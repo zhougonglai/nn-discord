@@ -283,7 +283,6 @@ main#app-page {
     background: var(--background-secondary);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     &-header {
       height: 130px;
       display: grid;
