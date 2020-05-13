@@ -2,16 +2,43 @@
   position: relative;
   display: block;
   display: flex;
+  border-radius: 4px;
+  border: 1px solid #222428;
+  &:hover {
+    border-color: #dcddde;
+    color: #dcddde;
+  }
   &--input {
-    outline: 0;
-    border-radius: 4px;
-    height: 40px;
-    width: 100%;
-    background-color: #303339;
-    border: 1px solid #222428;
-    color: #9fa4ab;
-    cursor: pointer;
     text-indent: 25px;
+    background-color: #303339;
+    cursor: pointer;
+    color: #9fa4ab;
+    border-radius: 4px;
+    outline: 0;
+    height: 40px;
+    border: none;
+    width: 100%;
+  }
+  &:hover {
+    .nn-select--icon {
+      color: #dcddde;
+    }
+  }
+  &--icon {
+    position: absolute;
+    font-size: 16px;
+    right: 15px;
+    top: calc(50% - 8px);
+    cursor: pointer;
+    color: #9fa4ab;
+    transform: rotate(0deg);
+    transition: transform 0.2s linear;
+  }
+
+  &.active {
+    .nn-select--icon {
+      transform: rotate(180deg);
+    }
   }
   &--content {
     position: absolute;
@@ -22,9 +49,9 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
-    border: 1px solid #222428;
+    border: 1px solid #dcddde;
     background-color: #303339;
-    padding: 10px;
+    padding: 4px;
 
     &::before,
     &::after {
@@ -38,21 +65,12 @@
     }
     &:before {
       top: -17px;
-      border-bottom: 8px #222428 solid;
+      border-bottom: 8px #dcddde solid;
     }
     &::after {
       top: -16px;
       border-bottom: 8px #303339 solid;
     }
-
-    // .nn-option {
-    //   &:first-of-type {
-    //     border-radius: 3px 3px 0 0;
-    //   }
-    //   &:last-of-type {
-    //     border-radius: 0 0 3px 3px;
-    //   }
-    // }
   }
 }
 
@@ -64,7 +82,7 @@
   cursor: pointer;
   text-indent: 10px;
   transition: all 0.2s linear;
-  border-radius: 4px;
+  border-radius: 3px;
   &:hover,
   &.active {
     text-indent: 15px;

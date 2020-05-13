@@ -1,5 +1,5 @@
 <template lang="pug">
-.nn-select(v-click-outside="closeOptions")
+.nn-select(v-click-outside="closeOptions" :class="{active}")
   input.nn-select--input(
     v-bind="$attrs"
     :value="value"
@@ -7,6 +7,8 @@
     type="text"
     @click.stop="toggleActive"
     @keydown.esc.stop.prevent="closeOptions")
+  .nn-select--icon(@click="toggleActive")
+    i.bx.bxs-down-arrow
   .nn-select--content(v-if="active")
     slot
 </template>
