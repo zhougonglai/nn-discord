@@ -104,6 +104,18 @@ main#app-page
                 .list-item-brief(v-if="item.brief")
                   span(:class="[item.brief.type, item.brief.class ? item.brief.class : '']") {{item.brief.payload > 99 ? 99 : item.brief.payload}}
       .scroller(v-else key="friend")
+        .list.padding.my-1
+          n-link(:to="{name: 'friends-search'}" v-slot="{ href, isActive }")
+            a.list-item(:href="href" :class="[isActive && 'active']")
+              .list-item-pre
+                i.bx.bxs-home-circle
+              .list-item-content 添加好友
+        .list.padding.my-1
+          n-link(:to="{name: 'friends-pass'}" v-slot="{ href, isActive }")
+            a.list-item(:href="href" :class="[isActive && 'active']")
+              .list-item-pre
+                i.bx.bxs-home-circle
+              .list-item-content 好友申请
         .list.group.padding.my-1( key="friends")
           .list-group(
             v-for="friend in friendsGroup"
@@ -230,7 +242,7 @@ export default {
       if (newVal === 'community') {
         this.$router.push({ name: 'channels-me' })
       } else if (newVal === 'friends') {
-        this.$router.push({ name: 'channels-me-friends' })
+        this.$router.push({ name: 'channels-me-friends-search' })
       }
     },
   },
