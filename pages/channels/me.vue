@@ -92,7 +92,7 @@ main#app-page
                 .list-item-brief(v-if="item.brief")
                   span(:class="[item.brief.type, item.brief.class ? item.brief.class : '']") {{item.brief.payload > 99 ? 99 : item.brief.payload}}
       .scroller(v-else key="friend")
-        .list.group.padding.my-1(v-if="activeFriendsGroup.length" key="friends")
+        .list.group.padding.my-1( key="friends")
           .list-group(
             v-for="friend in friendsGroup"
             :key="friend.id"

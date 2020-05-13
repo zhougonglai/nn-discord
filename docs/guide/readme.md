@@ -2,7 +2,11 @@
 
 ## TODO
 
-- [x] 000
+- [ ] SEO信息设置 
+  默认只有首页,是写死的
+- [ ] api接口封装
+- [ ] websocket
+- [ ] 
 
 ## 相关文档
 
@@ -23,7 +27,16 @@ uu 语音
 
 ```
 vue
-nuxt
+nuxt 
+
+内嵌页划分
+兼容内核
+
+浏览器兼容ie10,使用了websocket
+多页面SEO 标签设置
+
+
+
 ```
 
 #### 候选依赖
@@ -32,7 +45,6 @@ nuxt
 vue-meta-info 设置SEO信息
 v-mask  V-Money Vue-InputMask 输入格式化
 V-Hotkey 热键
-V-Click-Outside //界外点击
 V-Clipboard
 Vue-ScrollTo
 Vue-Lazyload
