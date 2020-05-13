@@ -1,0 +1,25 @@
+.nn-input {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  min-height: 40px;
+  background-color: #2d2f34;
+  border: 1px solid #52545d;
+  position: relative;
+  border-radius: 4px;
+  &:focus-within {
+    border-color: #dcddde;
+  }
+  &--input {
+    width: fit-content;
+    height: inherit;
+    line-height: 1.4;
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    overflow: hidden;
+    caret-color: white;
+  }
+}

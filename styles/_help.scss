@@ -2,8 +2,18 @@
   display: flex;
 }
 
+.sub-title {
+  color: #72767d;
+  font-size: 14px;
+  user-select: none;
+}
+
 .space-between {
   justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
 }
 
 .full-width {
