@@ -15,6 +15,8 @@ main#app-page
           @click="dialog.community.channel.value = 'text'")
           nn-radio(v-model="dialog.community.channel.value" label="text" name="text")
             | 文 文字
+      nn-select.my-2(v-model="dialog.community.channel.game_targer" placeholder="关联游戏")
+        nn-option(v-for="game of games" :key="game.label" :label="game.label") {{game.label}}
     template(v-slot:footer)
       .footer
         nn-btn(rund type="text" @click="dialog.community.channel.status = false") 取消
@@ -132,6 +134,8 @@ import nnButton from '~/components/wc/nnButton'
 import nnCheckbox from '~/components/wc/nnCheckbox'
 import nnDialog from '~/components/wc/nnDialog'
 import nnRadio from '~/components/wc/nnRadio'
+import nnSelect from '~/components/wc/nnSelect'
+import nnOption from '~/components/wc/nnOption'
 
 export default {
   name: 'Me',
@@ -140,6 +144,8 @@ export default {
     [nnButton.name]: nnButton,
     [nnCheckbox.name]: nnCheckbox,
     [nnRadio.name]: nnRadio,
+    [nnSelect.name]: nnSelect,
+    [nnOption.name]: nnOption,
   },
   data() {
     return {
@@ -152,6 +158,7 @@ export default {
           channel: {
             status: false,
             value: 'audio',
+            game_targer: '',
             types: [
               {
                 type: 'audio',
@@ -176,6 +183,17 @@ export default {
           status: false,
         },
       },
+      games: [
+        {
+          label: 'LOL',
+        },
+        {
+          label: 'AAA',
+        },
+        {
+          label: 'BBB',
+        },
+      ],
       active: 'community',
       activeLink: '',
     }
