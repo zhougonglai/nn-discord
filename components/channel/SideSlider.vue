@@ -42,28 +42,29 @@ main#app-page
       .panel.bottom
         nn-btn(rund size="small") +加入
     .tabs
-      n-link.tab-bar(
-        :to="{name: 'channels-me'}"
-        v-click-outside="outClick"
-        @contextmenu.prevent="communityMenu")
-        .tab-bar-pre
-          i.bx.bxs-heart-circle
-        transition(name="scale")
-          .tab-bar-content  社区
-        transition(name="scale")
-          .tab-bar-after +
-        transition(name="fade")
-          .context-menus.left.bottom(v-if="contextmenu.community.status")
-            .context-menu(@click="menuClick('fold')") 创建文件夹
-            .context-menu(@click="menuClick('channel')") 创建频道
-      n-link.tab-bar(
-        :to="{name: 'friends'}"
-      )
-        i.bx.bxs-group
-        transition(name="scale")
-          .tab-bar-content 好友
-        transition(name="scale")
-          .tab-bar-after +
+      n-link(:to="{name: 'me'}" v-slot="{href, isActive}")
+        a.tab-bar(
+          :href="href"
+          :class="{active: isActive}"
+          v-click-outside="outClick"
+          @contextmenu.prevent="communityMenu")
+          .tab-bar-pre
+            i.bx.bxs-heart-circle
+          transition(name="scale")
+            .tab-bar-content  社区
+          transition(name="scale")
+            .tab-bar-after +
+          transition(name="fade")
+            .context-menus.left.bottom(v-if="contextmenu.community.status")
+              .context-menu(@click="menuClick('fold')") 创建文件夹
+              .context-menu(@click="menuClick('channel')") 创建频道
+      n-link(:to="{name: 'friends'}" v-slot="{ href, isActive }")
+        a.tab-bar(:href="href" :class="{active: isActive}")
+          i.bx.bxs-group
+          transition(name="scale")
+            .tab-bar-content 好友
+          transition(name="scale")
+            .tab-bar-after +
     .scrollerWrap
       slot
   nuxt-child
@@ -149,6 +150,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 main#app-page {
+  width: calc(100vw - 190px);
   background: var(--vs-theme-bg);
   display: flex;
   align-items: stretch;
@@ -224,6 +226,7 @@ main#app-page {
     justify-content: center;
     cursor: pointer;
     background-color: var(--background-primary);
+    color: #dcddde;
     border-radius: 0 0 10px 10px;
     padding: 0 10px;
     transition: background 0.2s linear;

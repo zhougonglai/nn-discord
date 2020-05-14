@@ -3,15 +3,14 @@
   header#app-header
     #logo
       Logo
-    .search-input(@click="openSearch") 搜索好友/社区} 
+    .search-input(@click="openSearch") 搜索好友/社区}
       i.bx.bx-search
   main#app-main
     nav#app-nav(aria-label="侧边栏")
-      n-link(to="/channels/me/" v-slot="{ href,isActive }")
-        a.nav-item(:href="href" :class="[isActive||['/friends'].indexOf($route.matched[0].path)>-1? 'active' : '']")
+      n-link(to="/me/" v-slot="{ href }")
+        a.nav-item(:href="href" :class="[['/friends', '/me'].some(path => $route.path.includes(path))? 'active' : '']")
           .avatar(:style="{'background-image':`url(${user.imageUrl})`}")
           | {{user.nickName}}
-
       template(v-if="helpNav.length")
         n-link(
           :to="`/channels/${nav.label}`"

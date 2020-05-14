@@ -2,7 +2,7 @@
 SideSlider
   .scroller(key="community")
     .list.padding.my-1
-      n-link(:to="{name: 'channels-me'}" v-slot="{ href, isActive }")
+      n-link(:to="{name: 'me'}" v-slot="{ href, isActive }")
         a.list-item(:href="href" :class="[isActive && 'active']")
           .list-item-pre
             i.bx.bxs-home-circle
