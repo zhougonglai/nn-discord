@@ -19,7 +19,7 @@
   }
 
   &:not([open]) {
-    display: none;
+    display: none !important;
   }
 
   &[open='open'] {
@@ -69,4 +69,8 @@
       }
     }
   }
+}
+
+[v-cloak] {
+  display: none;
 }

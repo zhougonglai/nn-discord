@@ -50,6 +50,9 @@ import SideSlider from '~/components/channel/SideSlider.vue'
 
 export default {
   name: 'Friends',
+  key(route) {
+    return route.fullPath
+  },
   components: {
     [SideSlider.name]: SideSlider,
   },

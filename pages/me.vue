@@ -46,6 +46,9 @@ import SideSlider from '~/components/channel/SideSlider'
 
 export default {
   name: 'Me',
+  key(route) {
+    return route.fullPath
+  },
   components: {
     [SideSlider.name]: SideSlider,
   },

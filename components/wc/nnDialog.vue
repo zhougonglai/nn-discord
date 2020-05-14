@@ -1,5 +1,5 @@
 <template lang="pug">
-.content(v-show="open" ref="dialog")
+.content(v-show="open" ref="dialog" v-cloak)
   dialog.nn-dialog(ref="con" :open="open")
     .icon.nn-dialog-close(v-if="!noClose" @click="close")
       i.bx.bx-x
@@ -50,8 +50,8 @@ export default {
       (m) => m.default
     )
     dialogPolyfill.registerDialog(this.$refs.con)
-    const dialog = this.$refs.dialog
-    document.body.insertBefore(dialog, document.body.firstChild)
+    // const dialog = this.$refs.dialog
+    // document.body.insertBefore(dialog, document.body.firstChild)
   },
   methods: {
     close() {
