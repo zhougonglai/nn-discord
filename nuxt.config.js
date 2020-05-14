@@ -1,8 +1,5 @@
 module.exports = {
   mode: 'universal',
-  /*
-   ** Headers of the page
-   */
   head: {
     title: process.env.npm_package_name || '',
     htmlAttrs: {
@@ -68,14 +65,10 @@ module.exports = {
   },
   loading: { color: '#fff' },
   css: [
-    // 'boxicons/css/boxicons.min.css',
     'modern-normalize/modern-normalize.css',
     'dialog-polyfill/dialog-polyfill.css',
     '~/styles/global.scss',
   ],
-  /*
-   ** Plugins to load before mounting the App
-   */
   plugins: [
     {
       src: '~/plugins/nn-wc',
@@ -87,17 +80,8 @@ module.exports = {
     host: '0.0.0.0',
   },
   modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
-  /*
-   ** See https://axios.nuxtjs.org/options
-   */
   axios: {},
-  /*
-   ** Build configuration
-   */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
     extend: (config) => {
       const svgRule = config.module.rules.find((rule) => rule.test.test('.svg'))
 
