@@ -1,3 +1,3 @@
 <template lang="pug">
-.pass pass
+.firends firends
 </template>
