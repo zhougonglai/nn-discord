@@ -7,7 +7,7 @@
       i.bx.bx-search
   main#app-main
     nav#app-nav(aria-label="侧边栏")
-      n-link.nav-item(v-if="user" to="/me/" active-class="active")
+      n-link.nav-item(v-if="user" to="/channels/me/" active-class="active")
         .avatar(:style="{'background-image':`url(${user.imageUrl})`}")
         | {{user.nickName}}
       template(v-if="helpNav.length")

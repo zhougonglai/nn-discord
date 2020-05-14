@@ -12,7 +12,7 @@ export default {
     this.$nextTick(async () => {
       this.$nuxt.$loading.start()
       await this.getUser()
-      this.$router.push({ name: 'me' }, this.$nuxt.$loading.finish)
+      this.$router.push({ name: 'channels-me' }, this.$nuxt.$loading.finish)
     })
   },
   methods: {
