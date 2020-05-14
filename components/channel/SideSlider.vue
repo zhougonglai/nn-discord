@@ -214,6 +214,23 @@ main#app-page {
   }
 }
 
+.footer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.question::v-deep {
+  .nn-input {
+    flex: 1;
+
+    & + .nn-input {
+      margin-left: 10px;
+    }
+  }
+}
+
 .tab {
   &s {
     display: flex;
