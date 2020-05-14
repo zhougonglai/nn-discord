@@ -9,7 +9,7 @@
     nav#app-nav(aria-label="侧边栏")
       n-link(to="/me/" v-slot="{ href }")
         a.nav-item(:href="href" :class="[['/friends', '/me'].some(path => $route.path.includes(path))? 'active' : '']")
-          .avatar(:style="{'background-image':`url(${user.imageUrl})`}")
+          .avatar.large(:style="{'background-image':`url(${user.imageUrl})`}")
           | {{user.nickName}}
       template(v-if="helpNav.length")
         n-link(
@@ -18,7 +18,7 @@
           :key="nav.id"
           v-slot="{href}")
           a.nav-item(:href="href" :class="[ nav.label === $route.params.channel ? 'active' : '']")
-            .avatar(:style="{'background-image':`url(${nav.url})`}")
+            .avatar.large(:style="{'background-image':`url(${nav.url})`}")
             | {{nav.label}}
     nuxt
   footer#app-footer
@@ -32,6 +32,8 @@
       .item 自由
       .item
         i.bx.bxs-cog
+  nn-dialog(:open.sync="sign.in.status" clear)
+    .body body
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
@@ -48,6 +50,11 @@ export default {
       theme: {
         auto: false,
         type: 'dark', // dark light, system
+      },
+      sign: {
+        in: {
+          status: false,
+        },
       },
       search: {
         open: false,
@@ -79,13 +86,12 @@ export default {
   computed: {
     ...mapState(['user']),
   },
-  async mounted() {
-    if (!this.user) {
-      await this.getUser()
-    }
-    await this.getCommunityGroup()
-    await this.getFriendsGroup()
-    this.active = this.user.id
+  mounted() {
+    this.$nextTick(() => {
+      if (!this.user) {
+        this.sign.in.status = true
+      }
+    })
   },
   methods: {
     openSearch() {
@@ -96,6 +102,12 @@ export default {
     },
     toggleSearchDialog() {
       this.search.open = !this.search.open
+    },
+    async userPreset() {
+      await this.getUser()
+      await this.getCommunityGroup()
+      await this.getFriendsGroup()
+      this.active = this.user.id
     },
     ...mapActions(['getUser', 'getCommunityGroup', 'getFriendsGroup']),
   },

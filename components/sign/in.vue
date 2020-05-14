@@ -40,7 +40,6 @@ import nnBtn from '~/components/wc/nnButton'
 
 export default {
   name: 'SignIn',
-  layout: 'sign',
   components: {
     Phone,
     Lock,

@@ -51,9 +51,9 @@ section#app-page
           .tab-bar-pre
             i.bx.bxs-heart-circle
           transition(name="scale")
-            .tab-bar-content  社区
+            .tab-bar-content(v-if="isActive")  社区
           transition(name="scale")
-            .tab-bar-after +
+            .tab-bar-after(v-if="isActive") +
           transition(name="fade")
             .context-menus.left.bottom(v-if="contextmenu.community.status")
               .context-menu(@click.prevent="menuClick('fold')") 创建文件夹
@@ -62,9 +62,9 @@ section#app-page
         a.tab-bar(:href="href" :class="{active: isActive}")
           i.bx.bxs-group
           transition(name="scale")
-            .tab-bar-content 好友
+            .tab-bar-content(v-if="isActive") 好友
           transition(name="scale")
-            .tab-bar-after +
+            .tab-bar-after(v-if="isActive") +
     .scrollerWrap
       slot
   nuxt-child

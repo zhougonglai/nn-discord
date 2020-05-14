@@ -3,20 +3,13 @@ main#placehold
   CircleLoader
 </template>
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   name: 'Placehold',
   layout: 'loading',
   mounted() {
-    this.$nextTick(async () => {
-      this.$nuxt.$loading.start()
-      await this.getUser()
-      this.$router.push({ name: 'me' }, this.$nuxt.$loading.finish)
+    this.$nextTick(() => {
+      this.$router.push({ name: 'me' })
     })
-  },
-  methods: {
-    ...mapActions(['getUser']),
   },
 }
 </script>

@@ -28,7 +28,7 @@ export default {
     height: 48px;
     padding: 0 20px;
     width: 100%;
-    box-shadow: 0 1px 4px 2px var(--background-secondary);
+    border-bottom: 1px solid #2f3136;
     display: flex;
   }
   &-bar {
