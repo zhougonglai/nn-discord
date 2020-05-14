@@ -1,18 +1,33 @@
 <style scoped lang="scss">
 .page {
   background-color: #36393f;
+  padding: 100px 50px;
+}
+.demonstration {
+  color: #dcddde;
 }
 </style>
 <template>
   <div class="page spacer">
-    <div>
-      <el-button>默认按钮</el-button>
-      <el-button type="primary">主要按钮</el-button>
-      <el-button type="success">成功按钮</el-button>
-      <el-button type="info">信息按钮</el-button>
-      <el-button type="warning">警告按钮</el-button>
-      <el-button type="danger">危险按钮</el-button>
+    <div style="margin: 20px 0">
+      <el-button plain>朴素按钮</el-button>
+      <el-button plain type="primary">主要按钮</el-button>
     </div>
+    <div style="margin: 20px 0">
+      <el-button>朴素按钮</el-button>
+      <el-button type="primary">主要按钮</el-button>
+      <el-button round size="mini" type="primary">同意</el-button>
+      <el-button round size="mini" type="default">拒绝</el-button>
+    </div>
+
+    <div>
+      <el-button round>圆形按钮</el-button>
+      <el-button round type="primary">主要按钮</el-button>
+      <el-button plain round>圆形按钮</el-button>
+      <el-button plain round type="primary">主要按钮</el-button>
+    </div>
+
+    <div></div>
     <div>
       <el-select placeholder="请选择" v-model="value2">
         <el-option
@@ -20,7 +35,7 @@
           :key="item.value"
           :label="item.label"
           :value="item.value"
-          v-for="item in options2"
+          v-for="item in options"
         ></el-option>
       </el-select>
     </div>
@@ -30,53 +45,61 @@
     </div>
     <div>
       <el-input placeholder="请输入内容" v-model="input"></el-input>
+      <el-input placeholder="请输入内容" v-model="input2"></el-input>
+    </div>
+    <div>
+      <el-radio label="1" v-model="radio">备选项</el-radio>
+      <el-radio label="2" v-model="radio">备选项</el-radio>
+    </div>
+    <div>
+      <el-checkbox v-model="checked">备选项</el-checkbox>
+      <el-checkbox v-model="checked2">备选项</el-checkbox>
     </div>
   </div>
 </template>
 <script>
-import {DatePicker,Input} from 'element-ui';
+import { DatePicker, Input, Radio, Checkbox } from 'element-ui'
 export default {
-  name:"friend-search",
-  components:{
-    [DatePicker.name]:DatePicker,
-    [Input.name]:Input,
-  },
-  mounted() {
-    console.log(this.$route);
-  },
-  computed: {
-    // test() {
-    //   return 0;
-    // }
+  name: 'FriendSearch',
+  components: {
+    [DatePicker.name]: DatePicker,
+    [Input.name]: Input,
+    [Radio.name]: Radio,
+    [Checkbox.name]: Checkbox,
   },
   data() {
     return {
-options2: [{
+      options: [
+        {
           value: '选项1',
-          label: '黄金糕'
-        }, {
+          label: '黄金糕',
+        },
+        {
           value: '选项2',
           label: '双皮奶',
-          disabled: true
-        }, {
+        },
+        {
           value: '选项3',
-          label: '蚵仔煎'
-        }, {
+          label: '蚵仔煎',
+        },
+        {
           value: '选项4',
-          label: '龙须面'
-        }, {
+          label: '龙须面',
+        },
+        {
           value: '选项5',
-          label: '北京烤鸭'
-        }],
-        input:"内容",
-        value1: '',
-        value2: ''
-};
+          label: '北京烤鸭',
+        },
+      ],
+      input: '',
+      input2: '内容内容内容内容内容内容内容内容内容',
+      value: '',
+      value1: '',
+      value2: '',
+      radio: '1',
+      checked: true,
+      checked2: false,
+    }
   },
-methods:{
-    // test() {
-    //   return 0;
-    // }
 }
-};
 </script>

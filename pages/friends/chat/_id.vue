@@ -1,27 +1,26 @@
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
 <template>
-  <div>私聊{{$route.params.id}}</div>
+  <div>私聊{{ $route.params.id }}</div>
 </template>
 <script>
 export default {
-  mounted() {
-    //console.log();
+  data() {
+    return {
+      // id:1
+    }
   },
   computed: {
     // test() {
     //   return 0;
     // }
   },
-  data() {
-    return {
-//id:1
-};
+  mounted() {
+    // console.log();
   },
-methods:{
+  methods: {
     // test() {
     //   return 0;
     // }
+  },
 }
-};
 </script>

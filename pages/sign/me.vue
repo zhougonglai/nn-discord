@@ -55,7 +55,7 @@ main#app-page
           .tab-bar-after(v-if="active === 'community'") +
         transition(name="fade")
           .context-menus.left.bottom(v-if="contextmenu.community.status")
-            .context-menu(@click="menuClick('fold')") 创建文件夹
+            .context-menu(@click.prevent="menuClick('fold')") 创建文件夹
             .context-menu(@click="menuClick('channel')") 创建频道
       .tab-bar(:class="{active: active === 'friends'}" @click="active = 'friends'")
         i.bx.bxs-group
@@ -66,7 +66,7 @@ main#app-page
     .scrollerWrap
       .scroller(v-if="active === 'community'" key="community")
         .list.padding.my-1
-          n-link(:to="{name: 'channels-me'}" v-slot="{ href, isActive }")
+          n-link(:to="{name: 'me'}" v-slot="{ href, isActive }")
             a.list-item(:href="href" :class="[isActive && 'active']")
               .list-item-pre
                 i.bx.bxs-home-circle
@@ -240,9 +240,9 @@ export default {
   watch: {
     active(newVal) {
       if (newVal === 'community') {
-        this.$router.push({ name: 'channels-me' })
+        this.$router.push({ name: 'me' })
       } else if (newVal === 'friends') {
-        this.$router.push({ name: 'channels-me-friends-search' })
+        this.$router.push({ name: 'me-friends-search' })
       }
     },
   },

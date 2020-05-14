@@ -1,27 +1,7 @@
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
 <template>
   <div>pass</div>
 </template>
 <script>
-export default {
-  mounted() {
-    console.log(this.$route);
-  },
-  computed: {
-    // test() {
-    //   return 0;
-    // }
-  },
-  data() {
-    return {
-//id:1
-};
-  },
-methods:{
-    // test() {
-    //   return 0;
-    // }
-}
-};
+export default {}
 </script>
