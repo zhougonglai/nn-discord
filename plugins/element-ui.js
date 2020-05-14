@@ -1,9 +1,9 @@
 import Vue from 'vue'
+import '~/styles/element-variables.scss'
 import { Button, Select, Option } from 'element-ui'
 ;[Button, Select, Option].forEach((element) => {
   Vue.use(element)
 })
-import '~/styles/element-variables.scss'
 // import {
 //   Pagination,
 //   Dialog,

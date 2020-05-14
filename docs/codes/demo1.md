@@ -1,6 +1,7 @@
 # 演示
 
-<vuep template="#demo1"></vuep>
+> 建议把公共组件的 demo 放到文档里面  
+> <vuep template="#demo1"></vuep>
 
 <script type="text/x-template" id="demo1">
 <style>
