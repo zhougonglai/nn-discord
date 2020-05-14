@@ -1,7 +1,7 @@
 <style scoped lang="scss">
 </style>
 <template>
-  <div class="flex">
+  <div class="spacer flex">
     <div class="left">
       <div>
         <n-link :to="{name: 'channels-me'}">社区</n-link>
@@ -13,7 +13,7 @@
         <n-link :to="{name: 'friends-pass'}">好友申请</n-link>
       </div>
       <div>
-        <n-link :to="'/friends/chat/11'">私聊1</n-link>
+        <n-link :to="{name: 'friends-chat-id',params:{id:11111}}">私聊1</n-link>
       </div>
       <div>
         <n-link :to="'/friends/chat/222'">私聊2</n-link>
@@ -23,8 +23,10 @@
   </div>
 </template>
 <script>
+
 export default {
   name:"friends",
+  
   mounted() {
     //console.log();
   },

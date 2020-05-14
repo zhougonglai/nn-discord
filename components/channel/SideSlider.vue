@@ -54,7 +54,7 @@ main#app-page
           .tab-bar-after +
         transition(name="fade")
           .context-menus.left.bottom(v-if="contextmenu.community.status")
-            .context-menu(@click="menuClick('fold')") 创建文件夹
+            .context-menu(@click.prevent="menuClick('fold')") 创建文件夹
             .context-menu(@click="menuClick('channel')") 创建频道
       n-link.tab-bar(
         :to="{name: 'friends'}"

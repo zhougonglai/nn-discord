@@ -68,14 +68,18 @@ module.exports = {
     'modern-normalize/modern-normalize.css',
     'dialog-polyfill/dialog-polyfill.css',
     '~/styles/global.scss',
-    '~/styles/element-ui.scss',
   ],
+  env: {
+    'jest/globals': true,
+  },
   plugins: [
     {
       src: '~/plugins/nn-wc',
       ssr: false,
     },
+    '~/plugins/element-ui.js',
   ],
+
   buildModules: ['@nuxtjs/dotenv', '@nuxtjs/eslint-module'],
   server: {
     host: '0.0.0.0',
@@ -83,6 +87,8 @@ module.exports = {
   modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
   axios: {},
   build: {
+    cache: true,
+    parallel: true,
     transpile: [/^element-ui/],
     /*
      ** You can extend webpack config here
