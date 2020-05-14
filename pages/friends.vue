@@ -1,19 +1,29 @@
 <template lang="pug">
 SideSlider
   .scroller(key="friend")
+    .list.padding.my-1
+      n-link(:to="{name: 'friends'}" v-slot="{ href, isExactActive }")
+        a.list-item(:href="href" :class="[isExactActive && 'active']")
+          .list-item-pre
+            i.bx.bxs-home-circle
+          .list-item-content 添加好友
+      n-link(:to="{name: 'friends-pass'}" v-slot="{ href, isActive }")
+        a.list-item(:href="href" :class="[isActive && 'active']")
+          .list-item-pre
+            i.bx.bxs-home-circle
+          .list-item-content 好友申请
     .list.group.padding.my-1(v-if="activeFriendsGroup.length" key="friends")
       .list-group(
-        v-for="friend in friendsGroup"
-        :key="friend.id"
-        :class="{expand: activeFriendsGroup.includes(friend.id)}")
-        .list-header(@click="expandFriendsGroup(friend)")
+        v-for="group in friendsGroup"
+        :key="group.id"
+        :class="{expand: activeFriendsGroup.includes(group.id)}")
+        .list-header(@click="expandFriendsGroup(group)")
           .list-header-pre
             i.bx.bxs-chevron-down
-          | {{friend.label}}
-        template(v-if="activeFriendsGroup.includes(friend.id)")
-          n-link.list-item(
-            v-for="item in friend.children"
-            :to="`/channels/me/${item.id}`"
+          | {{group.label}}
+        template(v-if="activeFriendsGroup.includes(group.id)")
+          .list-item(
+            v-for="item in group.children"
             :key="item.id")
             .list-item-pre
               template(v-if="item.avatar.type === 'img'")

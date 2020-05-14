@@ -1,26 +1,18 @@
 <template lang="pug">
 PageHead
-  .tabs
-    .tab-bars
-      n-link.tab-bar(to="/channels/me/" exact) 个人中心
-      n-link.tab-bar(to="/channels/me/notice") 公告
-      n-link.tab-bar(to="/channels/me/community") 社区资料
-      n-link.tab-bar(to="/channels/me/safe") 账户安全
-      n-link.tab-bar(to="/channels/me/author") 账号授权
-      n-link.tab-bar(to="/channels/me/member") 成员
-      .tab-tools
-        nn-btn(rund size="small") 充值
-    .tab-body
-      |【公告】社区规定
-      | {{str}}
+  MeTabs
+    |【公告】社区规定
+    | {{str}}
 </template>
 <script>
 import PageHead from '~/components/channel/PageHead'
+import MeTabs from '~/components/channel/MeTabs'
 
 export default {
   name: 'Notice',
   components: {
     [PageHead.name]: PageHead,
+    [MeTabs.name]: MeTabs,
   },
   data() {
     return {

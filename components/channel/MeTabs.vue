@@ -2,8 +2,8 @@
 .tabs
   .tab-bars
     n-link.tab-bar(to="/me/" exact) 个人中心
-    n-link.tab-bar(to="/me/community") 社区资料
     n-link.tab-bar(to="/me/notice") 公告
+    n-link.tab-bar(to="/me/community") 社区资料
     n-link.tab-bar(to="/me/safe") 账户安全
     n-link.tab-bar(to="/me/author") 账号授权
     n-link.tab-bar(to="/me/member") 成员

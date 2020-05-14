@@ -115,7 +115,6 @@ main#app-main {
   left: 0;
   right: 0;
   bottom: 60px;
-  display: block;
   display: flex;
 }
 nav#app-nav {

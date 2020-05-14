@@ -1,5 +1,5 @@
 <template lang="pug">
-main#app-page
+section#app-page
   nn-dialog(:open.sync="dialog.community.channel.status" title="创建频道")
     .body
       h4.sub-title 频道资料
@@ -56,8 +56,8 @@ main#app-page
             .tab-bar-after +
           transition(name="fade")
             .context-menus.left.bottom(v-if="contextmenu.community.status")
-              .context-menu(@click="menuClick('fold')") 创建文件夹
-              .context-menu(@click="menuClick('channel')") 创建频道
+              .context-menu(@click.prevent="menuClick('fold')") 创建文件夹
+              .context-menu(@click.prevent="menuClick('channel')") 创建频道
       n-link(:to="{name: 'friends'}" v-slot="{ href, isActive }")
         a.tab-bar(:href="href" :class="{active: isActive}")
           i.bx.bxs-group
@@ -149,7 +149,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-main#app-page {
+section#app-page {
   width: calc(100vw - 190px);
   background: var(--vs-theme-bg);
   display: flex;

@@ -18,6 +18,10 @@
     z-index: 9;
   }
 
+  &:not([open]) {
+    display: none;
+  }
+
   &[open='open'] {
     animation: scale 0.2s linear;
   }

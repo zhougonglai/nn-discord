@@ -1,5 +1,5 @@
 <template lang="pug">
-.content
+.content(v-show="open")
   dialog.nn-dialog(ref="con" :open="open")
     .icon.nn-dialog-close(@click="close")
       i.bx.bx-x
