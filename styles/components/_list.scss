@@ -47,6 +47,10 @@
       background-color: var(--background-modifier-hover);
     }
 
+    & + .list-item {
+      margin-top: 4px;
+    }
+
     &-pre {
       width: 40px;
       height: 40px;

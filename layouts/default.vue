@@ -7,9 +7,9 @@
       i.bx.bx-search
   main#app-main
     nav#app-nav(aria-label="侧边栏")
-      n-link(to="/me/" v-slot="{ href }")
+      n-link(v-if="user" to="/me/" v-slot="{ href }")
         a.nav-item(:href="href" :class="[['/friends', '/me'].some(path => $route.path.includes(path))? 'active' : '']")
-          .avatar(:style="{'background-image':`url(${user.imageUrl})`}")
+          .avatar.large(:style="{'background-image':`url(${user.imageUrl})`}")
           | {{user.nickName}}
       template(v-if="helpNav.length")
         n-link(
@@ -18,8 +18,13 @@
           :key="nav.id"
           v-slot="{href}")
           a.nav-item(:href="href" :class="[ nav.label === $route.params.channel ? 'active' : '']")
-            .avatar(:style="{'background-image':`url(${nav.url})`}")
+            .avatar.large(:style="{'background-image':`url(${nav.url})`}")
             | {{nav.label}}
+      .spacer
+      n-link.nav-item(to="/more" active-class="active")
+        .avatar.large
+          i.bx.bxs-widget
+        | 更多社区
     nuxt
   footer#app-footer
     .tools
@@ -32,22 +37,31 @@
       .item 自由
       .item
         i.bx.bxs-cog
+  nn-dialog(:open.sync="sign.in.status" clear)
+    #box
+      SignIn
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import Logo from '~/assets/logo.svg'
+import SignIn from '~/components/sign/in'
 
 export default {
   name: 'DefaultLayout',
   components: {
     Logo,
+    SignIn,
   },
   data() {
     return {
-      active: '',
       theme: {
         auto: false,
         type: 'dark', // dark light, system
+      },
+      sign: {
+        in: {
+          status: false,
+        },
       },
       search: {
         open: false,
@@ -79,13 +93,14 @@ export default {
   computed: {
     ...mapState(['user']),
   },
-  async mounted() {
-    if (!this.user) {
-      await this.getUser()
-    }
-    await this.getCommunityGroup()
-    await this.getFriendsGroup()
-    this.active = this.user.id
+  mounted() {
+    this.$nextTick(() => {
+      setTimeout(() => {
+        if (!this.user) {
+          this.sign.in.status = true
+        }
+      }, 600)
+    })
   },
   methods: {
     openSearch() {
@@ -97,7 +112,6 @@ export default {
     toggleSearchDialog() {
       this.search.open = !this.search.open
     },
-    ...mapActions(['getUser', 'getCommunityGroup', 'getFriendsGroup']),
   },
   head() {
     return {
@@ -115,12 +129,12 @@ main#app-main {
   left: 0;
   right: 0;
   bottom: 60px;
-  display: block;
   display: flex;
 }
 nav#app-nav {
   width: 190px;
   padding-left: 10px;
+  padding-bottom: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -184,6 +198,18 @@ footer#app-footer {
   }
 }
 
+#box {
+  width: 1000px;
+  height: 474px;
+  background-image: url('../assets/imgs/sign_bg.png');
+  background-position: center;
+  background-size: cover;
+  padding: 64px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
 .nav-item {
   width: 100%;
   height: 52px;
@@ -237,7 +263,7 @@ footer#app-footer {
       background-color: rgb(var(--vs-primary));
     }
     i.bx {
-      color: var(--vs-theme-bg);
+      color: white;
     }
   }
 }

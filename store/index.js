@@ -3,17 +3,7 @@ import Mock from 'mockjs'
 const types = (str) => Symbol(`USER_${str}`).toString()
 
 export const state = () => ({
-  user: Mock.mock({
-    id: Math.random().toString(16).slice(-10),
-    nickName: '@cname',
-    imageUrl: 'https://api.adorable.io/avatars/285' + '/@id()' + '.png',
-    memberNo: '@guid',
-    email: '@email()',
-    gender: '@integer(-1, 1)',
-    fans: '@integer(0, 99999999)',
-    follow: '@integer(0, 99999999)',
-    signature: '@cparagraph',
-  }),
+  user: '',
   activeCommunityGroup: [],
   activeFriendsGroup: [],
   communityGroup: [],

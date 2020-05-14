@@ -1,3 +1,3 @@
 <template lang="pug">
-#friends friends
+.chat {{$route.params.id}}
 </template>

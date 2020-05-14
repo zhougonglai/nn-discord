@@ -19,7 +19,7 @@ SideSlider
         template(v-if="activeCommunityGroup.includes(group.id)")
           n-link.list-item(
             v-for="item in group.children"
-            :to="`/channels/me/${item.id}`"
+            :to="`/me/chat/${item.id}`"
             :key="item.id")
             .list-item-pre
               template(v-if="item.avatar.type === 'img'")
@@ -46,6 +46,9 @@ import SideSlider from '~/components/channel/SideSlider'
 
 export default {
   name: 'Me',
+  key(route) {
+    return route.fullPath
+  },
   components: {
     [SideSlider.name]: SideSlider,
   },

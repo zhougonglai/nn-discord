@@ -1,28 +1,20 @@
 <template lang="pug">
-main#placehold
-  CircleLoader
+#more more
 </template>
 <script>
 export default {
-  name: 'Placehold',
+  name: 'More',
   key(route) {
     return route.fullPath
-  },
-  mounted() {
-    this.$router.push('/more')
   },
 }
 </script>
 <style lang="scss" scoped>
-main#placehold::v-deep {
+main#more {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  svg {
-    width: 25vw;
-    height: 25vh;
-  }
 }
 </style>

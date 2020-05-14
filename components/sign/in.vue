@@ -40,7 +40,6 @@ import nnBtn from '~/components/wc/nnButton'
 
 export default {
   name: 'SignIn',
-  layout: 'sign',
   components: {
     Phone,
     Lock,
@@ -49,8 +48,8 @@ export default {
   },
   data() {
     return {
-      remember: false,
-      autologin: false,
+      remember: true,
+      autologin: true,
       sign: {
         country_code: 86,
         user_type: 0,
@@ -64,9 +63,12 @@ export default {
     async login() {
       this.$nuxt.$loading.start()
       await this.getUser()
+      await this.getCommunityGroup()
+      await this.getFriendsGroup()
+      this.$parent.close()
       this.$router.push({ name: 'me' }, this.$nuxt.$loading.finish)
     },
-    ...mapActions(['getUser']),
+    ...mapActions(['getUser', 'getCommunityGroup', 'getFriendsGroup']),
   },
 }
 </script>

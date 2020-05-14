@@ -74,6 +74,10 @@ module.exports = {
   },
   plugins: [
     {
+      src: '~/plugins/persistedstate',
+      ssr: false,
+    },
+    {
       src: '~/plugins/nn-wc',
       ssr: false,
     },

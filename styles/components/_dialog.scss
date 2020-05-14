@@ -18,6 +18,10 @@
     z-index: 9;
   }
 
+  &:not([open]) {
+    display: none !important;
+  }
+
   &[open='open'] {
     animation: scale 0.2s linear;
   }
@@ -65,4 +69,8 @@
       }
     }
   }
+}
+
+[v-cloak] {
+  display: none;
 }
