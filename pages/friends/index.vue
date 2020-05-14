@@ -1,10 +1,11 @@
 <style scoped lang="scss">
 </style>
 <template>
-  <div>pass</div>
+  <div>搜索</div>
 </template>
 <script>
 export default {
+  name:"friend-search",
   mounted() {
     console.log(this.$route);
   },

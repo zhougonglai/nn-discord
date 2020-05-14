@@ -1,12 +1,12 @@
 <style scoped lang="scss">
 </style>
 <template>
-  <div>pass</div>
+  <div>私聊{{$route.params.id}}</div>
 </template>
 <script>
 export default {
   mounted() {
-    console.log(this.$route);
+    //console.log();
   },
   computed: {
     // test() {

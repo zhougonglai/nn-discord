@@ -5,7 +5,8 @@ import CircleLoader from '~/components/wc/install'
 import { Button, Select } from 'element-ui'
 
 Vue.use(CircleLoader)
-Vue.use(vClickOutside)[(Button, Select)].forEach((element) => {
+Vue.use(vClickOutside)
+;[Button, Select].forEach((element) => {
   Vue.use(element)
 })
 // import './element-variables.scss'

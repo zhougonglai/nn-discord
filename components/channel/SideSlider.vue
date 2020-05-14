@@ -57,7 +57,7 @@ main#app-page
             .context-menu(@click="menuClick('fold')") 创建文件夹
             .context-menu(@click="menuClick('channel')") 创建频道
       n-link.tab-bar(
-        :to="{name: 'channels-friends'}"
+        :to="{name: 'friends'}"
       )
         i.bx.bxs-group
         transition(name="scale")
