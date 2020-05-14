@@ -72,6 +72,7 @@ module.exports = {
     'modern-normalize/modern-normalize.css',
     'dialog-polyfill/dialog-polyfill.css',
     '~/styles/global.scss',
+    '~/styles/element-ui.scss',
   ],
   /*
    ** Plugins to load before mounting the App
@@ -95,6 +96,7 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    transpile: [/^element-ui/],
     /*
      ** You can extend webpack config here
      */
@@ -107,6 +109,17 @@ module.exports = {
         test: /\.svg$/,
         use: ['babel-loader', 'vue-svg-loader'],
       })
+    },
+    babel: {
+      plugins: [
+        [
+          'component',
+          {
+            libraryName: 'element-ui',
+            styleLibraryName: 'theme-chalk',
+          },
+        ],
+      ],
     },
   },
 }
