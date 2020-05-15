@@ -1,6 +1,6 @@
 <template lang="pug">
-.content(v-show="open" ref="dialog" v-cloak)
-  dialog.nn-dialog(ref="con" :open="open")
+.nn-dialog(v-if="open" ref="dialog")
+  .nn-dialog-content(ref="con" :open="open")
     .icon.nn-dialog-close(v-if="!noClose" @click="close")
       i.bx.bx-x
     header.nn-dialog-header(v-if="!clear")
@@ -45,17 +45,27 @@ export default {
       default: false,
     },
   },
-  async mounted() {
-    const dialogPolyfill = await import('dialog-polyfill').then(
-      (m) => m.default
-    )
-    dialogPolyfill.registerDialog(this.$refs.con)
-    // const dialog = this.$refs.dialog
-    // document.body.insertBefore(dialog, document.body.firstChild)
+  watch: {
+    open(val) {
+      this.$nextTick(() => {
+        if (val) {
+          this.insetBody()
+        }
+      })
+    },
+  },
+  mounted() {
+    if (this.open) {
+      this.insetBody()
+    }
   },
   methods: {
     close() {
       this.$emit('update:open', false)
+    },
+    insetBody() {
+      const dialog = this.$refs.dialog
+      document.body.insertBefore(dialog, document.body.firstChild)
     },
   },
 }

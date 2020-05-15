@@ -4,8 +4,5 @@ nuxt-child
 <script>
 export default {
   name: 'Community',
-  key(route) {
-    return route.fullPath
-  },
 }
 </script>
