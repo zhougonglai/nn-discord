@@ -1,5 +1,5 @@
 <template lang="pug">
-.sidebar-header
+.sidebar-header(v-bind="$attrs")
   .panel.left
     .text 亚龙的社区
     .subtext 153.2W 成员

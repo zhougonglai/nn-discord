@@ -1,5 +1,5 @@
 <template lang="pug">
-.tabs
+.tabs(v-bind="$attrs")
   nn-dialog(:open.sync="dialog.community.channel.status" title="创建频道")
     .body(v-if="dialog.community.channel.status")
       h4.sub-title 频道资料
@@ -161,6 +161,8 @@ export default {
     flex-direction: column;
     flex: 1;
     background-color: var(--background-secondary);
+    height: calc(100% - 130px);
+    max-height: 100%;
   }
   &-body {
     flex: 1;
