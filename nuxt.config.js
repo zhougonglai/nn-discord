@@ -86,7 +86,7 @@ module.exports = {
 
   buildModules: [
     '@nuxtjs/dotenv',
-    // , '@nuxtjs/eslint-module'
+   , '@nuxtjs/eslint-module'
   ],
   server: {
     host: '0.0.0.0',

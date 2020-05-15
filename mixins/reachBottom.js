@@ -7,15 +7,19 @@ export default {
     return {
       _scrollingElement: null,
       _isReachBottom: false,
-      reachBottomDistance: 80 // 距离底部多远触发
+      reachBottomDistance: 80, // 距离底部多远触发
     }
   },
   mounted() {
-    this._scrollingElement = document.scrollingElement
-    window.addEventListener('scroll', this._windowScrollHandler)
+    if (process.client) {
+      this._scrollingElement = document.scrollingElement
+      window.addEventListener('scroll', this._windowScrollHandler)
+    }
   },
   beforeDestroy() {
-    window.removeEventListener('scroll', this._windowScrollHandler)
+    if (process.client) {
+      window.removeEventListener('scroll', this._windowScrollHandler)
+    }
   },
   methods: {
     _windowScrollHandler() {
@@ -34,6 +38,6 @@ export default {
         this._isReachBottom = true
         typeof this.reachBottom === 'function' && this.reachBottom()
       }
-    }
-  }
+    },
+  },
 }

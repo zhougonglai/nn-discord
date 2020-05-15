@@ -32,6 +32,7 @@
     "web-animations-js": "^2.3.2"
   },
   "devDependencies": {
+    "@nuxtjs/eslint-module": "^1.0.0",
     "babel-plugin-component": "^1.1.1",
     "docsify-cli": "^4.4.0",
     "mockjs": "^1.1.0",
