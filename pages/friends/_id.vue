@@ -6,7 +6,7 @@
 <template>
   <div class="page spacer flex column">
     <NnBanner href="//www.baidu.com" img="http://placekitten.com/1280/130"></NnBanner>
-    <div class="flex-sub">ddd</div>
+    <div class="flex-sub">好友资料</div>
   </div>
 </template>
 <script> 
