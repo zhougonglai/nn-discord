@@ -2,15 +2,15 @@
 
 ## TODO
 
-- [ ] SEO信息设置 
-  默认只有首页,是写死的
-- [ ] api接口封装
+- [ ] SEO 信息设置
+      默认只有首页,是写死的
+- [ ] api 接口封装
 - [ ] websocket
-- [ ] 
+- [ ]
 
 ## 相关文档
 
-- [产品](https://lanhuapp.com/url/f1eon)
+- [产品](https://lanhuapp.com/url/2vwjQ-JRsPS)
 
 - [设计](https://lanhuapp.com/url/gIqWo-lcz6M)
 
@@ -27,7 +27,7 @@ uu 语音
 
 ```
 vue
-nuxt 
+nuxt
 
 内嵌页划分
 兼容内核

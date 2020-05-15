@@ -1,6 +1,6 @@
 <template lang="pug">
 #sign-in
-  h2.title NN运营中心
+  h2.title 用户登录
   form.form.mt-2(novalidate role="form" ref="form")
     .form-contrl
       label(for="phone")
@@ -29,22 +29,18 @@
   .flex.full-width.my-2.space-between
     nn-checkbox(v-model="remember") 记住我
     nn-checkbox(v-model="autologin") 自动登录
-  nn-btn.block(@click="login") 登录
+  el-button.block(@click="login" type="primary") 登录
 </template>
 <script>
 import { mapActions } from 'vuex'
 import Phone from '~/assets/icons/phone.svg'
 import Lock from '~/assets/icons/lock.svg'
-import nnCheckbox from '~/components/wc/nnCheckbox'
-import nnBtn from '~/components/wc/nnButton'
 
 export default {
   name: 'SignIn',
   components: {
     Phone,
     Lock,
-    [nnCheckbox.name]: nnCheckbox,
-    [nnBtn.name]: nnBtn,
   },
   data() {
     return {
@@ -65,7 +61,7 @@ export default {
       await this.getUser()
       await this.getCommunityGroup()
       await this.getFriendsGroup()
-      this.$parent.close()
+      this.$parent.closeDialog()
       this.$router.push({ name: 'me' }, this.$nuxt.$loading.finish)
     },
     ...mapActions(['getUser', 'getCommunityGroup', 'getFriendsGroup']),
@@ -80,6 +76,9 @@ export default {
   align-items: center;
   .title {
     user-select: none;
+  }
+  .block {
+    width: 100%;
   }
 }
 </style>

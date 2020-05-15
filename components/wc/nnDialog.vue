@@ -1,6 +1,6 @@
 <template lang="pug">
 .nn-dialog(v-if="open" ref="dialog")
-  .nn-dialog-content(ref="con" :open="open")
+  .nn-dialog-content(ref="con")
     .icon.nn-dialog-close(v-if="!noClose" @click="close")
       i.bx.bx-x
     header.nn-dialog-header(v-if="!clear")
@@ -26,7 +26,7 @@ export default {
   props: {
     open: {
       default: false,
-      type: Boolean,
+      type: [Boolean, Number],
     },
     backdrop: {
       default: true,

@@ -1,7 +1,8 @@
 <template lang="pug">
-.me
-  SideSlider
-    .scroller(key="community")
+section#me
+  nav#sider
+    SideBar
+    SideTab
       .list.padding.my-1
         n-link(:to="{name: 'me'}" v-slot="{ href, isActive }")
           a.list-item(:href="href" :class="[isActive && 'active']")
@@ -40,15 +41,18 @@
               .list-item-content {{item.label}}
               .list-item-brief(v-if="item.brief")
                 span(:class="[item.brief.type, item.brief.class ? item.brief.class : '']") {{item.brief.payload > 99 ? 99 : item.brief.payload}}
+  nuxt-child
 </template>
 <script>
 import { mapState, mapMutations } from 'vuex'
-import SideSlider from '~/components/channel/SideSlider'
+import SideBar from '~/components/channel/SideBar'
+import SideTab from '~/components/channel/SideTab'
 
 export default {
   name: 'Me',
   components: {
-    [SideSlider.name]: SideSlider,
+    [SideBar.name]: SideBar,
+    [SideTab.name]: SideTab,
   },
   computed: {
     ...mapState(['communityGroup', 'activeCommunityGroup']),
@@ -58,3 +62,20 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+section#me {
+  background: var(--vs-theme-bg);
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  position: absolute;
+  left: 190px;
+  right: 0;
+  height: 100%;
+  nav#sider {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+  }
+}
+</style>

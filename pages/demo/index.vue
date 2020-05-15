@@ -9,25 +9,22 @@
 </style>
 <template>
   <div class="page spacer">
-    <div style="margin: 20px 0">
+    <div style="margin: 20px 0;">
       <el-button plain>朴素按钮</el-button>
       <el-button plain type="primary">主要按钮</el-button>
     </div>
-    <div style="margin: 20px 0">
+    <div style="margin: 20px 0;">
       <el-button>朴素按钮</el-button>
       <el-button type="primary">主要按钮</el-button>
       <el-button round size="mini" type="primary">同意</el-button>
       <el-button round size="mini" type="default">拒绝</el-button>
     </div>
-
     <div>
       <el-button round>圆形按钮</el-button>
       <el-button round type="primary">主要按钮</el-button>
       <el-button plain round>圆形按钮</el-button>
       <el-button plain round type="primary">主要按钮</el-button>
     </div>
-
-    <div></div>
     <div>
       <el-select placeholder="请选择" v-model="value2">
         <el-option

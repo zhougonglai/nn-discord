@@ -3,3 +3,7 @@
 @import './reset';
 @import './help';
 @import './components';
+body {
+  font-family: Source Han Sans CN, PingFang SC, Microsoft Yahei, -apple-system,
+    BlinkMacSystemFont, Helvetica Neue, STHeiti, Tahoma, Simsun, sans-serif;
+}
