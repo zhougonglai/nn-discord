@@ -2,26 +2,19 @@
 .friend-item1 {
   margin: 0 20px 30px 20px;
   .Avatar {
-    $w: 65px;
-    width: $w;
-    height: $w;
-    border-radius: 50%;
+    @include Circle(65px);
   }
   .name {
     line-height: 20px;
     font-size: 18px;
     color: #b9bbbe;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    @extend .nowrap;
   }
   .text {
     font-size: 12px;
     line-height: 23px;
     color: #72767d;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    @extend .nowrap;
   }
   .right {
     width: 120px;
@@ -30,11 +23,13 @@
 </style>
 <template>
   <div class="friend-item1 flex">
-    <n-link :to="'/'">
+    <n-link :to="'/friends/'+data.id">
       <img :src="data.avatar" alt class="Avatar mr-1" />
     </n-link>
     <div class="flex column right">
-      <div class="name">{{data.name}}</div>
+      <n-link :to="'/friends/'+data.id">
+        <div class="name">{{data.name}}</div>
+      </n-link>
       <div class="text">{{data.age}} | {{data.game}}</div>
       <slot></slot>
     </div>

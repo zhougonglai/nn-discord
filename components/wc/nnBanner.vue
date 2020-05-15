@@ -4,7 +4,7 @@
   height: 130px;
   background-repeat: no-repeat;
   background-position-x: center;
-  //  background-size:
+  background-size: cover;
 }
 </style>
 <template>

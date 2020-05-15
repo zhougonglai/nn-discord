@@ -14,7 +14,7 @@ section#friends
             .list-item-pre
               i.bx.bxs-home-circle
             .list-item-content 好友申请
-      .list.group.padding.my-1(v-if="activeFriendsGroup.length" key="friends")
+      .list.group.padding.my-1(key="friends")
         .list-group(
           v-for="group in friendsGroup"
           :key="group.id"
