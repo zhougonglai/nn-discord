@@ -26,7 +26,7 @@ export default {
   props: {
     open: {
       default: false,
-      type: Boolean,
+      type: [Boolean, Number],
     },
     backdrop: {
       default: true,

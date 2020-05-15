@@ -38,19 +38,18 @@
       .item
         i.bx.bxs-cog
   nn-dialog(:open.sync="sign.in.status" clear)
-    #box(v-if="sign.in.status")
-      SignIn
+    Box(v-if="sign.in.status")
 </template>
 <script>
 import { mapState } from 'vuex'
 import Logo from '~/assets/logo.svg'
-import SignIn from '~/components/sign/in'
+import Box from '~/components/sign/box'
 
 export default {
   name: 'DefaultLayout',
   components: {
     Logo,
-    SignIn,
+    Box,
   },
   data() {
     return {
@@ -196,18 +195,6 @@ footer#app-footer {
       }
     }
   }
-}
-
-#box {
-  width: 1000px;
-  height: 474px;
-  background-image: url('../assets/imgs/sign_bg.png');
-  background-position: center;
-  background-size: cover;
-  padding: 64px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
 }
 
 .nav-item {
