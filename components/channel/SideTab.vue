@@ -1,5 +1,5 @@
 <template lang="pug">
-section.app-page
+.tabs
   nn-dialog(:open.sync="dialog.community.channel.status" title="创建频道")
     .body(v-if="dialog.community.channel.status")
       h4.sub-title 频道资料
@@ -31,47 +31,36 @@ section.app-page
       .footer
         nn-btn(rund type="text" @click="dialog.community.channel.status = false") 取消
         nn-btn(rund) 创建频道
-  nav.sidebar
-    .sidebar-header
-      .panel.left
-        .text 亚龙的社区
-        .subtext 153.2W 成员
-      .panel.right
-        .subtext NN号 236584
-        .subtext 153.2W 关注
-      .panel.bottom
-        nn-btn(rund size="small") +加入
-    .tabs
-      n-link(:to="{name: 'me'}" v-slot="{href, isActive}")
-        a.tab-bar(
-          :href="href"
-          :class="{active: isActive}"
-          v-click-outside="outClick"
-          @contextmenu.prevent="communityMenu")
-          .tab-bar-pre
-            i.bx.bxs-heart-circle
-          transition(name="scale")
-            .tab-bar-content(v-if="isActive")  社区
-          transition(name="scale")
-            .tab-bar-after(v-if="isActive") +
-          transition(name="fade")
-            .context-menus.left.bottom(v-if="contextmenu.community.status")
-              .context-menu(@click.prevent="menuClick('fold')") 创建文件夹
-              .context-menu(@click.prevent="menuClick('channel')") 创建频道
-      n-link(:to="{name: 'friends'}" v-slot="{ href, isActive }")
-        a.tab-bar(:href="href" :class="{active: isActive}")
-          i.bx.bxs-group
-          transition(name="scale")
-            .tab-bar-content(v-if="isActive") 好友
-          transition(name="scale")
-            .tab-bar-after(v-if="isActive") +
-    .scrollerWrap
-      slot
-  nuxt-child
+  .tab-bars
+    n-link(:to="{name: 'me'}" v-slot="{href, isActive}")
+      a.tab-bar(
+        :href="href"
+        :class="{active: isActive}"
+        v-click-outside="outClick"
+        @contextmenu.prevent="communityMenu")
+        .tab-bar-pre
+          i.bx.bxs-heart-circle
+        transition(name="scale")
+          .tab-bar-content(v-if="isActive")  社区
+        transition(name="scale")
+          .tab-bar-after(v-if="isActive") +
+        transition(name="fade")
+          .context-menus.left.bottom(v-if="contextmenu.community.status")
+            .context-menu(@click.prevent="menuClick('fold')") 创建文件夹
+            .context-menu(@click.prevent="menuClick('channel')") 创建频道
+    n-link(:to="{name: 'friends'}" v-slot="{ href, isActive }")
+      a.tab-bar(:href="href" :class="{active: isActive}")
+        i.bx.bxs-group
+        transition(name="scale")
+          .tab-bar-content(v-if="isActive") 好友
+        transition(name="scale")
+          .tab-bar-after(v-if="isActive") +
+  .tab-body
+    slot
 </template>
 <script>
 export default {
-  name: 'SideSlider',
+  name: 'SideTab',
   data() {
     return {
       dialog: {
@@ -149,17 +138,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-section.app-page {
-  background: var(--vs-theme-bg);
-  display: flex;
-  align-items: stretch;
-  justify-content: flex-start;
-  position: absolute;
-  left: 190px;
-  right: 0;
-  height: 100%;
-}
-
 .footer {
   flex: 1;
   display: flex;
@@ -180,8 +158,26 @@ section.app-page {
 .tab {
   &s {
     display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: var(--background-secondary);
+  }
+  &-body {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 35vh;
+    svg.empty {
+      fill: var(--background-primary);
+      padding: 16px 0;
+    }
   }
   &-bar {
+    &s {
+      display: flex;
+    }
     height: 52px;
     flex: 1;
     display: flex;

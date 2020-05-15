@@ -5,9 +5,6 @@ main#placehold
 <script>
 export default {
   name: 'Placehold',
-  mounted() {
-    this.$router.push('/more')
-  },
 }
 </script>
 <style lang="scss" scoped>

@@ -21,7 +21,7 @@
             .avatar.large(:style="{'background-image':`url(${nav.url})`}")
             | {{nav.label}}
       .spacer
-      n-link.nav-item(to="/more/" active-class="active")
+      n-link.nav-item(to="/" exact-active-class="active")
         .avatar.large
           i.bx.bxs-widget
         | 更多社区
