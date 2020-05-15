@@ -69,9 +69,6 @@ module.exports = {
     'dialog-polyfill/dialog-polyfill.css',
     '~/styles/global.scss',
   ],
-  env: {
-    'jest/globals': true,
-  },
   plugins: [
     {
       src: '~/plugins/persistedstate',
@@ -94,7 +91,7 @@ module.exports = {
     cache: true,
     parallel: true,
     styleResources: {
-      scss: '~/styles/variables.scss',
+      scss: './styles/variables.scss',
     },
     transpile: [/^element-ui/],
     /*

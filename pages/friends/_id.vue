@@ -58,6 +58,28 @@
       font-size: 12px;
     }
   }
+  .community-list .item {
+    width: 165px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0 10px 10px 0;
+    .img {
+      width: 100%;
+      height: 94px;
+    }
+    .footer {
+      background: #292b2f;
+      padding: 8px;
+      img {
+        @include Circle(38px);
+        margin-right: 8px;
+      }
+      span {
+        color: #dcddde;
+        font-size: 14px;
+      }
+    }
+  }
 }
 </style>
 <template>
@@ -116,8 +138,14 @@
           </div>
         </div>
         <div class="title">加入的社区</div>
-        <div class="community-list">
-          <div class="item"></div>
+        <div class="community-list flex wrap">
+          <n-link :to="'/channels/FIFA18'" class="item" v-for="c in 6">
+            <img class="img" src="http://placekitten.com/165/94" />
+            <div class="footer flex aic">
+              <img src="http://placekitten.com/38/38" />
+              <span>炉石传说</span>
+            </div>
+          </n-link>
         </div>
       </div>
     </div>
@@ -134,7 +162,7 @@ export default {
   },
  methods:{
    send_message(){
-     console.log("发消息");
+     this.$router.push("/friends/chat/"+this.$route.params.id)
    },
    click_admin(db){
     console.log("点击管理员");
