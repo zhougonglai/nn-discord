@@ -15,11 +15,14 @@ form.form {
   padding: 4px 8px;
   min-height: 40px;
   background-color: #2d2f34;
-  border: 1px solid #52545d;
+  border: 1px solid #222428;
   position: relative;
   border-radius: 4px;
+  label {
+    line-height: 0;
+  }
   &:focus-within {
-    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.4) inset;
+    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2) inset;
   }
   &:hover {
     .form-clear {
@@ -33,7 +36,7 @@ form.form {
   //   border-radius: 0 0 3px 3px;
   // }
   & + .form-contrl {
-    margin-top: $n;
+    margin-top: 2 * $n;
   }
 
   &.border {
@@ -88,12 +91,11 @@ form.form {
   }
   &__before {
     margin-right: 4px;
+    margin-left: 4px;
+    cursor: default;
     color: lightgray;
-    cursor: pointer;
+    text-align: center;
     min-width: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
 
   .verify {
@@ -104,5 +106,26 @@ form.form {
     font-size: small;
     display: flex;
     align-items: center;
+  }
+}
+
+.bubble {
+  width: 12px;
+  height: 12px;
+  background-color: #72767d;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 16px;
+  position: relative;
+  &::before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    background-color: rgba(whitesmoke, 0.2);
+    border-radius: 50%;
+    position: absolute;
+    left: -6px;
+    top: -6px;
+    animation: scale-pin 625ms linear infinite alternate;
   }
 }

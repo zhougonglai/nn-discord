@@ -1,10 +1,12 @@
 <template lang="pug">
 #sign-in
-  h2.title 用户登录
+  h3.v-tac.no-select 用户登录
   form.form.mt-2(novalidate role="form" ref="form")
     .form-contrl
       label(for="phone")
         Phone
+      .form-contrl__before
+        | + 86
       input#phone.form-input(
         required
         ref="phone"
@@ -29,7 +31,22 @@
   .flex.full-width.my-2.space-between
     nn-checkbox(v-model="remember") 记住我
     nn-checkbox(v-model="autologin") 自动登录
-  el-button.block(@click="login" type="primary") 登录
+  .my-2
+    el-button.full-width(@click="login" type="primary") 登录
+  .flex.full-width
+    .tap 忘记密码
+    .spacer
+    .tap 立即注册
+  .flex.jcc.my-2
+    small.dropdown-link.text-lightgray(
+      @click="showDropdown"
+      @mouseover="showDropdown"
+      @mouseleave="hideDropdown"
+      v-click-outside="hideDropdownIm"
+    ) 其他登录方式 >
+      .dropdown-menus.bottom(v-if="dropdown")
+        .dropdown-menu(@click="$parent.switchSignForm()") 验证码登录
+        .dropdown-menu NN号/邮箱号登录
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -53,6 +70,24 @@ export default {
         mobile_num: '',
         password: '',
       },
+      dropdown: 0,
+      error: {
+        status: false,
+        msg: '',
+        mobile_num: {
+          status: false,
+          msg: '',
+        },
+        code: {
+          status: false,
+          msg: '',
+        },
+      },
+      sendCodeContrl: {
+        sending: false,
+        time: 60,
+        timer: 0,
+      },
     }
   },
   methods: {
@@ -64,21 +99,24 @@ export default {
       this.$parent.closeDialog()
       this.$router.push({ name: 'me' }, this.$nuxt.$loading.finish)
     },
+    showDropdown() {
+      if (!this.dropdown) {
+        this.dropdown = 1
+      } else {
+        clearTimeout(this.dropdown)
+      }
+    },
+    hideDropdown() {
+      this.dropdown = setTimeout(this.hideDropdownIm, 650)
+    },
+    hideDropdownIm() {
+      this.dropdown = 0
+    },
     ...mapActions(['getUser', 'getCommunityGroup', 'getFriendsGroup']),
   },
 }
 </script>
 <style lang="scss" scoped>
 #sign-in {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .title {
-    user-select: none;
-  }
-  .block {
-    width: 100%;
-  }
 }
 </style>
