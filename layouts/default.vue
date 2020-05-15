@@ -3,7 +3,7 @@
   header#app-header
     #logo
       Logo
-    .search-input(@click="openSearch") 搜索好友/社区}
+    .search-input(@click="openSearch") 搜索好友/社区
       i.bx.bx-search
   main#app-main
     nav#app-nav(aria-label="侧边栏")
@@ -21,7 +21,7 @@
             .avatar.large(:style="{'background-image':`url(${nav.url})`}")
             | {{nav.label}}
       .spacer
-      n-link.nav-item(to="/more" active-class="active")
+      n-link.nav-item(to="/more/" active-class="active")
         .avatar.large
           i.bx.bxs-widget
         | 更多社区
@@ -38,7 +38,7 @@
       .item
         i.bx.bxs-cog
   nn-dialog(:open.sync="sign.in.status" clear)
-    #box
+    #box(v-if="sign.in.status")
       SignIn
 </template>
 <script>

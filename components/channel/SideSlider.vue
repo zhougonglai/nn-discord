@@ -1,7 +1,7 @@
 <template lang="pug">
-section#app-page
+section.app-page
   nn-dialog(:open.sync="dialog.community.channel.status" title="创建频道")
-    .body
+    .body(v-if="dialog.community.channel.status")
       h4.sub-title 频道资料
       .nn-radio-group
         .nn-radio-item(
@@ -149,13 +149,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-section#app-page {
-  width: calc(100vw - 190px);
+section.app-page {
   background: var(--vs-theme-bg);
   display: flex;
   align-items: stretch;
-  flex: 1;
   justify-content: flex-start;
+  position: absolute;
+  left: 190px;
+  right: 0;
+  height: 100%;
   .sidebar {
     width: 240px;
     background: var(--background-secondary);
