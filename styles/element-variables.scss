@@ -666,7 +666,7 @@ $--button-primary-border-color: $--color-primary !default;
 // /* Popover
 // -------------------------- */
 // /// color||Color|0
-// $--popover-background-color: $--color-white !default;
+$--popover-background-color: #000 !default;
 // /// fontSize||Font|1
 // $--popover-font-size: $--font-size-base !default;
 // /// color||Color|0
@@ -987,5 +987,9 @@ $--button-primary-border-color: $--color-primary !default;
 // );
 
 /* 改变 icon 字体路径变量，必需 */
-$--font-path: "~element-ui/lib/theme-chalk/fonts";
-@import "~element-ui/packages/theme-chalk/src/index";
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+@import '~element-ui/packages/theme-chalk/src/index';
+
+.el-date-picker {
+  background-color: #000;
+}

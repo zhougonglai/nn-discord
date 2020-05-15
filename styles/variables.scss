@@ -1,0 +1,10 @@
+@mixin Circle($w: 100px) {
+  width: $w;
+  height: $w;
+  border-radius: 50%;
+}
+.nowrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

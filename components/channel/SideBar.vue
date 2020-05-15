@@ -23,7 +23,7 @@ export default {
   &-header {
     height: 130px;
     display: grid;
-    background-image: url('http://dummyimage.com/240x130/02adea&text=a bgImg');
+    background-image: url('http://placekitten.com/240/130');
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     .panel {

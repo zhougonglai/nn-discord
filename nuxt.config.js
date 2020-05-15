@@ -84,10 +84,7 @@ module.exports = {
     '~/plugins/element-ui.js',
   ],
 
-  buildModules: [
-    '@nuxtjs/dotenv',
-   , '@nuxtjs/eslint-module'
-  ],
+  buildModules: ['@nuxtjs/dotenv', , '@nuxtjs/eslint-module'],
   server: {
     host: '0.0.0.0',
   },
@@ -96,6 +93,9 @@ module.exports = {
   build: {
     cache: true,
     parallel: true,
+    styleResources: {
+      scss: '~/styles/variables.scss',
+    },
     transpile: [/^element-ui/],
     /*
      ** You can extend webpack config here

@@ -193,36 +193,6 @@ export default {
      name:"HEBE00",
      age:18,
      game:"英雄联盟-韩服"
-   },{
-     id:3,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
-   },{
-     id:4,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
-   },{
-     id:5,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
-   },{
-     id:6,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
-   },{
-     id:7,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
    }]
  }},methods:{
    search_click(){
