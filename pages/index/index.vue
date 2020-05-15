@@ -1,8 +1,8 @@
 <template lang="pug">
 main#placehold
   el-button.sign-in(@click="openSignForm") 登录
-  nn-dialog(:open.sync="sign.status" clear)
-    Box(v-if="sign.status" :type="sign.types[sign.status]")
+  nn-dialog(:open.sync="dialog.status" clear)
+    Box(v-if="dialog.status" :type="dialog.types[dialog.status]")
   iframe(src="https://www.nn.com/")
   //- CircleLoader
 </template>
@@ -16,7 +16,7 @@ export default {
   },
   data() {
     return {
-      sign: {
+      dialog: {
         status: 0,
         types: ['', 'SignIn', 'SignUp'],
       },
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     openSignForm() {
-      this.sign.status = 1
+      this.dialog.status = 1
     },
   },
 }

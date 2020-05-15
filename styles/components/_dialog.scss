@@ -11,32 +11,19 @@
   justify-content: center;
   z-index: 99;
   background: rgba(0, 0, 0, 0.4);
-  // .backdrop {
-  //   position: fixed;
-  //   top: 0;
-  //   right: 0;
-  //   bottom: 0;
-  //   left: 0;
-
-  //   // background: rgba(0, 0, 0, 0.4);
-  //   z-index: 9;
-  // }
   &-close {
     position: absolute !important;
-    top: 10px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-    line-height: 23px;
+    top: 16px;
+    right: 16px;
+    font-size: 32px;
     text-align: center;
     border-radius: 50%;
-    box-shadow: var(--elevation-high);
     cursor: pointer;
     transition: all 0.2s linear;
-    background-color: #72767d;
-    color: #36393f;
+    // background-color: #72767d;
+    background-color: transparent;
+    color: darkgray;
     &:hover {
-      box-shadow: var(--elevation-medium);
       color: white;
     }
   }
