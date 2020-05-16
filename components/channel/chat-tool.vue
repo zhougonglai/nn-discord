@@ -52,6 +52,7 @@
   <div class="msg-tool">
     <el-input
       v-model="input"
+      ref="txt"
       class="send-input"
       placeholder="请按“ENTER”键发送信息"
       @keyup.enter.native="send"
@@ -127,6 +128,7 @@ export default {
   methods: {
     insert(emoji) {
       this.input += emoji
+      this.$refs.txt.focus()
     },
     send() {
       this.$emit('send', {

@@ -28,7 +28,7 @@
       >
     </div>
     <!-- 消息 -->
-    <div class="message flex-sub">
+    <div class="message flex-sub" ref="message">
       <chat-item
         :data="data"
         :key="data.id"
@@ -49,7 +49,20 @@ export default {
     [chatTool.name]: chatTool,
   },
   mounted() {
-    //console.log();
+    setTimeout(() => {
+      let m = this.$refs.message
+    }, 10)
+  },
+  watch: {
+    msgList: {
+      handler: function () {
+        setTimeout(() => {
+          let m = this.$refs.message
+          m.scrollTop = m.scrollHeight
+        }, 0)
+      },
+      immediate: true,
+    },
   },
   computed: {
     ...mapState({
@@ -60,11 +73,13 @@ export default {
     return {}
   },
   methods: {
+    ...mapActions(['chat/send-text']),
     add_friend() {
       console.log('添加好友')
     },
     send_text(data) {
-      console.log('发送消息', data)
+      console.log(this.$store)
+      this['chat/send-text'](data.text)
     },
   },
 }

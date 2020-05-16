@@ -6,6 +6,8 @@ const state = () => ({
     {
       id: 1,
       type: 'TEXT',
+      src:
+        '我想知道你是怎么玩英雄联盟韩服的，我是个菜鸟，可以告诉我最简单的出装吗，让我这个新手玩起来也能像大神一样哈哈哈哈啊哈哈，大神~~ 帮帮忙啦😭😭😭~~~~~~~！！！！！！！！！！',
     },
     {
       id: 2,
@@ -27,9 +29,24 @@ const state = () => ({
 
 const getters = {}
 
-const actions = {}
+const actions = {
+  ['send-text']({ state, commit }, data) {
+    commit('message-add', data)
+  },
+}
 
-const mutations = {}
+const mutations = {
+  ['update'](state) {
+    //
+  },
+  ['message-add'](state, data) {
+    state.msgList.push({
+      id: Math.random(),
+      type: 'TEXT',
+      src: data,
+    })
+  },
+}
 
 export default {
   state,

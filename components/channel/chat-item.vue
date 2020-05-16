@@ -40,8 +40,7 @@
       </div>
       <div class="msg" v-if="data.type == 'TEXT'">
         <span class="at">@我</span>
-        我想知道你是怎么玩英雄联盟韩服的，我是个菜鸟，可以告诉我最简单的出装吗，让我这个新手玩起来也能像大神一样
-        哈哈哈哈啊哈哈，大神~~ 帮帮忙啦😭😭😭~~~~~~~！！！！！！！！！！
+        {{ data.src }}
       </div>
       <div class="msg" v-if="data.type == 'IMG'">
         <el-image
