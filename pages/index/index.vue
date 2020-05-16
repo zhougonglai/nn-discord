@@ -18,7 +18,14 @@ export default {
     return {
       dialog: {
         status: 0,
-        types: ['', 'SignVerify', 'SignIn', 'SignUp'],
+        types: [
+          '',
+          'SignVerify',
+          'SignIn',
+          'SignAccount',
+          'SignUp',
+          'ForgetPassword',
+        ],
       },
     }
   },

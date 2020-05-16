@@ -18,6 +18,9 @@ form.form {
   border: 1px solid #222428;
   position: relative;
   border-radius: 4px;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0) inset;
+  transition: box-shadow 0.2s linear;
+  will-change: box-shadow;
   label {
     line-height: 0;
   }
@@ -75,6 +78,7 @@ form.form {
       color: white;
       caret-color: darkgray;
       overflow: hidden;
+      letter-spacing: 2pt;
     }
   }
   .form-clear {

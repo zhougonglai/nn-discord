@@ -6,7 +6,7 @@
       label(for="phone")
         Phone
       .form-contrl__before
-        | + 86
+        | + {{sign.country_code}}
       input#phone.form-input(
         required
         ref="phone"
@@ -29,15 +29,15 @@
         autocomplete="current-password"
         v-model="sign.password")
   .flex.full-width.my-2.space-between
-    nn-checkbox(v-model="remember") 记住我
-    nn-checkbox(v-model="autologin") 自动登录
+    el-checkbox(v-model="remember") 记住我
+    el-checkbox(v-model="autologin") 自动登录
   .my-2
     el-button.full-width(@click="login" type="primary") 登录
   .flex.full-width
-    .tap 忘记密码
+    .tap(@click="$parent.switchSignForm(5)") 忘记密码
     .spacer
-    .tap 立即注册
-  .flex.jcc.my-2
+    .tap(@click="$parent.switchSignForm(4)") 立即注册
+  .flex.jcc.mt-5
     small.dropdown-link.text-lightgray(
       @click="showDropdown"
       @mouseover="showDropdown"
@@ -46,7 +46,7 @@
     ) 其他登录方式 >
       .dropdown-menus.bottom(v-if="dropdown")
         .dropdown-menu(@click="$parent.switchSignForm()") 验证码登录
-        .dropdown-menu NN号/邮箱号登录
+        .dropdown-menu(@click="$parent.switchSignForm(3)") NN号/邮箱号登录
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -116,7 +116,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-#sign-in {
-}
-</style>
