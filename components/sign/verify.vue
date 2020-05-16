@@ -43,10 +43,10 @@
   .my-2
     el-button.full-width(type="primary" @click="login") 登录
   .flex.full-width
-    .tap 忘记密码
+    .tap(@click="$parent.switchSignForm(5)") 忘记密码
     .spacer
-    .tap 立即注册
-  .flex.jcc.my-2
+    .tap(@click="$parent.switchSignForm(4)") 立即注册
+  .flex.jcc.mt-5
     small.dropdown-link.text-lightgray(
       @click="showDropdown"
       @mouseover="showDropdown"
@@ -55,9 +55,10 @@
     ) 其他登录方式 >
       .dropdown-menus.bottom(v-if="dropdown")
         .dropdown-menu(@click="$parent.switchSignForm(2)") 手机号登录
-        .dropdown-menu NN号/邮箱号登录
+        .dropdown-menu(@click="$parent.switchSignForm(3)") NN号/邮箱号登录
 </template>
 <script>
+import { mapActions } from 'vuex'
 import Phone from '~/assets/icons/phone.svg'
 import Safe from '~/assets/icons/safe.svg'
 
@@ -108,7 +109,14 @@ export default {
       this.verifyed = true
     },
     sendContrl() {},
-    login() {},
+    async login() {
+      this.$nuxt.$loading.start()
+      await this.getUser()
+      await this.getCommunityGroup()
+      await this.getFriendsGroup()
+      this.$parent.closeDialog()
+      this.$router.push({ name: 'me' }, this.$nuxt.$loading.finish)
+    },
     showDropdown() {
       if (!this.dropdown) {
         this.dropdown = 1
@@ -122,6 +130,7 @@ export default {
     hideDropdownIm() {
       this.dropdown = 0
     },
+    ...mapActions(['getUser', 'getCommunityGroup', 'getFriendsGroup']),
   },
 }
 </script>

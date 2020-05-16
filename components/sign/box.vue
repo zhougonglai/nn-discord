@@ -6,6 +6,8 @@
 import SignIn from './in'
 import SignUp from './up'
 import SignVerify from './verify'
+import SignAccount from './account'
+import ForgetPassword from './forgetPassword'
 
 export default {
   name: 'SignBox',
@@ -19,6 +21,8 @@ export default {
     SignIn,
     SignUp,
     SignVerify,
+    SignAccount,
+    ForgetPassword,
   },
   methods: {
     closeDialog() {

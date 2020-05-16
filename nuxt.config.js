@@ -81,7 +81,11 @@ module.exports = {
     '~/plugins/element-ui.js',
   ],
 
-  buildModules: ['@nuxtjs/dotenv', , '@nuxtjs/eslint-module'],
+  buildModules: [
+    '@nuxtjs/dotenv',
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources',
+  ],
   server: {
     host: '0.0.0.0',
   },

@@ -89,7 +89,7 @@
       <!-- 左侧 -->
       <div class="nav2">
         <div class="flex aic mb-2 mt-1">
-          <img class="Avatar mr-1" src="http://placekitten.com/1280/130" />
+          <img class="Avatar mr-1" src="http://placekitten.com/48/48" />
           <div class="nickname">我是好友2</div>
         </div>
         <div class="label">社区号</div>
@@ -107,14 +107,18 @@
       <!-- 右侧 -->
       <div class="flex-sub box-right">
         <div class="title">社区介绍</div>
-        <div
-          class="info"
-        >范围生栋覆屋威风威风佛文峰从威风威风 沃尔芬佛违反为我佛文峰沃尔芬我发我发 我发玮佛文峰玮佛文峰我发我发范围生栋覆屋威风威风佛文峰从威风威风 沃尔芬佛 违反为我佛文峰沃尔芬我发我发我发玮佛文峰玮佛文峰我发我发</div>
+        <div class="info">
+          范围生栋覆屋威风威风佛文峰从威风威风
+          沃尔芬佛违反为我佛文峰沃尔芬我发我发
+          我发玮佛文峰玮佛文峰我发我发范围生栋覆屋威风威风佛文峰从威风威风
+          沃尔芬佛 违反为我佛文峰沃尔芬我发我发我发玮佛文峰玮佛文峰我发我发
+        </div>
         <div class="title">个性签名</div>
         <div class="info">社区区长很懒，什么都没有留下</div>
         <div class="title">管理员</div>
         <div class="admin-list">
           <img
+            :key="a"
             @click="click_admin(a)"
             class="item"
             src="http://placekitten.com/32/32"
@@ -139,7 +143,7 @@
         </div>
         <div class="title">加入的社区</div>
         <div class="community-list flex wrap">
-          <n-link :to="'/channels/FIFA18'" class="item" v-for="c in 6">
+          <n-link :key="c" :to="'/channels/FIFA18'" class="item" v-for="c in 6">
             <img class="img" src="http://placekitten.com/165/94" />
             <div class="footer flex aic">
               <img src="http://placekitten.com/38/38" />
@@ -151,22 +155,22 @@
     </div>
   </div>
 </template>
-<script> 
-import nnBanner from '~/components/wc/nnBanner';
-import {Progress} from 'element-ui';
+<script>
+import nnBanner from '~/components/wc/nnBanner'
+import { Progress } from 'element-ui'
 export default {
   name: 'FriendSearch',
   components: {
-    [nnBanner.name]:nnBanner,
-    [Progress.name]:Progress,
+    [nnBanner.name]: nnBanner,
+    [Progress.name]: Progress,
   },
- methods:{
-   send_message(){
-     this.$router.push("/me/chat/"+this.$route.params.id)
-   },
-   click_admin(db){
-    console.log("点击管理员");
-   }
- }
+  methods: {
+    send_message() {
+      this.$router.push('/me/chat/' + this.$route.params.id)
+    },
+    click_admin(db) {
+      // this.$router.push('/friends/2')
+    },
+  },
 }
 </script>
