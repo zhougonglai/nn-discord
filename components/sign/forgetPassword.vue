@@ -1,11 +1,13 @@
 <template lang="pug">
-#sign-up
-  h3.v-tac.no-select 用户注册
+#forget-password
+  h3.v-tac.no-select 忘记密码
   small.error(v-if="error.status" v-text="error.msg")
-  form.form(novalidate ref="form")
+  form.form(novalidate role="form" ref="form")
     .form-contrl.with-before.dropdown-link
       label(for="phone")
         Phone
+      .form-contrl__before
+        | + {{sign.country_code}}
       input#phone.form-input(
         required
         type="tel"
@@ -25,9 +27,9 @@
         input#smscode.form-input(
           required
           type="tel"
-          name="code"
-          ref="code"
           autocomplete="off"
+          name="safecode"
+          ref="safecode"
           placeholder="验证码"
           v-model.trim="sign.smscode")
         el-button.mr-1(type="text" size="mini" @click="sendContrl" :disabled="!!sendCodeContrl.timer")
@@ -37,38 +39,25 @@
         | 点击按钮进行验证
       .dropdown-menus.bottom.start(v-if="error.code.status")
         .dropdown-menu.nohover(v-text="error.code.msg")
-    template(v-if="verifyed")
-      .form-contrl.dropdown-link
-        label(for="pwd")
-          Lock
-        input#pwd.form-input(
-          required
-          name="pwd"
-          type="password"
-          ref="password"
-          autocomplete="current-password"
-          placeholder="密码"
-          v-model="sign.password")
-        .dropdown-menus.bottom.start(v-if="error.password.status")
-          .dropdown-menu.nohover(v-text="error.password.msg")
-        i.form-clear.el-icon-error(@click="sign.password = ''")
-      .form-contrl
-        label(for="refer")
-          i.el-icon-s-ticket.form-icon
-        input#refer.form-input(
-          type="text"
-          name="refer_code"
-          autocomplete='off'
-          placeholder="推荐码(可为空)"
-          v-model="sign.refer_code")
-  .flex.full-width.mt-3.align-items-center
-    el-checkbox(v-model="confirm") 已阅读并同意
-    small.inline-flex.pointer.text-primary 《用户服务条款》
-  .my-2
-    el-button.full-width(type="primary" :disabled="!confirm" @click="register") 注册
-  .flex.aic.jcc.mt-2
-    small.text-lightgray.mr-1 已有账号
-    .pointer.text-primary(@click="$parent.switchSignForm()") 去登录
+      i.form-clear.el-icon-error(v-if="sign.smscode" @click="sign.smscode = ''")
+    .form-contrl.dropdown-link(v-if="verifyed")
+      label(for="pwd")
+        Lock
+      input#pwd.form-input(
+        required
+        type="password"
+        name="password"
+        ref="password"
+        placeholder="密码"
+        autocomplete="current-password"
+        v-model.trim="sign.password")
+      .dropdown-menus.bottom.start(v-if="error.password.status")
+        .dropdown-menu.nohover(v-text="error.password.msg")
+      i.form-clear.el-icon-error(v-if="sign.password" @click="sign.password = ''")
+  .mt-5
+    el-button.full-width(type="primary" @click="reset") 重置密码
+  .full-width.v-tac.mt-2
+    .tap(@click="$parent.switchSignForm()") 返回登录
 </template>
 <script>
 import Phone from '~/assets/icons/phone.svg'
@@ -76,7 +65,7 @@ import Safe from '~/assets/icons/safe.svg'
 import Lock from '~/assets/icons/lock.svg'
 
 export default {
-  name: 'SignUp',
+  name: 'ForgetPassword',
   components: {
     Phone,
     Safe,
@@ -84,7 +73,6 @@ export default {
   },
   data() {
     return {
-      confirm: true,
       verifyed: false,
       error: {
         status: false,
@@ -102,22 +90,19 @@ export default {
           msg: '',
         },
       },
+      sign: {
+        country_code: 86,
+        mobile_num: '',
+        state: 1,
+        smscode: '',
+        smscode_key: '',
+        password: '',
+        server_status: '',
+      },
       sendCodeContrl: {
         sending: false,
         time: 60,
         timer: 0,
-      },
-      sign: {
-        country_code: 86,
-        mobile_num: '',
-        state: 2,
-        password: '',
-        server_status: '',
-        smscode: '',
-        smscode_key: '',
-        package_id: '',
-        price_id: '',
-        refer_code: '',
       },
       geetest: {
         geetest_challenge: '',
@@ -129,9 +114,22 @@ export default {
   methods: {
     verify() {
       if (this.phoneValidity()) {
+        // this.captcha.verify();
       }
     },
-    async sendSmscode() {},
+    async sendSmscode() {
+      // const { code, msg, data } = await signService.smscode({
+      // 	...this.sign,
+      // 	...this.geetest,
+      // 	phone: this.sign.mobile_num,
+      // });
+      // if (code) {
+      // 	this.error.msg = msg;
+      // 	this.error.status = code;
+      // } else {
+      // 	this.sign.smscode_key = data.smscode_key;
+      // }
+    },
     sendContrl() {
       if (!this.sendCodeContrl.timer) {
         this.clearVerify()
@@ -195,7 +193,7 @@ export default {
       this.error.code.status = false
       this.error.password.status = false
     },
-    async register() {
+    async reset() {
       if (!this.phoneValidity()) return
       if (!this.verifyValidity()) return
       if (!this.codeValidity()) return
@@ -205,11 +203,11 @@ export default {
     },
   },
   async mounted() {},
-  async created() {},
+  created() {},
 }
 </script>
 <style lang="scss" scoped>
-#sign-up {
+#forget-password {
   height: 100%;
 }
 </style>

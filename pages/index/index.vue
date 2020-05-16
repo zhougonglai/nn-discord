@@ -18,7 +18,14 @@ export default {
     return {
       dialog: {
         status: 0,
-        types: ['', 'SignVerify', 'SignIn', 'SignUp'],
+        types: [
+          '',
+          'SignVerify',
+          'SignIn',
+          'SignAccount',
+          'SignUp',
+          'ForgetPassword',
+        ],
       },
     }
   },
@@ -31,8 +38,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 main#placehold::v-deep {
-  width: 100%;
-  height: 100%;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
