@@ -162,7 +162,7 @@ export default {
   },
  methods:{
    send_message(){
-     this.$router.push("/friends/chat/"+this.$route.params.id)
+     this.$router.push("/me/chat/"+this.$route.params.id)
    },
    click_admin(db){
     console.log("点击管理员");

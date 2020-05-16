@@ -1,7 +1,7 @@
 <style scoped lang="scss">
 </style>
 <template>
-  <div>聊天</div>
+  <div>机器人聊天</div>
 </template>
 <script>
 export default {

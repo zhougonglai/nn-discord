@@ -20,6 +20,14 @@ section#me
             | {{group.label}}
           template(v-if="activeCommunityGroup.includes(group.id)")
             n-link.list-item(
+              :to="`/me/chat/robot`")
+              .list-item-pre
+                template
+                  .avatar(:style="{'background-image':`url(http://placekitten.com/40/40)`}")
+              .list-item-content 机器人
+              .list-item-brief
+                span.bage.error 9
+            n-link.list-item(
               v-for="item in group.children"
               :to="`/me/chat/${item.id}`"
               :key="item.id")
