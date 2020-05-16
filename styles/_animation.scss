@@ -16,6 +16,18 @@
   }
 }
 
+@keyframes rebound {
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @keyframes blink {
   0% {
     opacity: 0.2;
