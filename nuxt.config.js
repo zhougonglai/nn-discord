@@ -91,12 +91,12 @@ module.exports = {
   },
   modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
   axios: {},
+  styleResources: {
+    scss: './styles/variables.scss',
+  },
   build: {
     cache: true,
     parallel: true,
-    styleResources: {
-      scss: './styles/variables.scss',
-    },
     transpile: [/^element-ui/],
     /*
      ** You can extend webpack config here
