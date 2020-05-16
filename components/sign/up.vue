@@ -68,7 +68,7 @@
     el-button.full-width(type="primary" :disabled="!confirm" @click="register") 注册
   .flex.aic.jcc.mt-2
     small.text-lightgray.mr-1 已有账号
-    .text-primary(@click="$parent.switchSignForm()") 去登录
+    .pointer.text-primary(@click="$parent.switchSignForm()") 去登录
 </template>
 <script>
 import Phone from '~/assets/icons/phone.svg'
