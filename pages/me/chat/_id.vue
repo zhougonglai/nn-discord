@@ -1,27 +1,71 @@
 <style scoped lang="scss">
+//聊天窗口
+.page {
+  background-color: #36393f;
+}
+.add-friend-tip {
+  $color-warn: #ef6643;
+  $color: #fff;
+  background-color: $color-warn;
+  color: $color;
+  padding: 7px;
+  .el-button {
+    margin-left: 15px;
+    color: $color-warn;
+    background: $color;
+  }
+}
+.message {
+  padding: 30px 24px;
+}
 </style>
 <template>
-  <div>聊天</div>
+  <div class="page spacer flex column">
+    <div class="add-friend-tip flex jcc aic">
+      非好友消息可能会丢失哦，快添加成好友吧
+      <el-button @click="add_friend" round size="medium" type="primary"
+        >添加好友</el-button
+      >
+    </div>
+    <!-- 消息 -->
+    <div class="message flex-sub">
+      <chat-item
+        :data="data"
+        :key="data.id"
+        v-for="data in msgList"
+      ></chat-item>
+    </div>
+    <!-- 输入框 -->
+    <chat-tool @send="send_text"></chat-tool>
+  </div>
 </template>
 <script>
+import chatItem from '~/components/channel/chat-item'
+import chatTool from '~/components/channel/chat-tool'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 export default {
+  components: {
+    [chatItem.name]: chatItem,
+    [chatTool.name]: chatTool,
+  },
   mounted() {
     //console.log();
   },
   computed: {
-    // test() {
-    //   return 0;
-    // }
+    ...mapState({
+      msgList: (s) => s.chat.msgList,
+    }),
   },
   data() {
-    return {
-//id:1
-};
+    return {}
   },
-methods:{
-    // test() {
-    //   return 0;
-    // }
+  methods: {
+    add_friend() {
+      console.log('添加好友')
+    },
+    send_text(data) {
+      console.log('发送消息', data)
+    },
+  },
 }
-};
 </script>
