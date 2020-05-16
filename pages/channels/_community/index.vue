@@ -1,5 +1,5 @@
 <template lang="pug">
-.channel channel {{$route.params.channel}}
+    nuxt-child
 </template>
 <script>
 export default {
