@@ -1,11 +1,11 @@
 <template lang="pug">
 #box
-  transition(name="scale")
-    component(:is="type")
+  component(:is="type")
 </template>
 <script>
 import SignIn from './in'
 import SignUp from './up'
+import SignVerify from './verify'
 
 export default {
   name: 'SignBox',
@@ -18,10 +18,14 @@ export default {
   components: {
     SignIn,
     SignUp,
+    SignVerify,
   },
   methods: {
     closeDialog() {
       this.$parent.close()
+    },
+    switchSignForm(status) {
+      this.$emit('switchSignForm', status)
     },
   },
 }

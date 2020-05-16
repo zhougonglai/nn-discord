@@ -67,3 +67,14 @@ button.nn-btn {
     border-radius: 12px;
   }
 }
+
+.tap {
+  color: lightgray;
+  cursor: pointer;
+  font-size: small;
+  line-height: 2.2;
+  text-decoration: none;
+  &:hover {
+    color: whitesmoke;
+  }
+}

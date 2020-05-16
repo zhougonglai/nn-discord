@@ -7,6 +7,15 @@
   }
 }
 
+@keyframes scale-pin {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
 @keyframes blink {
   0% {
     opacity: 0.2;
