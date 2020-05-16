@@ -89,7 +89,7 @@
       <!-- 左侧 -->
       <div class="nav2">
         <div class="flex aic mb-2 mt-1">
-          <img class="Avatar mr-1" src="http://placekitten.com/1280/130" />
+          <img class="Avatar mr-1" src="http://placekitten.com/48/48" />
           <div class="nickname">我是好友2</div>
         </div>
         <div class="label">社区号</div>
