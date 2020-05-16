@@ -224,30 +224,14 @@ footer#app-footer {
     contain: layout size;
     transition: height 0.2s linear, background 325ms linear;
   }
-  &.active {
+  &.active,
+  &:hover,
+  &:active,
+  &:focus {
     background-color: var(--nav-hover);
     color: var(--nav-label-active);
     &::after {
       height: 100%;
-    }
-    .icon-button {
-      border-radius: 8px;
-      background-color: rgb(var(--vs-primary));
-    }
-    i.bx {
-      color: var(--interactive-active) !important;
-    }
-  }
-  &:not(.active):hover,
-  &:not(.active):active,
-  &:not(.active):focus {
-    background-color: var(--nav-hover);
-    color: var(--nav-label-active);
-    &::after {
-      height: 24px;
-    }
-    .avatar {
-      background-color: rgb(var(--vs-primary));
     }
     i.bx {
       color: white;

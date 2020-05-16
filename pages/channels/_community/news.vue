@@ -1,8 +1,8 @@
 <template lang="pug">
-.channel channel {{$route.params.id}}
+nuxt-child
 </template>
 <script>
 export default {
-  name: 'Channel',
+  name: 'CommunityNews',
 }
 </script>
