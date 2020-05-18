@@ -17,6 +17,7 @@
     margin-top: 8px;
     color: #dcddde;
     line-height: 20px;
+    position: relative;
   }
   .at {
     color: #65b2ff;
@@ -28,6 +29,14 @@
     height: auto;
     width: auto;
   }
+}
+div.video-btn {
+  transform: translateX(-50%) translateY(-50%);
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  font-size: 48px;
+  color: #dcddde;
 }
 </style>
 <template>
@@ -53,7 +62,10 @@
         <audio :src="data.src" class="item-audio" controls></audio>
       </div>
       <div @click.prevent="handleEvent" class="msg" v-if="data.type == 'VIDEO'">
-        <video :src="data.src" class="item-video" controls></video>
+        <video :src="data.src" class="item-video"></video>
+        <div class="video-btn">
+          <i class="el-icon-video-play"></i>
+        </div>
       </div>
     </div>
     <el-dialog
