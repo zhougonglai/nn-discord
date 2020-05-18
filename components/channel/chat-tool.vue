@@ -19,12 +19,9 @@
   .msg-right {
     .btn {
       cursor: pointer;
-      padding: 5px;
+      padding: 0 5px;
+      padding-top: 6.5px;
       margin: 0 5px;
-      img {
-        width: 24px;
-        height: 24px;
-      }
     }
   }
 }
@@ -66,7 +63,7 @@
               @click.stop="clickEvent"
             >
               <div class="btn">
-                <img src="http://placekitten.com/24/24" />
+                <emoji></emoji>
               </div>
             </div>
             <div slot="emoji-picker" slot-scope="{ emojis, insert }">
@@ -97,20 +94,33 @@
             </div>
           </emoji-picker>
           <div class="btn">
-            <img src="http://placekitten.com/24/24" />
+            <tupian></tupian>
           </div>
           <div class="btn">
-            <img src="http://placekitten.com/24/24" />
-          </div></div></template
-    ></el-input>
+            <Screenshot></Screenshot>
+          </div>
+        </div>
+      </template>
+    </el-input>
   </div>
 </template>
 <script>
 import { Input } from 'element-ui'
 import EmojiPicker from 'vue-emoji-picker'
+
+import emoji from '~/assets/icons/emoji.svg'
+import Screenshot from '~/assets/icons/Screenshot.svg'
+import tupian from '~/assets/icons/tupian.svg'
+
 export default {
   name: 'ChatTool',
-  components: { [Input.name]: Input, EmojiPicker },
+  components: {
+    emoji,
+    Screenshot,
+    tupian,
+    [Input.name]: Input,
+    EmojiPicker,
+  },
   data() {
     return {
       input: '',

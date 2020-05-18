@@ -38,6 +38,12 @@ div.video-btn {
   font-size: 48px;
   color: #dcddde;
 }
+.item-video {
+  cursor: pointer;
+  video {
+    max-width: 300px;
+  }
+}
 </style>
 <template>
   <div class="item flex">
@@ -61,8 +67,12 @@ div.video-btn {
       <div v-if="data.type == 'AUDIO'" class="msg" @click="handleEvent">
         <audio :src="data.src" class="item-audio" controls></audio>
       </div>
-      <div @click.prevent="handleEvent" class="msg" v-if="data.type == 'VIDEO'">
-        <video :src="data.src" class="item-video"></video>
+      <div
+        @click.prevent="handleEvent"
+        class="msg item-video"
+        v-if="data.type == 'VIDEO'"
+      >
+        <video :src="data.src"></video>
         <div class="video-btn">
           <i class="el-icon-video-play"></i>
         </div>
@@ -82,12 +92,6 @@ div.video-btn {
         controls="controls"
         style="width: 100%; object-fit: cover;"
       ></video>
-      <audio
-        v-if="audioSrc"
-        :src="audioSrc"
-        controls="controls"
-        style="width: 100%; object-fit: cover;"
-      ></audio>
     </el-dialog>
   </div>
 </template>
@@ -103,9 +107,7 @@ export default {
   data() {
     return {
       show: false,
-      imgSrc: '',
       videoSrc: '',
-      audioSrc: '',
     }
   },
   computed: {
@@ -121,14 +123,8 @@ export default {
     handleEvent() {
       const params = this.data
       const callback = () => {
-        if (params.type === 'IMG') {
-          this.imgSrc = params.src
-          this.show = true
-        } else if (params.type === 'VIDEO') {
+        if (params.type === 'VIDEO') {
           this.videoSrc = params.src
-          this.show = true
-        } else if (params.type === 'AUDIO') {
-          this.audioSrc = params.src
           this.show = true
         } else if (params.type === 'FILE') {
           window.open(params.src)
@@ -141,9 +137,7 @@ export default {
       }
     },
     handleClose(done) {
-      this.imgSrc = undefined
       this.videoSrc = undefined
-      this.audioSrc = undefined
       done()
     },
   },

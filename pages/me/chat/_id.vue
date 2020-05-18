@@ -48,29 +48,33 @@ export default {
     [chatItem.name]: chatItem,
     [chatTool.name]: chatTool,
   },
-  watch: {
-    msgList: {
-      handler() {
-        setTimeout(() => {
-          const m = this.$refs.message
-          m.scrollTop = m.scrollHeight
-        }, 0)
-      },
-      immediate: true,
-    },
+  data() {
+    return {}
   },
   computed: {
     ...mapState({
       msgList: (s) => s.chat.msgList,
     }),
   },
-  data() {
-    return {}
+  watch: {
+    msgList: {
+      handler() {
+        this.$nextTick(() => {
+          setTimeout(() => {
+            const m = this.$refs.message
+            m.scrollTop = m.scrollHeight
+          }, 0)
+        })
+      },
+      immediate: true,
+    },
   },
   methods: {
     ...mapActions(['chat/send-text']),
     add_friend() {
-      console.log('添加好友')
+      this.$axios.get('friend/is/1/2').then(({ data, code, msg }) => {
+        //
+      })
     },
     send_text(data) {
       console.log(this.$store)

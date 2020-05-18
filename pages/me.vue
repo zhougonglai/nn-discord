@@ -29,14 +29,15 @@ section#me
                 span.bage.error 9
             n-link.list-item(
               v-for="item in group.children"
-              :to="`/me/chat/${item.id}`"
+              :to="`/me/${item.type}/${item.id}`"
               :key="item.id")
               .list-item-pre
-                template(v-if="item.avatar.type === 'img'")
+                template(v-if="item.type === 'msg'")
+                  i.bx.bxs-volume-full
+                template(v-else-if="item.type === 'audio'")
+                  i.bx.bxs-megaphone
+                template(v-else-if="item.type === 'chat'")
                   .avatar(:style="{'background-image':`url(${item.avatar.source})`}")
-                template(v-else-if="item.avatar.type === 'icon'")
-                  i.bx(:class="[item.avatar.source]")
-                template(v-else) {{item.avatar.source}}
                 template(v-if="item.status")
                   span.HOLD(v-if="item.status === 'HOLD'")
                     span
