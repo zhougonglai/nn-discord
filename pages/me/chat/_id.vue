@@ -59,10 +59,12 @@ export default {
   watch: {
     msgList: {
       handler() {
-        setTimeout(() => {
-          const m = this.$refs.message
-          m.scrollTop = m.scrollHeight
-        }, 0)
+        this.$nextTick(() => {
+          setTimeout(() => {
+            const m = this.$refs.message
+            m.scrollTop = m.scrollHeight
+          }, 0)
+        })
       },
       immediate: true,
     },
