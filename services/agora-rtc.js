@@ -50,7 +50,7 @@ export default class RTC {
    * @param {*} token
    */
   async join(channel, userId = null, token = null) {
-    return await this.client.join(appId, channel, token, userId)
+    return await this.client.join(this.appId, channel, token, userId)
   }
 
   /**
@@ -70,7 +70,7 @@ export default class RTC {
     if (publish.length) {
       return await this.client.publish(publish)
     } else {
-      throw '请填写使用正确的参数!'
+      throw new Error('请填写使用正确的参数!')
     }
   }
 }

@@ -17,7 +17,7 @@
           v-for="nav in helpNav"
           :key="nav.id"
           v-slot="{href}")
-          a.nav-item(:href="href" :class="[ nav.label === $route.params.channel ? 'active' : '']")
+          a.nav-item(:href="href" :class="[ nav.label === $route.params.community ? 'active' : '']")
             .avatar.large(:style="{'background-image':`url(${nav.url})`}")
             | {{nav.label}}
       .spacer
