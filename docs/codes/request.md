@@ -8,9 +8,14 @@ $api 默认的接口封装  返回名称统一成code,msg,data
 # api 封装
 
 ```js
-this.$axios.get('friend/is/1/2').then(({ data, code, msg }) => {
-  console.log(data)
-})
+this.$axios
+  .get('friend/is/1/2')
+  .then(({ data, code, msg }) => {
+    console.log(data)
+  })
+  .catch((err) => {
+    //err.message
+  })
 ```
 
 # websocket

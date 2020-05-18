@@ -59,12 +59,11 @@ export default {
   watch: {
     msgList: {
       handler() {
-        this.$nextTick(() => {
-          setTimeout(() => {
-            const m = this.$refs.message
-            m.scrollTop = m.scrollHeight
-          }, 0)
-        })
+        if (!process.client) return
+        setTimeout(() => {
+          const m = this.$refs.message
+          m.scrollTop = m.scrollHeight
+        }, 10)
       },
       immediate: true,
     },
