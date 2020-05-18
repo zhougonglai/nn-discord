@@ -170,3 +170,8 @@ export const mutations = {
     state.activeFriendsGroup = group.map((g) => g.id)
   },
 }
+
+export const getters = {
+  // 当前用户的ID
+  USER_ID: (s) => 1, // s.user&&s.user.id
+}

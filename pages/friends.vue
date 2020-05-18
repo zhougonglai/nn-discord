@@ -48,20 +48,26 @@ section#friends
   nuxt-child
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import SideBar from '~/components/channel/SideBar'
 import SideTab from '~/components/channel/SideTab'
-
 export default {
   name: 'Friends',
   components: {
     [SideBar.name]: SideBar,
     [SideTab.name]: SideTab,
   },
+  mounted() {
+    // apply
+    this.update_list()
+  },
   computed: {
     ...mapState(['friendsGroup', 'activeFriendsGroup']),
   },
   methods: {
+    ...mapActions({
+      update_list: 'friend/update_list',
+    }),
     ...mapMutations(['expandFriendsGroup']),
   },
 }

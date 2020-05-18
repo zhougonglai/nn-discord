@@ -155,6 +155,8 @@ $border-color: #222428;
 </template>
 <script>
 import { Input } from 'element-ui'
+import { mapActions } from 'vuex'
+// mapState, mapMutations, mapGetters,
 import nnBanner from '~/components/wc/nnBanner'
 import item1 from '~/components/friends/item1'
 import friends from '~/assets/icons/Interested friends.svg'
@@ -235,14 +237,24 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      apply: 'friend/apply',
+    }),
     search_click() {
       console.log('搜索')
     },
     add_onclick() {
       console.log('一键添加')
+      //
     },
-    add() {
-      console.log('添加')
+    add(uid) {
+      this.apply(uid)
+        .then(({ msg }) => {
+          //
+        })
+        .catch(({ message }) => {
+          //
+        })
     },
   },
 }

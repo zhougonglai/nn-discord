@@ -1,4 +1,4 @@
-export default function ({ app: { $axios, redirect } }) {
+export default function ({ app: { store, $axios, redirect } }) {
   $axios.defaults.baseURL = process.env.BASE_URL
   $axios.defaults.timeout = 30000
   $axios.interceptors.request.use((config) => {
@@ -25,7 +25,7 @@ export default function ({ app: { $axios, redirect } }) {
         // response.retMsg
         // response.retData
         // redirect('/sign')//需要登陆
-        return Promise.reject(data.msg)
+        return Promise.reject(new Error(data.msg))
     }
   })
   // $axios.onError((error) => {
