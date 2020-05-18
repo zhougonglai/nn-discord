@@ -47,18 +47,18 @@ div.video-btn {
         机器人小N
         <span class="time">今天12:00</span>
       </div>
-      <div class="msg" v-if="data.type == 'TEXT'">
+      <div v-if="data.type == 'TEXT'" class="msg">
         <span class="at">@我</span>
         {{ data.src }}
       </div>
-      <div class="msg" v-if="data.type == 'IMG'">
+      <div v-if="data.type == 'IMG'" class="msg">
         <el-image
           :preview-src-list="[data.src]"
           :src="data.src"
           class="item-img"
         ></el-image>
       </div>
-      <div @click="handleEvent" class="msg" v-if="data.type == 'AUDIO'">
+      <div v-if="data.type == 'AUDIO'" class="msg" @click="handleEvent">
         <audio :src="data.src" class="item-audio" controls></audio>
       </div>
       <div @click.prevent="handleEvent" class="msg" v-if="data.type == 'VIDEO'">
@@ -76,17 +76,17 @@ div.video-btn {
       width="40%"
     >
       <video
+        v-if="videoSrc"
         :src="videoSrc"
         autoplay="autoplay"
         controls="controls"
         style="width: 100%; object-fit: cover;"
-        v-if="videoSrc"
       ></video>
       <audio
+        v-if="audioSrc"
         :src="audioSrc"
         controls="controls"
         style="width: 100%; object-fit: cover;"
-        v-if="audioSrc"
       ></audio>
     </el-dialog>
   </div>
@@ -94,19 +94,11 @@ div.video-btn {
 <script>
 import { Dialog, Image } from 'element-ui'
 export default {
-  name: 'chat-item',
+  name: 'ChatItem',
   components: { [Dialog.name]: Dialog, [Image.name]: Image },
   props: {
     data: Object,
-    beforeOpen: Function, //点击事件
-  },
-  mounted() {
-    //console.log();
-  },
-  computed: {
-    // test() {
-    //   return 0;
-    // }
+    beforeOpen: Function, // 点击事件
   },
   data() {
     return {
@@ -116,10 +108,18 @@ export default {
       audioSrc: '',
     }
   },
+  computed: {
+    // test() {
+    //   return 0;
+    // }
+  },
+  mounted() {
+    // console.log();
+  },
   methods: {
-    //处理事件
+    // 处理事件
     handleEvent() {
-      let params = this.data
+      const params = this.data
       const callback = () => {
         if (params.type === 'IMG') {
           this.imgSrc = params.src

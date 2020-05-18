@@ -51,15 +51,15 @@
 <template>
   <div class="msg-tool">
     <el-input
-      v-model="input"
       ref="txt"
+      v-model="input"
       class="send-input"
       placeholder="请按“ENTER”键发送信息"
       @keyup.enter.native="send"
     >
       <template slot="append">
         <div class="msg-right flex aic">
-          <emoji-picker @emoji="insert" :search="search">
+          <emoji-picker :search="search" @emoji="insert">
             <div
               slot="emoji-invoker"
               slot-scope="{ events: { click: clickEvent } }"
@@ -69,7 +69,7 @@
                 <img src="http://placekitten.com/24/24" />
               </div>
             </div>
-            <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
+            <div slot="emoji-picker" slot-scope="{ emojis, insert }">
               <div class="emoji-picker flex column">
                 <div>
                   <el-input
@@ -86,8 +86,8 @@
                       <span
                         v-for="(emoji, emojiName) in emojiGroup"
                         :key="emojiName"
-                        @click="insert(emoji)"
                         :title="emojiName"
+                        @click="insert(emoji)"
                         >{{ emoji }}</span
                       >
                     </div>
@@ -109,21 +109,21 @@
 import { Input } from 'element-ui'
 import EmojiPicker from 'vue-emoji-picker'
 export default {
-  name: 'chat-tool',
+  name: 'ChatTool',
   components: { [Input.name]: Input, EmojiPicker },
-  mounted() {
-    //console.log();
+  data() {
+    return {
+      input: '',
+      search: '',
+    }
   },
   computed: {
     // test() {
     //   return 0;
     // }
   },
-  data() {
-    return {
-      input: '',
-      search: '',
-    }
+  mounted() {
+    // console.log();
   },
   methods: {
     insert(emoji) {

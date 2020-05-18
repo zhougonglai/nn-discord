@@ -23,46 +23,46 @@
 </style>
 <template>
   <div class="friend-item1 flex">
-    <n-link :to="'/friends/'+data.id">
+    <n-link :to="'/friends/' + data.id">
       <img :src="data.avatar" alt class="Avatar mr-1" />
     </n-link>
     <div class="flex column right">
-      <n-link :to="'/friends/'+data.id">
-        <div class="name">{{data.name}}</div>
+      <n-link :to="'/friends/' + data.id">
+        <div class="name">{{ data.name }}</div>
       </n-link>
-      <div class="text">{{data.age}} | {{data.game}}</div>
+      <div class="text">{{ data.age }} | {{ data.game }}</div>
       <slot></slot>
     </div>
   </div>
 </template>
 <script>
 export default {
-  props:{
-    data:Object
+  name: 'Item1',
+  props: {
+    data: Object,
     // id:1,
     //  avatar:"http://placekitten.com/65/65",
     //  name:"HEBE00",
     //  age:18,
     //  game:"英雄联盟-韩服"
   },
-  name:"item1",
-  mounted() {
-    //console.log();
+  data() {
+    return {
+      // id:1
+    }
   },
   computed: {
     // test() {
     //   return 0;
     // }
   },
-  data() {
-    return {
-//id:1
-};
+  mounted() {
+    // console.log();
   },
-methods:{
+  methods: {
     // test() {
     //   return 0;
     // }
+  },
 }
-};
 </script>

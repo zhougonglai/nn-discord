@@ -111,6 +111,8 @@ export default {
       },
     }
   },
+  async mounted() {},
+  created() {},
   methods: {
     verify() {
       if (this.phoneValidity()) {
@@ -193,7 +195,7 @@ export default {
       this.error.code.status = false
       this.error.password.status = false
     },
-    async reset() {
+    reset() {
       if (!this.phoneValidity()) return
       if (!this.verifyValidity()) return
       if (!this.codeValidity()) return
@@ -202,8 +204,6 @@ export default {
       }
     },
   },
-  async mounted() {},
-  created() {},
 }
 </script>
 <style lang="scss" scoped>

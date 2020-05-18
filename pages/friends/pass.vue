@@ -23,17 +23,20 @@
 </style>
 <template>
   <div class="page spacer flex column">
-    <NnBanner href="//www.baidu.com" img="http://placekitten.com/1280/128"></NnBanner>
+    <NnBanner
+      href="//www.baidu.com"
+      img="http://placekitten.com/1280/128"
+    ></NnBanner>
     <div class="flex-sub pass-list">
-      <div class="item flex aic" v-for="item in 10">
-        <n-link :to="'/friends/'+item.id">
+      <div v-for="item in 10" class="item flex aic" :key="item">
+        <n-link :to="'/friends/' + item.id">
           <img alt class="Avatar" src="http://placekitten.com/42/42" />
         </n-link>
-        <n-link :to="'/friends/'+item.id">
+        <n-link :to="'/friends/' + item.id">
           <div class="name">1号粉丝昵称</div>
         </n-link>
-        <img alt src="~/assets/imgs/man.png" v-if="true" />
-        <img alt src="~/assets/imgs/woman.png" v-else />
+        <img v-if="true" alt src="~/assets/imgs/man.png" />
+        <img v-else alt src="~/assets/imgs/woman.png" />
 
         <div class="info flex-1">申请成为好友</div>
         <el-button round size="mini" type="default">拒绝</el-button>
@@ -42,13 +45,12 @@
     </div>
   </div>
 </template>
-<script> 
-import nnBanner from '~/components/wc/nnBanner';
+<script>
+import nnBanner from '~/components/wc/nnBanner'
 export default {
   name: 'FriendSearch',
   components: {
-    [nnBanner.name]:nnBanner
+    [nnBanner.name]: nnBanner,
   },
- 
 }
 </script>
