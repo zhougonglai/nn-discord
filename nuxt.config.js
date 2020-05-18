@@ -79,6 +79,7 @@ module.exports = {
       ssr: false,
     },
     '~/plugins/element-ui.js',
+    '~/plugins/axios',
   ],
 
   buildModules: [

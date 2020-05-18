@@ -129,7 +129,7 @@ $border-color: #222428;
       </div>
     </div>
     <div class="h2 flex jcb">
-      你可能感兴趣的好友
+      <div><friends style="height: 20px;"></friends> 你可能感兴趣的好友</div>
       <el-button
         class="addall"
         plain
@@ -157,9 +157,11 @@ $border-color: #222428;
 import { Input } from 'element-ui'
 import nnBanner from '~/components/wc/nnBanner'
 import item1 from '~/components/friends/item1'
+import friends from '~/assets/icons/Interested friends.svg'
 export default {
   name: 'FriendSearch',
   components: {
+    friends,
     [nnBanner.name]: nnBanner,
     [Input.name]: Input,
     [item1.name]: item1,
