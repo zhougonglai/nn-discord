@@ -1,16 +1,37 @@
 <template lang="pug">
 .news-forward-comment 
-    .news-forward-comment-p {{ content }}{{ num }}
-    span 查看全部内容
+    .news-forward-comment-p {{ font }} 
+      <slot></slot>
+    span( v-if="show" @click="all" ) 查看全部内容
 </template>
 <script>
 export default {
   name: 'NewsItemFront',
   props: ['content', 'num'],
   data() {
-    return {}
+    return {
+      font: '',
+      show: true,
+    }
   },
-  methods: {},
+  watch: {
+    content: {
+      immediate: true,
+      handler: function () {
+        if (this.content.length > this.num) {
+          this.font = this.content.substr(0, this.num) + '...'
+          return
+        }
+        this.all()
+      },
+    },
+  },
+  methods: {
+    all() {
+      this.font = this.content
+      this.show = false
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -28,6 +49,11 @@ export default {
     margin-top: 10px;
     color: rgba(101, 178, 255, 1);
     display: inline-block;
+    cursor: pointer;
+  }
+  b {
+    font-style: normal;
+    color: rgba(114, 118, 125, 1);
   }
 }
 </style>

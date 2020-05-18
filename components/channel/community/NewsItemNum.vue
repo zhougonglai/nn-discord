@@ -1,16 +1,16 @@
 <template lang="pug">
 .news-item-num 
     .news-item-num-item
-        i.bx.bx-search
+        i.iconfont.iconzan
         span {{nums.likes}}
     .news-item-num-item
-        i.bx.bx-search
+        i.iconfont.iconpinglun
         span {{nums.comments}}
     .news-item-num-item
-        i.bx.bx-search
+        i.iconfont.iconsharearticle
         span {{nums.forwards}}
     .news-item-num-item
-        i.bx.bx-search
+        i.iconfont.iconChannelcollection
         span {{nums.collects}}
 </template>
 <script>
@@ -31,12 +31,11 @@ export default {
   font-size: 12px;
   .news-item-num-item {
     margin-right: 30px;
+    cursor: pointer;
     i {
       font-size: 14px;
     }
     span {
-      position: relative;
-      top: -2px;
       margin-left: 5px;
     }
   }

@@ -7,17 +7,23 @@
             .news-main-header-left
                 p
                     b 守望先锋
-                    svg-icon( icon-class="iconofficial" )
+                    SvgIcon( icon-class="iconofficial" )
                     span 守望先锋官方
                 p 
-                    span {{ item.createAt }}
+                    span {{ formateTime(item.createAt) }}
                     span 来自NN客户端编辑
             .news-main-header-right
                 .flow +关注
-                i.bx.bx-search
-        .news-main-body 
-            NewsItemFront( :num="200" :content="item.forwardComment" )
+                i.iconfont.iconxiala
+        .news-main-body( v-if="item.forwardType === 1" )
+            NewsItemFront( :num="20" :content="item.forwardComment" )
             NewsItemBox( :item="{ title: item.title, content: item.content, thumb: item.thumb }" )
+        .news-main-body( v-if="item.forwardType === 2" )
+            NewsItemFront( :num="20" :content="item.forwardComment" )
+              b // EDG官方后援
+              SvgIcon( icon-class="iconofficial" ) 
+              b ：给力！！！
+            NewsItemTranspond( :item="{ title: item.title, content: item.content, thumb: item.thumb, forwardComment: item.forwardComment }" )
         .news-main-bottom
             NewsItemNum( :nums="{ likes: item.likes, comments: item.comments, forwards: item.forwards, collects: item.collects }" )
 </template>
@@ -25,6 +31,7 @@
 import { mapState } from 'vuex'
 import NewsItemFront from '~/components/channel/community/NewsItemFront'
 import NewsItemBox from '~/components/channel/community/NewsItemBox'
+import NewsItemTranspond from '~/components/channel/community/NewsItemTranspond'
 import NewsItemNum from '~/components/channel/community/NewsItemNum'
 export default {
   name: 'CommunityNewsItem',
@@ -36,6 +43,73 @@ export default {
     NewsItemFront,
     NewsItemBox,
     NewsItemNum,
+    NewsItemTranspond,
+  },
+  methods: {
+    formateTime(time) {
+      time = new Date(time).getTime()
+      var date_now = new Date()
+      var date_time = new Date(time)
+      var distance = date_now.getTime() - time
+
+      var days = parseInt(distance / (1000 * 60 * 60 * 24))
+      let d_hours = date_time.getHours()
+      if (d_hours < 10) {
+        d_hours = '0' + d_hours
+      }
+      let d_minutes = date_time.getMinutes()
+      if (d_minutes < 10) {
+        d_minutes = '0' + d_minutes
+      }
+      if (days == 1) {
+        return '昨天' + d_hours + ':' + d_minutes
+      } else if (days == 2) {
+        return days + '天前' + d_hours + ':' + d_minutes
+      } else if (days >= 2) {
+        var year = date_time.getFullYear()
+        var month = date_time.getMonth() + 1
+        if (month < 10) {
+          month = '0' + month
+        }
+        var day = date_time.getDate()
+        if (day < 10) {
+          day = '0' + day
+        }
+        if (date_now.getFullYear() == year) {
+          return month + '月' + day + '日' + d_hours + ':' + d_minutes
+        } else {
+          return (
+            year + '年' + month + '月' + day + '日' + d_hours + ':' + d_minutes
+          )
+        }
+      }
+
+      var hours = parseInt(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      )
+      if (hours > 0) {
+        return hours + '小时前'
+      }
+
+      var minutes = parseInt((distance % (1000 * 60 * 60)) / (1000 * 60))
+      if (minutes > 0) {
+        return minutes + '分钟前'
+      }
+
+      return '刚刚'
+      // let now = new Date().getTime()
+      // let nowDay = new Date().getDay()
+      // let create = new Date(time).getTime()
+      // let createDay = new Date(time).getDay()
+      // let result = Math.floor((now - create) / 1000)
+      // if (result <= 3600) {
+      //   return Math.floor(result / 60) + '分钟前'
+      // }
+      // if (result <= 86400 && nowDay === createDay) {
+      //   return Math.floor(result / 60 / 24) + '小时前'
+      // }
+      // return time
+    },
   },
 }
 </script>
@@ -69,7 +143,7 @@ export default {
             font-size: 16px;
             color: rgba(220, 221, 222, 1);
           }
-          i {
+          .icon {
             margin: 0 5px;
           }
           .iconofficial {
@@ -85,7 +159,6 @@ export default {
       .news-main-header-right {
         display: flex;
         width: 100px;
-        line-height: 54px;
         padding-top: 14px;
         .flow {
           display: inline-block;
@@ -107,7 +180,7 @@ export default {
         i {
           display: inline-block;
           color: #72767d;
-          font-size: 16px;
+          font-size: 10px;
           margin-top: 5px;
         }
       }

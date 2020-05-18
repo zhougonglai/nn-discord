@@ -6,14 +6,13 @@
               NewsItem( v-for="(item, i) in newsList" :key="i" :item="item" )
               .community-users-list-status
                 .community-users-list-loading( v-if="getNewsStatus.loading" ) 
-                  i.bx.bx-search
+                  i.iconfont.iconloading.rotate-icon
                   span 正在加载中，请稍后...
                 .community-users-list-error( v-if="getNewsStatus.error" ) 
-                  i.bx.bx-search
+                  i.iconfont.iconFailureprompt
                   span 加载失败，请点击重试...
-                  i.bx.bx-search
+                  i.iconfont.iconretry
                 .community-users-list-none( v-if="getNewsStatus.none" ) 
-                  i.bx.bx-search
                   span 已经是最后一条内容拉...
               
         .community-main-right 热门社区
@@ -85,11 +84,32 @@ export default {
         span {
           margin: 0 5px;
         }
+        .rotate-icon {
+          animation: turn 1.5s linear infinite;
+          display: inline-block;
+        }
       }
     }
   }
   .community-main-right {
     width: 254px;
+  }
+}
+@keyframes turn {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template lang="pug">
 ul.community-hot
     li( v-for=" (item, index) in hotNews" )
-        i.bx.bx-search
+        i.iconfont.iconzhiding
         n-link( :to="item.to" ) {{ item.title }}
 </template>
 <script>
