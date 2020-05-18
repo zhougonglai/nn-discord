@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import '~/styles/element-variables.scss'
-import { Button, Select, Option, Checkbox } from 'element-ui'
-;[Button, Select, Option, Checkbox].forEach((element) => {
+import { Button, Select, Option, Checkbox, InfiniteScroll } from 'element-ui'
+;[Button, Select, Option, Checkbox, InfiniteScroll].forEach((element) => {
   Vue.use(element)
 })
 // import {

@@ -2,7 +2,20 @@
     .community-main
         .community-main-left
             HotNews
-            NewsItem( v-for="item in newsList" :key="item.sourceId" :item="item" )
+            .community-users-list( v-infinite-scroll="load" :class="'infinite-list'" )
+              NewsItem( v-for="(item, i) in newsList" :key="i" :item="item" )
+              .community-users-list-status
+                .community-users-list-loading( v-if="getNewsStatus.loading" ) 
+                  i.bx.bx-search
+                  span 正在加载中，请稍后...
+                .community-users-list-error( v-if="getNewsStatus.error" ) 
+                  i.bx.bx-search
+                  span 加载失败，请点击重试...
+                  i.bx.bx-search
+                .community-users-list-none( v-if="getNewsStatus.none" ) 
+                  i.bx.bx-search
+                  span 已经是最后一条内容拉...
+              
         .community-main-right 热门社区
             
 </template>
@@ -17,7 +30,12 @@ export default {
     NewsItem,
   },
   computed: {
-    ...mapState('community', ['newsList']),
+    ...mapState('community', ['newsList', 'getNewsStatus']),
+  },
+  methods: {
+    load() {
+      this.$store.dispatch('community/getNewsList')
+    },
   },
 }
 </script>
@@ -50,6 +68,22 @@ export default {
           &:hover {
             text-decoration: underline;
           }
+        }
+      }
+    }
+    .community-users-list-status {
+      text-align: center;
+      font-size: 14px;
+      color: rgba(114, 118, 125, 1);
+      div {
+        display: inline-block;
+        width: 260px;
+        height: 32px;
+        line-height: 32px;
+        background: rgba(47, 49, 54, 1);
+        border-radius: 4px;
+        span {
+          margin: 0 5px;
         }
       }
     }

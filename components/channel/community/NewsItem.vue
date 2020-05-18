@@ -7,7 +7,7 @@
             .news-main-header-left
                 p
                     b 守望先锋
-                    i.bx.bx-search
+                    svg-icon( icon-class="iconofficial" )
                     span 守望先锋官方
                 p 
                     span {{ item.createAt }}
@@ -71,6 +71,9 @@ export default {
           }
           i {
             margin: 0 5px;
+          }
+          .iconofficial {
+            color: #068bff;
           }
           span {
             font-size: 12px;

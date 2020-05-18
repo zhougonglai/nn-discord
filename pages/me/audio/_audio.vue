@@ -1,5 +1,5 @@
 <template lang="pug">
-#room {{$route.parames.roomId}}
+#room {{$route.parames.audio}}
 </template>
 <script>
 export default {
