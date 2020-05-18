@@ -34,6 +34,7 @@ export const actions = {
       {
         id: '@id',
         label: '@cname',
+        type: 'chat',
         avatar: {
           type: 'img',
           source: 'https://api.adorable.io/avatars/285' + '/@id()' + '.png',
@@ -57,6 +58,7 @@ export const actions = {
       {
         id: '@id',
         label: '@cname',
+        'type|1': ['msg', 'audio'],
         'avatar|1': [
           {
             source: 'bxs-volume-full',
@@ -68,17 +70,6 @@ export const actions = {
           },
         ],
         status: '',
-        'brief|1': [
-          '',
-          {
-            type: 'action',
-            'payload|1': ['管理', '创建'],
-          },
-          {
-            type: 'text',
-            payload: '文',
-          },
-        ],
       },
     ]
 
