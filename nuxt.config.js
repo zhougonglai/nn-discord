@@ -79,6 +79,10 @@ module.exports = {
       ssr: false,
     },
     '~/plugins/element-ui.js',
+    {
+      src: '~/plugins/svg-icon',
+      ssr: false,
+    },
   ],
 
   buildModules: [

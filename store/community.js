@@ -52,7 +52,7 @@ const state = () => ({
         '小伙伴蓝儿参加#7天赚钱训练营# 拿到第一名🥇了[赞]，好开心😁，为她骄傲！要不断的学习成长，4月29日晚上23:00-次日6:00，守望先锋停服更新，附上更新详情；4月29日晚上23:00-次日6:00，守望先锋停服更新，附上更新详情；4月29日晚上23:00-次日6:00，守望先锋停服更新，附上更新详情；4月29日晚上23:00-次日6:00...', //转发动态
     },
     {
-      sourceId: '1112233', //原文id
+      sourceId: '11111111', //原文id
       frontCover: require('~/assets/imgs/xbox@2x.jpg'), //封面url
       title: 'nn新版本6月1号上线与大家见面',
       thumb: require('~/assets/imgs/user_bg@2x.png'), //缩列图
@@ -69,6 +69,11 @@ const state = () => ({
         '小伙伴蓝儿参加#7天赚钱训练营# 拿到第一名🥇了[赞]，好开心😁，为她骄傲！要不断的学习成长，4月29日晚上23:00-次日6:00，守望先锋停服更新，附上更新详情；4月29日晚上23:00-次日6:00，守望先锋停服更新，附上更新详情；4月29日晚上23:00-次日6:00，守望先锋停服更新，附上更新详情；4月29日晚上23:00-次日6:00...', //转发动态
     },
   ],
+  getNewsStatus: {
+    loading: true,
+    error: false,
+    none: false,
+  },
   channelBanner: require('~/assets/imgs/user_bg@2x.png'),
 })
 
@@ -79,9 +84,33 @@ const actions = {
     // todo
     console.log('搜索社区', searchKey)
   },
+  getNewsList({ commit, state }, params) {
+    // todo
+    commit('setState', [
+      'getNewsStatus',
+      {
+        loading: true,
+        error: false,
+        none: false,
+      },
+    ])
+    // setTimeout(() => {
+    //   commit('resetGetNesStatus')
+    // }, 2000)
+    console.log('获取更多', state.getNewsStatus)
+  },
 }
 
-const mutations = {}
+const mutations = {
+  resetGetNesStatus(state) {
+    for (let item in state.getNewsStatus) {
+      state.getNewsStatus[item] = false
+    }
+  },
+  setState(state, item) {
+    state[item[0]] = item[1]
+  },
+}
 
 export default {
   state,
