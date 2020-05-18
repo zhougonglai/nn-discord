@@ -8,14 +8,9 @@ $api 默认的接口封装  返回名称统一成code,msg,data
 # api 封装
 
 ```js
-this.$api
-  .put(action, data)
-  .then((code, msg, data) => {
-    //code==100的视为正常
-  })
-  .watch((code, msg, data) => {
-    //code!=100,增加通用的错误处理 500也加入到code里面
-  })
+this.$axios.get('friend/is/1/2').then(({ data, code, msg }) => {
+  console.log(data)
+})
 ```
 
 # websocket
@@ -24,4 +19,4 @@ this.$api
 
 # 全局断网提示
 
-> 
+>

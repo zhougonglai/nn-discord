@@ -48,6 +48,14 @@ export default {
     [chatItem.name]: chatItem,
     [chatTool.name]: chatTool,
   },
+  data() {
+    return {}
+  },
+  computed: {
+    ...mapState({
+      msgList: (s) => s.chat.msgList,
+    }),
+  },
   watch: {
     msgList: {
       handler() {
@@ -59,18 +67,12 @@ export default {
       immediate: true,
     },
   },
-  computed: {
-    ...mapState({
-      msgList: (s) => s.chat.msgList,
-    }),
-  },
-  data() {
-    return {}
-  },
   methods: {
     ...mapActions(['chat/send-text']),
     add_friend() {
-      console.log('添加好友')
+      this.$axios.get('friend/is/1/2').then(({ data, code, msg }) => {
+        //
+      })
     },
     send_text(data) {
       console.log(this.$store)

@@ -90,8 +90,15 @@ module.exports = {
   server: {
     host: '0.0.0.0',
   },
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
+  modules: [
+    '@nuxtjs/axios',
+    ['@nuxtjs/proxy', { pathRewrite: { '^/api': '' } }],
+    '@nuxtjs/pwa',
+  ],
   axios: {},
+  proxy: {
+    '/api': 'http://172.19.35.151:7510',
+  },
   styleResources: {
     scss: './styles/variables.scss',
   },
