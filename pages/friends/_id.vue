@@ -84,7 +84,10 @@
 </style>
 <template>
   <div class="page spacer flex column">
-    <NnBanner href="//www.baidu.com" img="http://placekitten.com/1280/130"></NnBanner>
+    <NnBanner
+      href="//www.baidu.com"
+      img="http://placekitten.com/1280/130"
+    ></NnBanner>
     <div class="flex-sub flex">
       <!-- 左侧 -->
       <div class="nav2">
@@ -101,7 +104,9 @@
         <div class="label">创建时间</div>
         <div class="info ccc">2020-04-29 17:00</div>
         <div class="btns">
-          <el-button @click="send_message" round type="primary">发消息</el-button>
+          <el-button round type="primary" @click="send_message"
+            >发消息</el-button
+          >
         </div>
       </div>
       <!-- 右侧 -->
@@ -118,32 +123,47 @@
         <div class="title">管理员</div>
         <div class="admin-list">
           <img
+            v-for="a in 15"
             :key="a"
-            @click="click_admin(a)"
             class="item"
             src="http://placekitten.com/32/32"
             title="姓名2"
-            v-for="a in 15"
+            @click="click_admin(a)"
           />
         </div>
         <div class="title">成员状况</div>
         <div class="flex">
           <div class="situation">
-            <el-progress :percentage="25" :stroke-width="4" :width="60" type="circle"></el-progress>
+            <el-progress
+              :percentage="25"
+              :stroke-width="4"
+              :width="60"
+              type="circle"
+            ></el-progress>
             <div class="name">男-1527人</div>
           </div>
           <div class="situation">
-            <el-progress :percentage="25" :stroke-width="4" :width="60" type="circle"></el-progress>
+            <el-progress
+              :percentage="25"
+              :stroke-width="4"
+              :width="60"
+              type="circle"
+            ></el-progress>
             <div class="name">男-1527人</div>
           </div>
           <div class="situation">
-            <el-progress :percentage="25" :stroke-width="4" :width="60" type="circle"></el-progress>
+            <el-progress
+              :percentage="25"
+              :stroke-width="4"
+              :width="60"
+              type="circle"
+            ></el-progress>
             <div class="name">男-1527人</div>
           </div>
         </div>
         <div class="title">加入的社区</div>
         <div class="community-list flex wrap">
-          <n-link :key="c" :to="'/channels/FIFA18'" class="item" v-for="c in 6">
+          <n-link v-for="c in 6" :key="c" :to="'/channels/FIFA18'" class="item">
             <img class="img" src="http://placekitten.com/165/94" />
             <div class="footer flex aic">
               <img src="http://placekitten.com/38/38" />
@@ -156,8 +176,8 @@
   </div>
 </template>
 <script>
-import nnBanner from '~/components/wc/nnBanner'
 import { Progress } from 'element-ui'
+import nnBanner from '~/components/wc/nnBanner'
 export default {
   name: 'FriendSearch',
   components: {

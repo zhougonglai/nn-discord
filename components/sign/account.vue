@@ -127,7 +127,7 @@ export default {
         return false
       }
     },
-    async login() {
+    login() {
       if (!this.accountValidity()) return
       if (!this.pwdValidity()) return
       if (this.$refs.form.checkValidity()) {

@@ -9,12 +9,15 @@
 </style>
 <template>
   <a :href="url" target="_blank">
-    <div :style="{ 'background-image': 'url(' + img + ')' }" class="nnBanner"></div>
+    <div
+      :style="{ 'background-image': 'url(' + img + ')' }"
+      class="nnBanner"
+    ></div>
   </a>
 </template>
 <script>
 export default {
-  name:"NnBanner",
+  name: 'NnBanner',
   props: {
     img: {
       type: String,

@@ -23,16 +23,16 @@
   <div class="page spacer flex column">
     <div class="add-friend-tip flex jcc aic">
       非好友消息可能会丢失哦，快添加成好友吧
-      <el-button @click="add_friend" round size="medium" type="primary"
+      <el-button round size="medium" type="primary" @click="add_friend"
         >添加好友</el-button
       >
     </div>
     <!-- 消息 -->
-    <div class="message flex-sub" ref="message">
+    <div ref="message" class="message flex-sub">
       <chat-item
-        :data="data"
-        :key="data.id"
         v-for="data in msgList"
+        :key="data.id"
+        :data="data"
       ></chat-item>
     </div>
     <!-- 输入框 -->
@@ -40,24 +40,19 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex'
 import chatItem from '~/components/channel/chat-item'
 import chatTool from '~/components/channel/chat-tool'
-import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     [chatItem.name]: chatItem,
     [chatTool.name]: chatTool,
   },
-  mounted() {
-    setTimeout(() => {
-      let m = this.$refs.message
-    }, 10)
-  },
   watch: {
     msgList: {
-      handler: function () {
+      handler() {
         setTimeout(() => {
-          let m = this.$refs.message
+          const m = this.$refs.message
           m.scrollTop = m.scrollHeight
         }, 0)
       },

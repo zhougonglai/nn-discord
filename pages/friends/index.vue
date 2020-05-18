@@ -61,149 +61,187 @@ $border-color: #222428;
 </style>
 <template>
   <div class="page spacer flex column">
-    <NnBanner href="//www.baidu.com" img="http://placekitten.com/1280/130"></NnBanner>
+    <NnBanner
+      href="//www.baidu.com"
+      img="http://placekitten.com/1280/130"
+    ></NnBanner>
     <div class="head-search flex aic jcc">
       <div class="v-ofh flex">
         <div class="flex1 form">
-          <el-input class="search-name" clearable placeholder="请输入好友的昵称/NN号" v-model="search.txt"></el-input>
+          <el-input
+            v-model="search.txt"
+            class="search-name"
+            clearable
+            placeholder="请输入好友的昵称/NN号"
+          ></el-input>
           <div class="flex">
-            <el-select class="sel-game" placeholder="选择游戏区服" v-model="search.game">
+            <el-select
+              v-model="search.game"
+              class="sel-game"
+              placeholder="选择游戏区服"
+            >
               <el-option
-                :disabled="item.disabled"
+                v-for="item in options"
                 :key="item.value"
+                :disabled="item.disabled"
                 :label="item.label"
                 :value="item.value"
-                v-for="item in options"
               ></el-option>
             </el-select>
-            <el-select class="bl" placeholder="选择地区" v-model="search.area">
+            <el-select v-model="search.area" class="bl" placeholder="选择地区">
               <el-option
-                :disabled="item.disabled"
+                v-for="item in options"
                 :key="item.value"
+                :disabled="item.disabled"
                 :label="item.label"
                 :value="item.value"
-                v-for="item in options"
               ></el-option>
             </el-select>
-            <el-select class="bl" placeholder="选择性别" v-model="search.sex">
+            <el-select v-model="search.sex" class="bl" placeholder="选择性别">
               <el-option
-                :disabled="item.disabled"
+                v-for="item in options"
                 :key="item.value"
+                :disabled="item.disabled"
                 :label="item.label"
                 :value="item.value"
-                v-for="item in options"
               ></el-option>
             </el-select>
-            <el-select class="bl sel-age" placeholder="选择年龄" v-model="search.age">
+            <el-select
+              v-model="search.age"
+              class="bl sel-age"
+              placeholder="选择年龄"
+            >
               <el-option
-                :disabled="item.disabled"
+                v-for="item in options"
                 :key="item.value"
+                :disabled="item.disabled"
                 :label="item.label"
                 :value="item.value"
-                v-for="item in options"
               ></el-option>
             </el-select>
           </div>
         </div>
         <div class="btns flex aic">
-          <el-button @click="search_click" class="btn" type="primary">查找</el-button>
+          <el-button class="btn" type="primary" @click="search_click"
+            >查找</el-button
+          >
         </div>
       </div>
     </div>
     <div class="h2 flex jcb">
       你可能感兴趣的好友
-      <el-button @click="add_onclick" class="addall" plain round size="mini" type="primary">一键添加</el-button>
+      <el-button
+        class="addall"
+        plain
+        round
+        size="mini"
+        type="primary"
+        @click="add_onclick"
+        >一键添加</el-button
+      >
     </div>
     <div class="flex-sub content">
       <div class="list-friend flex wrap">
-        <item1 :data="item" :key="item.id" v-for="item in userList">
+        <item1 v-for="item in userList" :key="item.id" :data="item">
           <div>
-            <el-button @click="add(item)" plain round size="mini" type="default">+好友</el-button>
+            <el-button plain round size="mini" type="default" @click="add(item)"
+              >+好友</el-button
+            >
           </div>
         </item1>
       </div>
     </div>
   </div>
 </template>
-<script> 
-import nnBanner from '~/components/wc/nnBanner';
-import item1 from '~/components/friends/item1';
-import { Input} from 'element-ui'
+<script>
+import { Input } from 'element-ui'
+import nnBanner from '~/components/wc/nnBanner'
+import item1 from '~/components/friends/item1'
 export default {
   name: 'FriendSearch',
   components: {
-    [nnBanner.name]:nnBanner,
-    [Input.name]:Input,
-    [item1.name]:item1,
+    [nnBanner.name]: nnBanner,
+    [Input.name]: Input,
+    [item1.name]: item1,
   },
- data(){
-   return{
-   options:[
-      {
+  data() {
+    return {
+      options: [
+        {
           value: '1',
           label: '无',
         },
-   ],
-   search:{
-     txt:"",
-     game:"",
-     area:"",
-     sex:"",
-     age:""
-   },
-   userList:[{
-     id:1,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
-   },{
-     id:2,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
-   },{
-     id:3,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
-   },{
-     id:4,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
-   },{
-     id:5,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
-   },{
-     id:6,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
-   },{
-     id:7,
-     avatar:"http://placekitten.com/65/65",
-     name:"HEBE00",
-     age:18,
-     game:"英雄联盟-韩服"
-   }]
- }},methods:{
-   search_click(){
-     console.log("搜索");
-   },
-   add_onclick(){
-console.log("一键添加");
-   },
-   add(){
-     console.log("添加");
-   }
- }
+      ],
+      search: {
+        txt: '',
+        game: '',
+        area: '',
+        sex: '',
+        age: '',
+      },
+      userList: [
+        {
+          id: 1,
+          avatar: 'http://placekitten.com/65/65',
+          name: 'HEBE00',
+          age: 18,
+          game: '英雄联盟-韩服',
+        },
+        {
+          id: 2,
+          avatar: 'http://placekitten.com/65/65',
+          name: 'HEBE00',
+          age: 18,
+          game: '英雄联盟-韩服',
+        },
+        {
+          id: 3,
+          avatar: 'http://placekitten.com/65/65',
+          name: 'HEBE00',
+          age: 18,
+          game: '英雄联盟-韩服',
+        },
+        {
+          id: 4,
+          avatar: 'http://placekitten.com/65/65',
+          name: 'HEBE00',
+          age: 18,
+          game: '英雄联盟-韩服',
+        },
+        {
+          id: 5,
+          avatar: 'http://placekitten.com/65/65',
+          name: 'HEBE00',
+          age: 18,
+          game: '英雄联盟-韩服',
+        },
+        {
+          id: 6,
+          avatar: 'http://placekitten.com/65/65',
+          name: 'HEBE00',
+          age: 18,
+          game: '英雄联盟-韩服',
+        },
+        {
+          id: 7,
+          avatar: 'http://placekitten.com/65/65',
+          name: 'HEBE00',
+          age: 18,
+          game: '英雄联盟-韩服',
+        },
+      ],
+    }
+  },
+  methods: {
+    search_click() {
+      console.log('搜索')
+    },
+    add_onclick() {
+      console.log('一键添加')
+    },
+    add() {
+      console.log('添加')
+    },
+  },
 }
 </script>

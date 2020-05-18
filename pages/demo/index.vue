@@ -26,27 +26,31 @@
       <el-button plain round type="primary">主要按钮</el-button>
     </div>
     <div>
-      <el-select placeholder="请选择" v-model="value2">
+      <el-select v-model="value2" placeholder="请选择">
         <el-option
-          :disabled="item.disabled"
+          v-for="item in options"
           :key="item.value"
+          :disabled="item.disabled"
           :label="item.label"
           :value="item.value"
-          v-for="item in options"
         ></el-option>
       </el-select>
     </div>
     <div class="block">
       <span class="demonstration">默认</span>
-      <el-date-picker placeholder="选择日期" type="date" v-model="value1"></el-date-picker>
+      <el-date-picker
+        v-model="value1"
+        placeholder="选择日期"
+        type="date"
+      ></el-date-picker>
     </div>
     <div>
-      <el-input placeholder="请输入内容" v-model="input"></el-input>
-      <el-input placeholder="请输入内容" v-model="input2"></el-input>
+      <el-input v-model="input" placeholder="请输入内容"></el-input>
+      <el-input v-model="input2" placeholder="请输入内容"></el-input>
     </div>
     <div>
-      <el-radio label="1" v-model="radio">备选项</el-radio>
-      <el-radio label="2" v-model="radio">备选项</el-radio>
+      <el-radio v-model="radio" label="1">备选项</el-radio>
+      <el-radio v-model="radio" label="2">备选项</el-radio>
     </div>
     <div>
       <el-checkbox v-model="checked">备选项</el-checkbox>
