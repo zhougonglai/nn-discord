@@ -6,7 +6,7 @@
     .channel-center
       .channel-banner
         img( :src="channelBanner" )
-  .channel-item
+  .channel-item.flex-sub
     .channel-left
       .community-search
         Search
