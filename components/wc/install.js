@@ -6,7 +6,8 @@ import nnInput from './nnInput.vue'
 import nnOption from './nnOption.vue'
 import nnRadio from './nnRadio.vue'
 import nnSelect from './nnSelect.vue'
-import nnDropDown from './nnDropDown.vue'
+import nnDropdown from './nnDropdown.vue'
+import nnDropitem from './nnDropitem.vue'
 
 export default {
   install(vue) {
@@ -18,6 +19,7 @@ export default {
     vue.component(nnOption.name, nnOption)
     vue.component(nnRadio.name, nnRadio)
     vue.component(nnSelect.name, nnSelect)
-    vue.component(nnDropDown.name, nnDropDown)
+    vue.component(nnDropdown.name, nnDropdown)
+    vue.component(nnDropitem.name, nnDropitem)
   },
 }

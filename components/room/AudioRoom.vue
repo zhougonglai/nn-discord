@@ -6,7 +6,8 @@
     chat-tool(@send="sendText")
   .room-sider
     .tools
-      nn-dropdown(label="asasf")
+      nn-dropdown(:label="type.label" v-model="type.value")
+        nn-dropitem(v-for="item in types" :key="item.value" :value="item.value") {{item.label}}
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
@@ -18,6 +19,24 @@ export default {
   components: {
     chatItem,
     chatTool,
+  },
+  data() {
+    return {
+      type: {
+        label: '麦序模式',
+        value: 'microphone',
+      },
+      types: [
+        {
+          label: '麦序模式',
+          value: 'microphone',
+        },
+        {
+          label: '自由模式',
+          value: 'free',
+        },
+      ],
+    }
   },
   computed: {
     ...mapState('chat', ['msgList']),
