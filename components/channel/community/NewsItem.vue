@@ -48,11 +48,10 @@ export default {
   methods: {
     formateTime(time) {
       time = new Date(time).getTime()
-      var date_now = new Date()
-      var date_time = new Date(time)
-      var distance = date_now.getTime() - time
-
-      var days = parseInt(distance / (1000 * 60 * 60 * 24))
+      let date_now = new Date()
+      let date_time = new Date(time)
+      let distance = date_now.getTime() - time
+      let days = parseInt(distance / (1000 * 60 * 60 * 24))
       let d_hours = date_time.getHours()
       if (d_hours < 10) {
         d_hours = '0' + d_hours
@@ -66,12 +65,12 @@ export default {
       } else if (days == 2) {
         return days + '天前' + d_hours + ':' + d_minutes
       } else if (days >= 2) {
-        var year = date_time.getFullYear()
-        var month = date_time.getMonth() + 1
+        let year = date_time.getFullYear()
+        let month = date_time.getMonth() + 1
         if (month < 10) {
           month = '0' + month
         }
-        var day = date_time.getDate()
+        let day = date_time.getDate()
         if (day < 10) {
           day = '0' + day
         }
@@ -83,32 +82,18 @@ export default {
           )
         }
       }
-
-      var hours = parseInt(
+      let hours = parseInt(
         (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
       )
       if (hours > 0) {
         return hours + '小时前'
       }
 
-      var minutes = parseInt((distance % (1000 * 60 * 60)) / (1000 * 60))
+      let minutes = parseInt((distance % (1000 * 60 * 60)) / (1000 * 60))
       if (minutes > 0) {
         return minutes + '分钟前'
       }
-
       return '刚刚'
-      // let now = new Date().getTime()
-      // let nowDay = new Date().getDay()
-      // let create = new Date(time).getTime()
-      // let createDay = new Date(time).getDay()
-      // let result = Math.floor((now - create) / 1000)
-      // if (result <= 3600) {
-      //   return Math.floor(result / 60) + '分钟前'
-      // }
-      // if (result <= 86400 && nowDay === createDay) {
-      //   return Math.floor(result / 60 / 24) + '小时前'
-      // }
-      // return time
     },
   },
 }
