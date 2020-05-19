@@ -4,24 +4,27 @@
     .message.flex-sub(ref="message")
       chat-item(v-for="data in msgList" :key="data.id" :data="data")
     chat-tool(@send="sendText")
-  .room-sider
+  .room-sider.flex.column
     .tools
       nn-dropdown(:label="type.label" v-model="type.value")
         nn-dropitem(v-for="item in types" :key="item.value" :value="item.value") {{item.label}}
       .tap 控麦
       .tap 上麦
       .tap 下麦
+    div.flex-sub
+        MembersItem(v-for="a in 30" :key="a")
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import chatItem from '~/components/channel/chat-item'
 import chatTool from '~/components/channel/chat-tool'
-
+import MembersItem from '~/components/channel/MembersItem'
 export default {
   name: 'AudioRoom',
   components: {
     chatItem,
     chatTool,
+    [MembersItem.name]: MembersItem,
   },
   data() {
     return {

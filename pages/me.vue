@@ -11,7 +11,7 @@ section#me
             .list-item-content 个人首页
       .list.group.padding.my-1(v-if="communityGroup.length" key="community")
         .list-group(
-          v-for="group in communityGroup"
+          v-for="(group,index) in communityGroup"
           :key="group.id"
           :class="{expand: activeCommunityGroup.includes(group.id)}")
           .list-header(@click="expandCommunityGroup(group)")
@@ -20,6 +20,7 @@ section#me
             | {{group.label}}
           template(v-if="activeCommunityGroup.includes(group.id)")
             n-link.list-item(
+              v-if="index==0"
               :to="`/me/chat/robot`")
               .list-item-pre
                 template

@@ -24,6 +24,10 @@
       margin: 0 5px;
     }
   }
+  &.disabled {
+    padding: 0 15px;
+    color: #72767d;
+  }
 }
 .emoji-picker {
   position: absolute;
@@ -47,12 +51,19 @@
 </style>
 <template>
   <div class="msg-tool">
+    <div v-if="disabled" class="send-input flex jcb aic disabled">
+      你还不能发言，因为你还没有加入此社区
+      <el-button @click="$emit('click_join')" round size="mini" type="primary"
+        >+加入</el-button
+      >
+    </div>
     <el-input
       ref="txt"
+      v-else
       v-model="input"
+      @keyup.enter.native="send"
       class="send-input"
       placeholder="请按“ENTER”键发送信息"
-      @keyup.enter.native="send"
     >
       <template slot="append">
         <div class="msg-right flex aic">
@@ -107,7 +118,6 @@
 <script>
 import { Input } from 'element-ui'
 import EmojiPicker from 'vue-emoji-picker'
-
 import emoji from '~/assets/icons/emoji.svg'
 import Screenshot from '~/assets/icons/Screenshot.svg'
 import tupian from '~/assets/icons/tupian.svg'
@@ -121,6 +131,7 @@ export default {
     [Input.name]: Input,
     EmojiPicker,
   },
+  props: { disabled: Boolean },
   data() {
     return {
       input: '',

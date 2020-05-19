@@ -3,30 +3,18 @@
 .page {
   background-color: #36393f;
 }
-.add-friend-tip {
-  $color-warn: #ef6643;
-  $color: #fff;
-  background-color: $color-warn;
-  color: $color;
-  padding: 7px;
-  .el-button {
-    margin-left: 15px;
-    color: $color-warn;
-    background: $color;
-  }
-}
+
 .message {
   padding: 30px 24px;
 }
 </style>
 <template>
   <div class="page spacer flex column">
-    <div class="add-friend-tip flex jcc aic">
-      非好友消息可能会丢失哦，快添加成好友吧
-      <el-button round size="medium" type="primary" @click="add_friend"
-        >添加好友</el-button
-      >
-    </div>
+    <TopTip
+      @click="add_friend"
+      msg="非好友消息可能会丢失哦，快添加成好友吧"
+      btntext="添加好友"
+    ></TopTip>
     <!-- 消息 -->
     <div ref="message" class="message flex-sub">
       <chat-item
@@ -43,10 +31,12 @@
 import { mapState, mapActions } from 'vuex'
 import chatItem from '~/components/channel/chat-item'
 import chatTool from '~/components/channel/chat-tool'
+import TopTip from '~/components/channel/top-tip'
 export default {
   components: {
     [chatItem.name]: chatItem,
     [chatTool.name]: chatTool,
+    [TopTip.name]: TopTip,
   },
   data() {
     return {}
@@ -76,7 +66,6 @@ export default {
       })
     },
     send_text(data) {
-      console.log(this.$store)
       this['chat/send-text'](data.text)
     },
   },
