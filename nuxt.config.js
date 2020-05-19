@@ -105,7 +105,7 @@ module.exports = {
   ],
   axios: {},
   proxy: {
-    '/api': 'http://172.19.35.151:7510',
+    '/api': 'http://10.178.68.29:7105',
   },
   styleResources: {
     scss: './styles/variables.scss',
