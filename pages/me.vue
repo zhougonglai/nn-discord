@@ -32,7 +32,7 @@ section#me
               :to="`/me/${item.type}/${item.id}`"
               :key="item.id")
               .list-item-pre
-                template(v-if="item.type === 'msg'")
+                template(v-if="item.type === 'messages'")
                   i.bx.bxs-volume-full
                 template(v-else-if="item.type === 'audio'")
                   i.bx.bxs-megaphone

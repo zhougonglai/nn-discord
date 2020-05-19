@@ -1,4 +1,4 @@
-//_.throttle(, 200)
+// _.throttle(, 200)
 // 高频更新是界面数据使用节流减少更新
 
 const state = () => ({
@@ -30,16 +30,16 @@ const state = () => ({
 const getters = {}
 
 const actions = {
-  ['send-text']({ state, commit }, data) {
+  'send-text'({ state, commit }, data) {
     commit('message-add', data)
   },
 }
 
 const mutations = {
-  ['update'](state) {
+  update(state) {
     //
   },
-  ['message-add'](state, data) {
+  'message-add'(state, data) {
     state.msgList.push({
       id: Math.random(),
       type: 'TEXT',
