@@ -621,18 +621,18 @@ $--button-primary-border-color: $--color-primary !default;
 // /* Table
 // -------------------------- */
 // /// color||Color|0
-// $--table-border-color: $--border-color-lighter !default;
+$--table-border-color: #303339 !default;
 // $--table-border: 1px solid $--table-border-color !default;
 // /// color||Color|0
 // $--table-font-color: $--color-text-regular !default;
 // /// color||Color|0
-// $--table-header-font-color: $--color-text-secondary !default;
+$--table-header-font-color: #dcddde !default;
 // /// color||Color|0
-// $--table-row-hover-background-color: $--background-color-base !default;
-// $--table-current-row-background-color: $--color-primary-light-9 !default;
+$--table-row-hover-background-color: #303339 !default;
+$--table-current-row-background-color: #303339 !default;
 // /// color||Color|0
-// $--table-header-background-color: $--color-white !default;
-// $--table-fixed-box-shadow: 0 0 10px rgba(0, 0, 0, .12) !default;
+$--table-header-background-color: #303339 !default;
+// $--table-fixed-box-shadow: 0 0 10px rgba(0, 0, 0, 0.12) !default;
 
 // /* Pagination
 // -------------------------- */
@@ -992,4 +992,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 .el-date-picker {
   background-color: #000;
+}
+.el-table tr.el-table__row--striped td {
+  background: #303339 !important;
 }

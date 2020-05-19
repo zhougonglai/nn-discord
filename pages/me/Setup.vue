@@ -1,13 +1,20 @@
-<template lang="pug">
-PageHead
-  MeTabs 账号安全
+<template>
+  <PageHead>
+    <MeTabs>
+      <div class="nav-left">
+        ddd
+      </div>
+      <div class="right flex-sub">
+        ddd
+      </div>
+    </MeTabs>
+  </PageHead>
 </template>
 <script>
 import PageHead from '~/components/channel/PageHead'
 import MeTabs from '~/components/channel/MeTabs'
-
 export default {
-  name: 'Safe',
+  name: 'Setup',
   components: {
     [PageHead.name]: PageHead,
     [MeTabs.name]: MeTabs,

@@ -3,10 +3,10 @@
   .tab-bars
     n-link.tab-bar(to="/me/" exact) 个人中心
     n-link.tab-bar(to="/me/notice") 公告
-    n-link.tab-bar(to="/me/community") 社区资料
-    n-link.tab-bar(to="/me/safe") 账户安全
-    n-link.tab-bar(to="/me/author") 账号授权
+    n-link.tab-bar(to="/me/Setup") 设置
     n-link.tab-bar(to="/me/member") 成员
+    n-link.tab-bar(to="/me/author") 游戏账号授权
+    n-link.tab-bar(to="/me/Dynamic") 动态
     .tab-tools
       nn-btn(rund size="small" @click="show_Recharge=true") 充值
   .tab-body
