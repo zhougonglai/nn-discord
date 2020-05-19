@@ -1,6 +1,6 @@
 <template lang="pug">
-.news-forward-comment 
-    .news-forward-comment-p {{ font }} 
+.news-forward-comment
+    .news-forward-comment-p {{ font }}
       <slot></slot>
     span( v-if="show" @click="all" ) 查看全部内容
 </template>
@@ -17,7 +17,7 @@ export default {
   watch: {
     content: {
       immediate: true,
-      handler: function () {
+      handler() {
         if (this.content.length > this.num) {
           this.font = this.content.substr(0, this.num) + '...'
           return
