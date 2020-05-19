@@ -1,16 +1,20 @@
 <template lang="pug">
 .nn-dropdown
   .nn-dropdown-content(
+    :class="[drop ? 'active' : '']"
     @click="showDropdown"
     @mouseover="showDropdown"
     @mouseleave="hideDropdown"
     v-click-outside="hideDropdownIm"
   )
     | {{label}}
-  .nn-dropdown-menus(:class="[position]" v-if="drop")
-    slot
+    BxsDownArrow.nn-dropdown-triangle
+    .nn-dropdown-menus(:class="[position]" v-if="drop")
+      slot
 </template>
 <script>
+import BxsDownArrow from '~/assets/icons/BxsDownArrow.svg'
+
 export default {
   name: 'NnDropdown',
   props: {
@@ -31,6 +35,9 @@ export default {
     return {
       dropdown: this,
     }
+  },
+  components: {
+    BxsDownArrow,
   },
   data() {
     return {
