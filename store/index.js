@@ -20,12 +20,15 @@ export const actions = {
     return data
   },
   async loginByPhoneSms({ commit }, form) {
-    const { data } = await this.$axios.$post('/loginByPhoneSms', form)
-    return data
+    const res = await this.$axios.$post('/loginByPhoneSms', form)
+    console.log(res)
+    // commit(types('SET_USER'), data)
+    return res
   },
   async loginByPwd({ commit }, form) {
-    const { data } = await this.$axios.$post('/loginByPwd', form)
-    return data
+    const user = await this.$axios.$post('/loginByPwd', form)
+    commit(types('SET_USER'), user)
+    return user
   },
   async getUser({ commit }, form) {
     const { data } = await this.$axios.$post('/getUserByuserid', {
@@ -153,7 +156,7 @@ export const mutations = {
       state.activeFriendsGroup.push(id)
     }
   },
-  [types('SET')](state, user) {
+  [types('SET_USER')](state, user) {
     state.user = user
   },
   [types('COMMUNITY_GROUP')](state, group) {

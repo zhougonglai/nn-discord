@@ -2,11 +2,12 @@
 #verify
   h3.v-tac.no-select 用户登录
   form.form.mt-3(novalidate role="form" ref="form")
+    small.error(v-if="error.status" v-text="error.msg")
     .form-contrl
       label(for="phone")
         Phone
       .form-contrl__before
-        | + 86
+        | + {{sign.countryCode}}
       input#phone.form-input(
         required
         type="tel"
@@ -15,10 +16,10 @@
         pattern="^[0-9]*$"
         placeholder="手机号"
         autocomplete="tel"
-        v-model.number.trim="sign.mobile_num")
-      .dropdown-menus.top.start(v-if="error.mobile_num.status")
-        .dropdown-menu.nohover(v-text="error.mobile_num.msg")
-      i.form-clear.el-icon-error(v-if="sign.mobile_num" @click="sign.mobile_num = ''")
+        v-model.number.trim="sign.telNum")
+      .dropdown-menus.top.start(v-if="error.telNum.status")
+        .dropdown-menu.nohover(v-text="error.telNum.msg")
+      i.form-clear.el-icon-error(v-if="sign.telNum" @click="sign.telNum = ''")
     .form-contrl.with-after.dropdown-link
       label(for="smscode")
         Safe
@@ -31,7 +32,7 @@
           pattern="^[0-9]*$"
           placeholder="验证码"
           autocomplete="off"
-          v-model.trim="sign.smscode")
+          v-model.trim="sign.smsCode")
         el-button.mr-1(type="text" size="mini" @click="sendContrl" :disabled="!!sendCodeContrl.timer")
           | {{ sendCodeContrl.timer ? `(${sendCodeContrl.time})` : '发送验证码' }}
       .verify.pointer(v-else @click="verify")
@@ -39,9 +40,9 @@
         | 点击按钮进行验证
       .dropdown-menus.bottom.start.center(v-if="error.code.status")
         .dropdown-menu.nohover(v-text="error.code.msg")
-      i.form-clear.el-icon-error(v-if="sign.smscode" @click="sign.smscode = ''")
+      i.form-clear.el-icon-error(v-if="sign.smsCode" @click="sign.smsCode = ''")
   .my-2
-    el-button.full-width(type="primary" @click="login") 登录
+    el-button.full-width(type="primary" :loading="loading" @click="login") 登录
   .flex.full-width
     .tap(@click="$parent.switchSignForm(5)") 忘记密码
     .spacer
@@ -71,11 +72,12 @@ export default {
   data() {
     return {
       dropdown: 0,
-      verifyed: false,
+      loading: false,
+      verifyed: 2,
       error: {
         status: false,
         msg: '',
-        mobile_num: {
+        telNum: {
           status: false,
           msg: '',
         },
@@ -90,12 +92,11 @@ export default {
         timer: 0,
       },
       sign: {
-        country_code: 86,
-        mobile_num: '',
+        countryCode: 86,
+        telNum: '',
         state: 1,
-        server_status: '',
-        smscode: '',
-        smscode_key: '',
+        smsCode: '',
+        smsCodeKey: '',
       },
       geetest: {
         geetest_challenge: '',
@@ -108,10 +109,73 @@ export default {
     verify() {
       this.verifyed = true
     },
-    sendContrl() {},
+    sendContrl() {
+      if (!this.sendCodeContrl.timer) {
+        this.clearVerify()
+        this.sendCodeContrl.timer = setInterval(() => {
+          if (this.sendCodeContrl.time > 0) {
+            this.sendCodeContrl.time -= 1
+          } else {
+            clearInterval(this.sendCodeContrl.timer)
+            this.sendCodeContrl.timer = 0
+            this.sendCodeContrl.time = 60
+          }
+        }, 1000)
+        this.sendSmscode()
+      }
+    },
+    sendSmscode() {
+      this.sendCode(this.sign)
+      this.verifyed -= 1
+    },
+    phoneValidity() {
+      if (this.$refs.phone.checkValidity()) {
+        this.error.telNum.status = false
+        return true
+      } else {
+        this.error.telNum.status = true
+        this.error.telNum.msg =
+          this.$refs.phone.validationMessage || '请填写此字段'
+        return false
+      }
+    },
+    verifyValidity() {
+      if (this.verifyed) {
+        this.error.code.status = false
+        return true
+      } else {
+        this.error.code.status = true
+        this.error.code.msg = '请进行人机验证'
+        return false
+      }
+    },
+    codeValidity() {
+      if (this.$refs.code.checkValidity()) {
+        this.error.code.status = false
+        return true
+      } else {
+        this.error.code.status = true
+        this.error.code.msg =
+          this.$refs.password.validationMessage || '请填写此字段'
+        return false
+      }
+    },
+    clearVerify() {
+      this.error.status = false
+      this.error.telNum.status = false
+      this.error.code.status = false
+    },
     async login() {
+      this.clearVerify()
+      if (!this.phoneValidity()) return
+      if (!this.verifyValidity()) return
+      if (!this.codeValidity()) return
       this.$nuxt.$loading.start()
-      await this.getUser()
+      const res = await this.loginByPhoneSms(this.sign).catch((err) => {
+        this.error.msg = err
+        this.error.status = true
+      })
+      console.log(res)
       await this.getCommunityGroup()
       await this.getFriendsGroup()
       this.$parent.closeDialog()
@@ -130,7 +194,12 @@ export default {
     hideDropdownIm() {
       this.dropdown = 0
     },
-    ...mapActions(['getUser', 'getCommunityGroup', 'getFriendsGroup']),
+    ...mapActions([
+      'loginByPhoneSms',
+      'sendCode',
+      'getCommunityGroup',
+      'getFriendsGroup',
+    ]),
   },
 }
 </script>
