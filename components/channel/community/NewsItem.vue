@@ -96,20 +96,7 @@ export default {
       if (minutes > 0) {
         return minutes + '分钟前'
       }
-
       return '刚刚'
-      // let now = new Date().getTime()
-      // let nowDay = new Date().getDay()
-      // let create = new Date(time).getTime()
-      // let createDay = new Date(time).getDay()
-      // let result = Math.floor((now - create) / 1000)
-      // if (result <= 3600) {
-      //   return Math.floor(result / 60) + '分钟前'
-      // }
-      // if (result <= 86400 && nowDay === createDay) {
-      //   return Math.floor(result / 60 / 24) + '小时前'
-      // }
-      // return time
     },
   },
 }
