@@ -1,25 +1,25 @@
 <template>
   <div
-    @keyup.esc="hidePicker"
     ref="container"
+    @keyup.esc="hidePicker"
+    v-on="handleMouse()"
     class="emoji-wrapper"
     hidefocus="true"
-    v-on="handleMouse()"
   >
-    <span class="emoji-button" @click.stop="togglePickerVisibility">
+    <span @click.stop="togglePickerVisibility" class="emoji-button">
       <i class="iconfont iconemoji"></i>
       <span v-if="buttonTextVisible" class="button-text">表情</span>
     </span>
-    <div class="emoji-picker-main" v-if="pickerVisible">
+    <div v-if="pickerVisible" class="emoji-picker-main">
       <div :class="['emoji-picker', pickerPosition]">
         <ul>
           <li v-for="(url, key) in files" :key="key" class="emoji-picker-item">
             <img
-              class="emoji-icon"
               @click="handlerSelect"
+              :src="url"
+              class="emoji-icon"
               width="20"
               height="20"
-              :src="url"
               alt
             />
           </li>
@@ -29,10 +29,29 @@
   </div>
 </template>
 <script>
-const path = require('path')
 const requireEmoji = require.context('./emoji')
-let files = requireEmoji.keys()
+const files = requireEmoji.keys()
 export default {
+  props: {
+    buttonTextVisible: {
+      type: Boolean,
+      default: true,
+    },
+    triggerPick: {
+      tyep: String,
+      default: 'hover',
+      validator(value) {
+        return ['hover', 'click'].includes(value)
+      },
+    },
+    pickerPosition: {
+      type: String,
+      default: 'right',
+      validator(value) {
+        return ['left', 'middle', 'right'].includes(value)
+      },
+    },
+  },
   data() {
     return {
       pickerVisible: false,
@@ -68,26 +87,6 @@ export default {
         },
       },
     }
-  },
-  props: {
-    buttonTextVisible: {
-      type: Boolean,
-      default: true,
-    },
-    triggerPick: {
-      tyep: String,
-      default: 'hover',
-      validator(value) {
-        return ['hover', 'click'].includes(value)
-      },
-    },
-    pickerPosition: {
-      type: String,
-      default: 'right',
-      validator(value) {
-        return ['left', 'middle', 'right'].includes(value)
-      },
-    },
   },
   watch: {
     pickerVisible(newValue) {
