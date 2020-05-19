@@ -32,9 +32,9 @@ export default {
     // console.log();
   },
   methods: {
-    // test() {
-    //   return 0;
-    // }
+    test() {
+      console.log('test')
+    },
   },
 }
 </script>

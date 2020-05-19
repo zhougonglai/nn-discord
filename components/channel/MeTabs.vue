@@ -29,6 +29,7 @@ export default {
 <style lang="scss" scoped>
 .tab {
   &s {
+    overflow: auto;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -81,6 +82,7 @@ export default {
   &-body {
     flex: 1;
     display: flex;
+    overflow: auto;
   }
   &-tools {
     flex: 1;
