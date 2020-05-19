@@ -1,5 +1,7 @@
 <template lang="pug">
-.nn-dropdown-menu(:class="[dropdown.value === value ? 'active': '']")
+.nn-dropdown-menu(
+  :class="[dropdown.value === value ? 'active': '']"
+  @click="$parent.$emit('input', value)")
   slot
 </template>
 <script>

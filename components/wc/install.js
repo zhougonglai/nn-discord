@@ -8,6 +8,8 @@ import nnRadio from './nnRadio.vue'
 import nnSelect from './nnSelect.vue'
 import nnDropdown from './nnDropdown.vue'
 import nnDropitem from './nnDropitem.vue'
+import nnContextMenus from './nnContextMenus.vue'
+import nnCOntextMenu from './nnContextMenu.vue'
 
 export default {
   install(vue) {
@@ -21,5 +23,7 @@ export default {
     vue.component(nnSelect.name, nnSelect)
     vue.component(nnDropdown.name, nnDropdown)
     vue.component(nnDropitem.name, nnDropitem)
+    vue.component(nnContextMenus.name, nnContextMenus)
+    vue.component(nnCOntextMenu.name, nnCOntextMenu)
   },
 }
