@@ -129,7 +129,7 @@ export default {
         await this.getCommunityGroup()
         await this.getFriendsGroup()
         this.$parent.closeDialog()
-        this.$router.push({ path: '/me' }, this.$nuxt.$loading.finish)
+        this.$router.push({ path: '/me/' }, this.$nuxt.$loading.finish)
       }
     },
     showDropdown() {
