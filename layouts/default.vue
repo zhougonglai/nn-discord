@@ -92,15 +92,6 @@ export default {
   computed: {
     ...mapState(['user']),
   },
-  mounted() {
-    this.$nextTick(() => {
-      setTimeout(() => {
-        if (!this.user) {
-          this.sign.in.status = true
-        }
-      }, 600)
-    })
-  },
   methods: {
     openSearch() {
       this.search.open = true

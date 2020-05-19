@@ -1,11 +1,13 @@
 <template lang="pug">
 #sign-up
   h3.v-tac.no-select 用户注册
-  small.error(v-if="error.status" v-text="error.msg")
   form.form(novalidate ref="form")
+    small.error(v-if="error.status" v-text="error.msg")
     .form-contrl.with-before.dropdown-link
       label(for="phone")
         Phone
+      .form-contrl__before
+        | + {{sign.countryCode}}
       input#phone.form-input(
         tabindex="1"
         required
@@ -31,7 +33,7 @@
           ref="code"
           autocomplete="off"
           placeholder="验证码"
-          v-model.trim="sign.smscode")
+          v-model.trim="sign.smsCode")
         el-button.mr-1(type="text" size="mini" @click="sendContrl" :disabled="!!sendCodeContrl.timer")
           | {{ sendCodeContrl.timer ? `(${sendCodeContrl.time})` : '发送验证码' }}
       .verify.pointer(v-else @click="verify")
@@ -39,6 +41,7 @@
         | 点击按钮进行验证
       .dropdown-menus.bottom.start(v-if="error.code.status")
         .dropdown-menu.nohover(v-text="error.code.msg")
+      i.form-clear.el-icon-error(v-if="sign.smsCode" @click="sign.smsCode = ''")
     template(v-if="verifyed")
       .form-contrl.dropdown-link
         label(for="pwd")
@@ -51,10 +54,10 @@
           ref="password"
           autocomplete="current-password"
           placeholder="密码"
-          v-model="sign.password")
+          v-model="sign.pwdEncry")
         .dropdown-menus.bottom.start(v-if="error.password.status")
           .dropdown-menu.nohover(v-text="error.password.msg")
-        i.form-clear.el-icon-error(@click="sign.password = ''")
+        i.form-clear.el-icon-error(v-if="sign.pwdEncry" @click="sign.pwdEncry = ''")
       .form-contrl
         label(for="refer")
           i.el-icon-s-ticket.form-icon
@@ -115,12 +118,11 @@ export default {
         timer: 0,
       },
       sign: {
-        country_code: 86,
+        countryCode: 86,
         telNum: '',
-        state: 2,
-        password: '',
+        pwdEncry: '',
         server_status: '',
-        smscode: '',
+        smsCode: '',
         smscode_key: '',
         package_id: '',
         price_id: '',
@@ -133,8 +135,6 @@ export default {
       },
     }
   },
-  async mounted() {},
-  async created() {},
   methods: {
     verify() {
       if (this.phoneValidity()) {
@@ -142,6 +142,7 @@ export default {
     },
     sendSmscode() {
       this.sendCode(this.sign)
+      this.verifyed -= 1
     },
     sendContrl() {
       if (!this.sendCodeContrl.timer) {
@@ -216,7 +217,10 @@ export default {
         this.loading = true
         await this.register({
           ...this.sign,
-          password: md5(this.sign.password),
+          pwdEncry: md5(this.sign.pwdEncry),
+        }).catch((error) => {
+          this.error.msg = error
+          this.error.status = true
         })
         this.loading = false
       }

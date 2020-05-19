@@ -2,11 +2,12 @@
 #sign-in
   h3.v-tac.no-select 用户登录
   form.form.mt-2(novalidate role="form" ref="form")
+    small.error(v-if="error.status" v-text="error.msg")
     .form-contrl
       label(for="phone")
         Phone
       .form-contrl__before
-        | + {{sign.country_code}}
+        | + {{sign.countryCode}}
       input#phone.form-input(
         required
         ref="phone"
@@ -15,8 +16,9 @@
         pattern="^[0-9]*$"
         placeholder="手机号"
         autocomplete="tel"
-        v-model.number.trim="sign.mobile_num"
+        v-model.number.trim="sign.username"
       )
+      i.form-clear.el-icon-error(v-if="sign.username" @click="sign.username = ''")
     .form-contrl
       label(for="pwd")
         Lock
@@ -27,7 +29,10 @@
         type="password"
         placeholder="密码"
         autocomplete="current-password"
-        v-model="sign.password")
+        v-model="sign.pwdEncry")
+      .dropdown-menus.bottom.start(v-if="error.password.status")
+        .dropdown-menu.nohover(v-text="error.password.msg")
+      i.form-clear.el-icon-error(v-if="sign.pwdEncry" @click="sign.pwdEncry = ''")
   .flex.full-width.my-2.space-between
     el-checkbox(v-model="remember") 记住我
     el-checkbox(v-model="autologin") 自动登录
@@ -50,6 +55,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import md5 from 'js-md5'
 import Phone from '~/assets/icons/phone.svg'
 import Lock from '~/assets/icons/lock.svg'
 
@@ -64,11 +70,11 @@ export default {
       remember: true,
       autologin: true,
       sign: {
-        country_code: 86,
-        user_type: 0,
+        countryCode: 86,
+        type: 'phone',
         region_code: '',
-        mobile_num: '',
-        password: '',
+        username: '',
+        pwdEncry: '',
       },
       dropdown: 0,
       error: {
@@ -78,26 +84,53 @@ export default {
           status: false,
           msg: '',
         },
-        code: {
+        password: {
           status: false,
           msg: '',
         },
       },
-      sendCodeContrl: {
-        sending: false,
-        time: 60,
-        timer: 0,
-      },
     }
   },
   methods: {
+    phoneValidity() {
+      if (this.$refs.phone.checkValidity()) {
+        this.error.mobile_num.status = false
+        return true
+      } else {
+        this.error.mobile_num.status = true
+        this.error.mobile_num.msg =
+          this.$refs.phone.validationMessage || '请填写此字段'
+        return false
+      }
+    },
+    pwdValidity() {
+      if (this.$refs.password.checkValidity()) {
+        this.error.password.status = false
+        return true
+      } else {
+        this.error.password.status = true
+        this.error.password.msg =
+          this.$refs.password.validationMessage || '请填写此字段'
+        return false
+      }
+    },
+    clearError() {
+      this.error.status = false
+    },
     async login() {
-      this.$nuxt.$loading.start()
-      await this.getUser()
-      await this.getCommunityGroup()
-      await this.getFriendsGroup()
-      this.$parent.closeDialog()
-      this.$router.push({ name: 'me' }, this.$nuxt.$loading.finish)
+      if (!this.phoneValidity()) return
+      if (!this.pwdValidity()) return
+      if (this.$refs.form.checkValidity()) {
+        this.$nuxt.$loading.start()
+        await this.loginByPwd({
+          ...this.sign,
+          pwdEncry: md5(this.sign.pwdEncry),
+        })
+        await this.getCommunityGroup()
+        await this.getFriendsGroup()
+        this.$parent.closeDialog()
+        this.$router.push({ path: '/me' }, this.$nuxt.$loading.finish)
+      }
     },
     showDropdown() {
       if (!this.dropdown) {
@@ -112,7 +145,7 @@ export default {
     hideDropdownIm() {
       this.dropdown = 0
     },
-    ...mapActions(['getUser', 'getCommunityGroup', 'getFriendsGroup']),
+    ...mapActions(['loginByPwd', 'getCommunityGroup', 'getFriendsGroup']),
   },
 }
 </script>
