@@ -24,7 +24,8 @@ section#friends
               i.bx.bxs-chevron-down
             | {{group.label}}
           template(v-if="activeFriendsGroup.includes(group.id)")
-            .list-item(
+            n-link.list-item(
+              :to="'/friends/'+item.id"
               v-for="item in group.children"
               :key="item.id")
               .list-item-pre

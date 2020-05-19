@@ -1,7 +1,7 @@
 .dropdown {
-  position: relative;
   &-link {
     cursor: pointer;
+    position: relative;
     display: flex;
     justify-content: center;
     user-select: none;
@@ -143,19 +143,33 @@
     &:not(.nohover):hover {
       background-color: #303339;
     }
-    &-icon {
-    }
   }
 }
 
 .nn-dropdown {
+  position: relative;
   &-content {
     cursor: pointer;
-    position: relative;
     display: flex;
     justify-content: center;
     user-select: none;
     color: lightgray;
+    line-height: 40px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    &.active {
+      .nn-dropdown-triangle {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  &-triangle {
+    height: 10px;
+    width: 10px;
+    fill: #72767d;
+    margin-left: 10px;
+    transition: transform 0.2s linear;
   }
   &-menus {
     position: absolute;
@@ -210,6 +224,29 @@
         top: -16px;
         border-bottom: 8px #222428 solid;
       }
+    }
+  }
+
+  &-menu {
+    min-width: 110px;
+    width: 100%;
+    line-height: 32px;
+    padding: 0 $n;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:first-child {
+      border-radius: 3px 3px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 3px 3px;
+    }
+    &.nohover {
+      cursor: auto;
+    }
+    &:not(.nohover):hover {
+      background-color: #303339;
     }
   }
 }

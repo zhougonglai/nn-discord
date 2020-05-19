@@ -1,5 +1,9 @@
 module.exports = {
   mode: 'universal',
+  env: {
+    NUXT_ENV_a: 'b',
+    NUXT_ENV_Recharge_URL: process.env.Recharge_URL,
+  },
   head: {
     title: process.env.npm_package_name || '',
     htmlAttrs: {

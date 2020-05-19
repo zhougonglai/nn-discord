@@ -8,6 +8,9 @@
     .tools
       nn-dropdown(:label="type.label" v-model="type.value")
         nn-dropitem(v-for="item in types" :key="item.value" :value="item.value") {{item.label}}
+      .tap 控麦
+      .tap 上麦
+      .tap 下麦
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
@@ -73,6 +76,12 @@ export default {
     width: 250px;
     background-color: #2f3136;
   }
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .message {

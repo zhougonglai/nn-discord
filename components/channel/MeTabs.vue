@@ -8,13 +8,22 @@
     n-link.tab-bar(to="/me/author") 账号授权
     n-link.tab-bar(to="/me/member") 成员
     .tab-tools
-      nn-btn(rund size="small") 充值
+      nn-btn(rund size="small" @click="show_Recharge=true") 充值
   .tab-body
     slot
+  Recharge(v-click-outside="()=>{show_Recharge=false}" @close="()=>{show_Recharge=false}" v-if="show_Recharge")
 </template>
 <script>
+import Recharge from '~/components/channel/Recharge'
 export default {
   name: 'MeTabs',
+  components: { [Recharge.name]: Recharge },
+  data() {
+    return {
+      show_Recharge: false,
+    }
+  },
+  methods: {},
 }
 </script>
 <style lang="scss" scoped>

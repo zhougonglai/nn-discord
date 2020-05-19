@@ -11,22 +11,26 @@ export const state = () => ({
 })
 
 export const actions = {
-  getUser({ commit }) {
-    const { data } = Mock.mock({
-      data: {
-        id: Math.random().toString(16).slice(-10),
-        nickName: '@cname',
-        imageUrl: 'https://api.adorable.io/avatars/285' + '/@id()' + '.png',
-        memberNo: '@guid',
-        email: '@email()',
-        gender: '@integer(-1, 1)',
-        fans: '@integer(0, 99999999)',
-        follow: '@integer(0, 99999999)',
-        signature: '@cparagraph',
-      },
-      status: true,
+  async sendCode({ commit }, form) {
+    const { data } = await this.$axios.$post('/sendSms', form)
+    return data
+  },
+  async register({ commit }, form) {
+    const { data } = await this.$axios.$post('/register', form)
+    return data
+  },
+  async loginByPhoneSms({ commit }, form) {
+    const { data } = await this.$axios.$post('/loginByPhoneSms', form)
+    return data
+  },
+  async loginByPwd({ commit }, form) {
+    const { data } = await this.$axios.$post('/loginByPwd', form)
+    return data
+  },
+  async getUser({ commit }, form) {
+    const { data } = await this.$axios.$post('/getUserByuserid', {
+      ...form,
     })
-    commit(types('SET'), data)
     return data
   },
   getCommunityGroup({ commit }) {

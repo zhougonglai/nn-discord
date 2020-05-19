@@ -7,6 +7,7 @@
       label(for="phone")
         Phone
       input#phone.form-input(
+        tabindex="1"
         required
         type="tel"
         name="phone"
@@ -14,15 +15,16 @@
         pattern="^[0-9]*$"
         placeholder="手机号"
         autocomplete="tel"
-        v-model.number.trim="sign.mobile_num")
-      .dropdown-menus.top.start(v-if="error.mobile_num.status")
-        .dropdown-menu.nohover(v-text="error.mobile_num.msg")
-      i.form-clear.el-icon-error(v-if="sign.mobile_num" @click="sign.mobile_num = ''")
+        v-model.number.trim="sign.telNum")
+      .dropdown-menus.top.start(v-if="error.telNum.status")
+        .dropdown-menu.nohover(v-text="error.telNum.msg")
+      i.form-clear.el-icon-error(v-if="sign.telNum" @click="sign.telNum = ''")
     .form-contrl.with-after.dropdown-link
       label(for="smscode")
         Safe
       template(v-if="verifyed")
         input#smscode.form-input(
+          tabindex="2"
           required
           type="tel"
           name="code"
@@ -42,6 +44,7 @@
         label(for="pwd")
           Lock
         input#pwd.form-input(
+          tabindex="3"
           required
           name="pwd"
           type="password"
@@ -56,6 +59,7 @@
         label(for="refer")
           i.el-icon-s-ticket.form-icon
         input#refer.form-input(
+          tabindex="4"
           type="text"
           name="refer_code"
           autocomplete='off'
@@ -65,12 +69,14 @@
     el-checkbox(v-model="confirm") 已阅读并同意
     small.inline-flex.pointer.text-primary 《用户服务条款》
   .my-2
-    el-button.full-width(type="primary" :disabled="!confirm" @click="register") 注册
+    el-button.full-width(type="primary" :loading="loading" tabindex="5" :disabled="!confirm" @click="regist") 注册
   .flex.aic.jcc.mt-2
     small.text-lightgray.mr-1 已有账号
     .pointer.text-primary(@click="$parent.switchSignForm()") 去登录
 </template>
 <script>
+import { mapActions } from 'vuex'
+import md5 from 'js-md5'
 import Phone from '~/assets/icons/phone.svg'
 import Safe from '~/assets/icons/safe.svg'
 import Lock from '~/assets/icons/lock.svg'
@@ -85,11 +91,12 @@ export default {
   data() {
     return {
       confirm: true,
-      verifyed: false,
+      verifyed: 2,
+      loading: false,
       error: {
         status: false,
         msg: '',
-        mobile_num: {
+        telNum: {
           status: false,
           msg: '',
         },
@@ -109,7 +116,7 @@ export default {
       },
       sign: {
         country_code: 86,
-        mobile_num: '',
+        telNum: '',
         state: 2,
         password: '',
         server_status: '',
@@ -133,7 +140,9 @@ export default {
       if (this.phoneValidity()) {
       }
     },
-    async sendSmscode() {},
+    sendSmscode() {
+      this.sendCode(this.sign)
+    },
     sendContrl() {
       if (!this.sendCodeContrl.timer) {
         this.clearVerify()
@@ -143,6 +152,7 @@ export default {
           } else {
             clearInterval(this.sendCodeContrl.timer)
             this.sendCodeContrl.timer = 0
+            this.sendCodeContrl.time = 60
           }
         }, 1000)
         this.sendSmscode()
@@ -150,11 +160,11 @@ export default {
     },
     phoneValidity() {
       if (this.$refs.phone.checkValidity()) {
-        this.error.mobile_num.status = false
+        this.error.telNum.status = false
         return true
       } else {
-        this.error.mobile_num.status = true
-        this.error.mobile_num.msg =
+        this.error.telNum.status = true
+        this.error.telNum.msg =
           this.$refs.phone.validationMessage || '请填写此字段'
         return false
       }
@@ -193,18 +203,25 @@ export default {
     },
     clearVerify() {
       this.error.status = false
-      this.error.mobile_num.status = false
+      this.error.telNum.status = false
       this.error.code.status = false
       this.error.password.status = false
     },
-    register() {
+    async regist() {
       if (!this.phoneValidity()) return
       if (!this.verifyValidity()) return
       if (!this.codeValidity()) return
       if (!this.pwdValidity()) return
       if (this.$refs.form.checkValidity()) {
+        this.loading = true
+        await this.register({
+          ...this.sign,
+          password: md5(this.sign.password),
+        })
+        this.loading = false
       }
     },
+    ...mapActions(['sendCode', 'register']),
   },
 }
 </script>
