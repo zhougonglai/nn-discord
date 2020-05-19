@@ -1,25 +1,38 @@
 <template lang="pug">
-.comment-item
-    .comment-item-left
-        img(src="~/assets/imgs/xbox@2x.jpg", alt="alt")
-    .comment-item-right
-        .comment-item-info
-            span AtlasPrime：
-            b 有点相像让你点，大部分都是见后范文芳看看就知道了，不会很难。
-        .comment-item-tool
-            span 5分钟
-            em 
-                i.iconfont.iconzan
-                span 20
-            b 回复
+.comment-item-template
+    .comment-item
+        .comment-item-left
+            img(src="~/assets/imgs/xbox@2x.jpg", alt="alt")
+        .comment-item-right
+            .comment-item-info
+                span AtlasPrime：
+                b 有点相像让你点，大部分都是见后范文芳看看就知道了，不会很难。
+            .comment-item-tool
+                span 5分钟
+                em 
+                    i.iconfont.iconzan
+                    span 20
+                b( @click="onReply" :class="{ cur: show }" ) 回复
+    .comment-item-editer( v-if="show" )
+        NewsItemCommentEdit( :buttonText="'回复'" :placeholder="'回复 Leisefw：'" :inputStyle="1")
 </template>
 <script>
+import NewsItemCommentEdit from '~/components/channel/community/NewsItemCommentEdit'
 export default {
   name: 'NewsItemCommentItem',
   data() {
-    return {}
+    return {
+      show: false,
+    }
   },
-  methods: {},
+  components: {
+    NewsItemCommentEdit,
+  },
+  methods: {
+    onReply() {
+      this.show = !this.show
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -78,5 +91,12 @@ export default {
       }
     }
   }
+}
+.comment-item-editer {
+  clear: both;
+  background: rgba(38, 39, 43, 1);
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: -1px;
 }
 </style>

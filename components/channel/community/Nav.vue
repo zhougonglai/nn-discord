@@ -11,9 +11,7 @@ export default {
   data() {
     return {}
   },
-  created() {
-    console.log(this.$route)
-  },
+  created() {},
   computed: {
     isCur() {
       return this.$route.fullPath === this.nav.to

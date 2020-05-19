@@ -23,7 +23,7 @@ export default {
   props: ['nums'],
   data() {
     return {
-      commentShow: true,
+      commentShow: false,
     }
   },
   components: {

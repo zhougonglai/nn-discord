@@ -1,18 +1,19 @@
 <template lang="pug">
 .news-item-comment
-    .comment-edit
-        NewsItemCommentEdit
-    .comment-all
-        NewsItemCommentItem
-        NewsItemCommentItem
-        NewsItemCommentItem
-        NewsItemCommentItem
-        NewsItemCommentItem
-        NewsItemCommentItem
-        NewsItemCommentItem
-        NewsItemCommentItem
-        .comment-all-length 共15条回复 &gt;
-    .comment-all-more 查看更多 &gt;
+    .news-item-comment-main
+        .comment-edit
+            NewsItemCommentEdit
+        .comment-all
+            NewsItemCommentItem
+            NewsItemCommentItem
+            NewsItemCommentItem
+            NewsItemCommentItem
+            NewsItemCommentItem
+            NewsItemCommentItem
+            NewsItemCommentItem
+            NewsItemCommentItem
+            .comment-all-length 共15条回复 &gt;
+        .comment-all-more 查看更多 &gt;
 </template>
 <script>
 import NewsItemCommentItem from '~/components/channel/community/NewsItemCommentItem'
@@ -34,25 +35,30 @@ export default {
   background: rgba(34, 36, 40, 1);
   border: 1px solid rgba(29, 30, 30, 1);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
-  padding: 15px;
   margin-top: 20px;
   position: relative;
-  max-height: 460px;
-  overflow-y: auto;
-  .comment-all {
-    padding-left: 30px;
-  }
-  &::after {
+  &:after {
     position: absolute;
     content: '';
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
     display: block;
     background: rgba(34, 36, 40, 1);
-    border: 1px solid rgba(29, 30, 30, 1);
+    border-top: 5px transparent dashed;
+    border-left: 5px transparent dashed;
+    border-bottom: 5px transparent dashed;
+    border-right: 5px solid rgba(34, 36, 40, 1);
     top: -5px;
-    left: 70px;
+    left: 75px;
     transform: rotate(45deg);
+  }
+  .news-item-comment-main {
+    overflow-y: auto;
+    max-height: 460px;
+    padding: 15px;
+  }
+  .comment-all {
+    padding-left: 30px;
   }
   .comment-all-length,
   .comment-all-more {
