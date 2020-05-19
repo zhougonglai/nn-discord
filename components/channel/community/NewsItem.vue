@@ -26,6 +26,7 @@
             NewsItemTranspond( :item="{ title: item.title, content: item.content, thumb: item.thumb, forwardComment: item.forwardComment }" )
         .news-main-bottom
             NewsItemNum( :nums="{ likes: item.likes, comments: item.comments, forwards: item.forwards, collects: item.collects }" )
+        
 </template>
 <script>
 /* eslint-disable */
@@ -37,6 +38,7 @@ import NewsItemNum from '~/components/channel/community/NewsItemNum'
 export default {
   name: 'CommunityNewsItem',
   props: ['item'],
+
   computed: {
     ...mapState('community', ['hotNews']),
   },
