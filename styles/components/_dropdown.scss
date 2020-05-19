@@ -245,7 +245,8 @@
     &.nohover {
       cursor: auto;
     }
-    &:not(.nohover):hover {
+    &:not(.nohover):hover,
+    &.active {
       background-color: #303339;
     }
   }

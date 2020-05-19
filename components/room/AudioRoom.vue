@@ -6,7 +6,7 @@
     chat-tool(@send="sendText")
   .room-sider.flex.column
     .tools
-      nn-dropdown.flex-3(:label="type.label" v-model="type.value")
+      nn-dropdown.flex-3(:label="type.value === 'microphone' ? '麦序模式' : '自由模式'" v-model="type.value")
         nn-dropitem(v-for="item in types" :key="item.value" :value="item.value") {{item.label}}
       .tap.spacer 控麦
       .tap.spacer 上麦
