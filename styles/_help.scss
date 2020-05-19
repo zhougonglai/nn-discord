@@ -37,8 +37,10 @@
   cursor: pointer;
 }
 
-.flex-1 {
-  flex: 1;
+@each $var in 1, 2, 3, 4, 5, 6, 7, 8, 9 {
+  .flex-#{$var} {
+    flex: $var;
+  }
 }
 
 .flex-sub {
