@@ -18,19 +18,32 @@
           .community-add-news-btn
             n-link( :to="'/channels/FIFA18/publish'" )
               i.iconfont.iconedit        
-        .community-main-right 热门社区
-        
+        .community-main-right 
+          CommunityPublicTitle( :title="'热门社区'" :icon="'iconHotcommunities'" :to="'/channels/FIFA18'" )
+          CommunityPublicIVessel
+          CommunityPublicIVessel
+          CommunityPublicIVessel
+          CommunityPublicIVessel
+          CommunityPublicTitle( :title="'名人堂'" :icon="'iconHalloffame'" :to="'/channels/FIFA18'" )
+          CommunityPublicIVessel
+          CommunityPublicIVessel
+          CommunityPublicIVessel
+          CommunityPublicIVessel
             
 </template>
 <script>
 import { mapState } from 'vuex'
 import HotNews from '~/components/channel/community/HotNews'
 import NewsItem from '~/components/channel/community/NewsItem'
+import CommunityPublicTitle from '~/components/channel/community/CommunityPublicTitle'
+import CommunityPublicIVessel from '~/components/channel/community/CommunityPublicIVessel'
 export default {
   name: 'CommunityMain',
   components: {
     HotNews,
     NewsItem,
+    CommunityPublicTitle,
+    CommunityPublicIVessel,
   },
   computed: {
     ...mapState('community', ['newsList', 'getNewsStatus']),
@@ -122,6 +135,7 @@ export default {
   }
   .community-main-right {
     width: 254px;
+    padding: 15px 15px;
   }
 }
 @keyframes turn {

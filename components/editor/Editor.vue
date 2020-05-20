@@ -1,28 +1,28 @@
 <template>
   <div class="editor">
     <section
-      class="editor-container"
       v-loading="isLoading"
       :element-loading-text="'上传进度' + progress"
+      class="editor-container"
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
     >
       <input
-        class="file"
-        type="file"
-        style="display: none;"
         id="file"
         ref="input"
         @change="doUpload"
+        style="display: none;"
+        class="file"
+        type="file"
       />
       <div
-        class="quill-editor"
         :content="content"
         @change="onEditorChange($event)"
         @blur="onEditorBlur($event)"
         @focus="onEditorFocus($event)"
         @ready="onEditorReady($event)"
         v-quill:myQuillEditor="editorOption"
+        class="quill-editor"
       ></div>
     </section>
   </div>
@@ -58,7 +58,7 @@ export default {
               ['clean'], // remove formatting button
             ],
             handlers: {
-              image: function () {
+              image() {
                 this.quill.format('image', false) // 禁用quill内部上传图片方法
                 self.imgHandler(this)
               },
@@ -71,34 +71,45 @@ export default {
       progress: '',
     }
   },
+  mounted() {
+    this.event_id = this.$route.query.event_id
+    // const params = {
+    //   event_id: this.$route.query.event_id,
+    // }
+    // let res = await axios.get('/api/getEvemtDetail', { params: params })
+    // let event = res.data.data
+    // this.form.title = event.title
+    // this.form.publish_time = event.publish_time
+    // this.content = event.content
+  },
   methods: {
     handleRemove(file, fileList) {
-      console.log(file, fileList)
+      // console.log(file, fileList)
     },
     handlePreview(file) {
-      console.log(file)
+      // console.log(file)
     },
     onEditorBlur(editor) {
-      console.log('editor blur!', editor)
+      // console.log('editor blur!', editor)
     },
     onEditorFocus(editor) {
-      console.log('editor focus!', editor)
+      // console.log('editor focus!', editor)
     },
     onEditorReady(editor) {
-      console.log('editor ready!', editor)
+      // console.log('editor ready!', editor)
     },
     onEditorChange({ editor, html, text }) {
-      console.log('editor change!', editor, html, text)
+      // console.log('editor change!', editor, html, text)
       this.content = html
     },
     imgHandler(handle) {
       this.quill = handle.quill
-      var inputfile = document.getElementById('file')
+      const inputfile = document.getElementById('file')
       inputfile.click()
     },
-    doUpload: async function () {
-      let file = document.getElementById('file').files[0]
-      let formdata = new FormData() // 创建form对象
+    doUpload() {
+      const file = document.getElementById('file').files[0]
+      const formdata = new FormData() // 创建form对象
       formdata.append('file', file, file.name)
       // let config = {
       //   headers: { 'Content-Type': 'multipart/form-data' },
@@ -118,14 +129,14 @@ export default {
       //   'http://10.96.153.89:5000' + res.data
       // )
     },
-    async update() {
-      let params = {
-        title: this.form.title,
-        publish_time: this.form.publish_time,
-        content: this.content,
-        event_id: this.event_id,
-      }
-      console.log(params)
+    update() {
+      // const params = {
+      //   title: this.form.title,
+      //   publish_time: this.form.publish_time,
+      //   content: this.content,
+      //   event_id: this.event_id,
+      // }
+      // console.log(params)
       // let res = await axios.post('/api/createEvent', params)
       // if (res.data.ret) {
       //   this.$notify.error({
@@ -140,17 +151,6 @@ export default {
       //   })
       // }
     },
-  },
-  async mounted() {
-    this.event_id = this.$route.query.event_id
-    let params = {
-      event_id: this.$route.query.event_id,
-    }
-    // let res = await axios.get('/api/getEvemtDetail', { params: params })
-    // let event = res.data.data
-    // this.form.title = event.title
-    // this.form.publish_time = event.publish_time
-    // this.content = event.content
   },
 }
 </script>
