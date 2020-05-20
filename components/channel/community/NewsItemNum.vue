@@ -7,7 +7,7 @@
       .news-item-num-item( @click="onComment" )
           i.iconfont.iconpinglun
           span {{nums.comments}}
-      .news-item-num-item
+      .news-item-num-item( @click="onForwards" )
           i.iconfont.iconsharearticle
           span {{nums.forwards}}
       .news-item-num-item
@@ -15,6 +15,8 @@
           span {{nums.collects}}
   .news-item-comment
       NewsItemComment( v-if="commentShow" )
+  
+  
 </template>
 <script>
 import NewsItemComment from '~/components/channel/community/NewsItemComment'
@@ -24,6 +26,7 @@ export default {
   data() {
     return {
       commentShow: false,
+      forwardsFlag: false,
     }
   },
   components: {
@@ -32,6 +35,9 @@ export default {
   methods: {
     onComment() {
       this.commentShow = !this.commentShow
+    },
+    onForwards() {
+      this.forwardsFlag = true
     },
   },
 }
