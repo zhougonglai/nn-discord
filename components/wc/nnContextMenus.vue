@@ -2,10 +2,9 @@
 .nn-context(
   v-bind="$attrs"
   v-click-outside="outClick"
-  @click="menusActive"
   @contextmenu.prevent="menusActive")
   slot
-  .nn-context-menus(v-show="active" :class="[...position]" ref="menus")
+  .nn-context-menus(v-if="active" :class="[...position]" ref="menus")
     slot(name="menus")
 </template>
 <script>
@@ -46,7 +45,6 @@ export default {
     menusActive(e) {
       const { clientX, clientY } = e
       const { clientWidth, clientHeight } = document.body
-      this.active = true
       if (clientWidth - clientX < 180) {
         this.x = 'right'
       } else if (clientX < 180) {
@@ -58,6 +56,7 @@ export default {
       } else if (clientY < 180) {
         this.y = 'bottom'
       }
+      this.active = true
     },
   },
 }

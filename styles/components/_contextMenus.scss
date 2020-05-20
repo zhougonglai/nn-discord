@@ -79,17 +79,64 @@
       transform-origin: top right;
     }
 
-    &.bottom {
-      top: calc(100% - 15px);
+    &::before,
+    &::after {
+      position: absolute;
+      content: '';
     }
     &.top {
-      bottom: calc(100% - 15px);
+      bottom: calc(100% + 8px);
+      &::before,
+      &::after {
+        border-left: 8px transparent dashed;
+        border-right: 8px transparent dashed;
+        border-bottom: 8px transparent dashed;
+      }
+      &:before {
+        bottom: -17px;
+        border-top: 8px #1d1e1e solid;
+      }
+      &::after {
+        bottom: -16px;
+        border-top: 8px #18191c solid;
+      }
     }
+    &.bottom {
+      top: calc(100% + 8px);
+      &::before,
+      &::after {
+        border-left: 8px transparent dashed;
+        border-right: 8px transparent dashed;
+        border-top: 8px transparent dashed;
+      }
+      &:before {
+        top: -17px;
+        border-bottom: 8px #1d1e1e solid;
+      }
+      &::after {
+        top: -16px;
+        border-bottom: 8px #18191c solid;
+      }
+      .form-contrl {
+        &:first-of-type {
+          border-bottom: 1px solid #464646;
+        }
+      }
+    }
+
     &.right {
       right: 15px;
+      &::before,
+      &::after {
+        right: 15px;
+      }
     }
     &.left {
       left: 15px;
+      &::before,
+      &::after {
+        left: 15px;
+      }
     }
   }
 

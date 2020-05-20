@@ -72,6 +72,7 @@ button.nn-btn {
   color: lightgray;
   cursor: pointer;
   font-size: small;
+  user-select: none;
   line-height: 2.2;
   text-decoration: none;
   &:hover {

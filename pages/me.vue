@@ -4,8 +4,8 @@ section#me
     SideBar
     SideTab
       .list.padding.my-1
-        n-link(:to="{name: 'me'}" v-slot="{ href, isActive }")
-          a.list-item(:href="href" :class="[isActive && 'active']")
+        n-link(:to="{name: 'me'}" v-slot="{ href }")
+          a.list-item(:href="href" :class="[['/me','/me/Dynamic', '/me/notice', '/me/Setup', '/me/member', '/me/author'].some(path => $route.path.includes(path)) ? 'active': '']")
             .list-item-pre
               i.bx.bxs-home-circle
             .list-item-content 个人首页
