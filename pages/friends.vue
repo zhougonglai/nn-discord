@@ -60,10 +60,12 @@ export default {
   },
   mounted() {
     // apply
-    this.update_list()
+    setTimeout(() => {
+      this.update_list()
+    }, 0)
   },
   computed: {
-    ...mapState(['friendsGroup', 'activeFriendsGroup']),
+    ...mapState(['friendsGroup', 'activeFriendsGroup', 'user']),
   },
   methods: {
     ...mapActions({

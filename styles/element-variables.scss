@@ -996,3 +996,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .el-table tr.el-table__row--striped td {
   background: #303339 !important;
 }
+.v-toast {
+  top: auto !important;
+  bottom: 50px;
+}

@@ -7,6 +7,7 @@ import {
   Checkbox,
   InfiniteScroll,
   Loading,
+  Message,
 } from 'element-ui'
 ;[Button, Select, Option, Checkbox, InfiniteScroll].forEach((element) => {
   Vue.use(element)
@@ -152,4 +153,33 @@ Vue.use(Loading.directive)
 // Vue.prototype.$confirm = MessageBox.confirm
 // Vue.prototype.$prompt = MessageBox.prompt
 // Vue.prototype.$notify = Notification
-// Vue.prototype.$message = Message
+const $Message = (options) => {
+  if (typeof options === 'string') {
+    options = {
+      message: options,
+    }
+  }
+  return Message(
+    Object.assign(
+      {
+        // duration: 0,
+        duration: 2000,
+        customClass: 'v-toast',
+      },
+      options
+    )
+  )
+}
+;['success', 'warning', 'info', 'error'].forEach((type) => {
+  $Message[type] = (options) => {
+    if (typeof options === 'string') {
+      options = {
+        message: options,
+      }
+    }
+    options.type = type
+    return $Message(options)
+  }
+})
+Vue.prototype.$message = $Message
+export const message = $Message

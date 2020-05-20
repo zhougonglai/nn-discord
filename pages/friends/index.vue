@@ -122,7 +122,7 @@ $border-color: #222428;
           </div>
         </div>
         <div class="btns flex aic">
-          <el-button class="btn" type="primary" @click="search_click"
+          <el-button @click="search_click" class="btn" type="primary"
             >查找</el-button
           >
         </div>
@@ -131,12 +131,12 @@ $border-color: #222428;
     <div class="h2 flex jcb">
       <div><friends style="height: 20px;"></friends> 你可能感兴趣的好友</div>
       <el-button
+        @click="add_onclick"
         class="addall"
         plain
         round
         size="mini"
         type="primary"
-        @click="add_onclick"
         >一键添加</el-button
       >
     </div>
@@ -144,7 +144,7 @@ $border-color: #222428;
       <div class="list-friend flex wrap">
         <item1 v-for="item in userList" :key="item.id" :data="item">
           <div>
-            <el-button plain round size="mini" type="default" @click="add(item)"
+            <el-button @click="add(item)" plain round size="mini" type="default"
               >+好友</el-button
             >
           </div>
@@ -240,21 +240,21 @@ export default {
     ...mapActions({
       apply: 'friend/apply',
     }),
+    // 搜索好友
     search_click() {
       console.log('搜索')
     },
+    // 一键添加
     add_onclick() {
       console.log('一键添加')
       //
     },
+    // 添加好友
     add(uid) {
-      this.apply(uid)
-        .then(({ msg }) => {
-          //
-        })
-        .catch(({ message }) => {
-          //
-        })
+      uid = 4889
+      this.apply(uid).then(({ msg }) => {
+        this.$message.success(msg)
+      })
     },
   },
 }
