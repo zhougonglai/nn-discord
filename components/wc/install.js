@@ -11,8 +11,11 @@ import nnDropitem from './nnDropitem.vue'
 import nnContextMenus from './nnContextMenus.vue'
 import nnCOntextMenu from './nnContextMenu.vue'
 
+import noData from './noData.vue'
+
 export default {
   install(vue) {
+    vue.component('noData', noData) // 暂无内容 slot
     vue.component('CircleLoader', CircleLoader)
     vue.component(nnButton.name, nnButton)
     vue.component(nnCheckbox.name, nnCheckbox)

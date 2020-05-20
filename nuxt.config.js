@@ -3,6 +3,7 @@ module.exports = {
   env: {
     NUXT_ENV_a: 'b',
     NUXT_ENV_Recharge_URL: process.env.Recharge_URL,
+    NUXT_ENV_ws: process.env.ws,
   },
   head: {
     title: process.env.npm_package_name || '',
@@ -100,12 +101,13 @@ module.exports = {
   },
   modules: [
     '@nuxtjs/axios',
-    ['@nuxtjs/proxy', { pathRewrite: { '^/api': '' } }],
+    ['@nuxtjs/proxy', { pathRewrite: { '^/userapi': '', '^/friendapi': '' } }],
     '@nuxtjs/pwa',
   ],
   axios: {},
   proxy: {
-    '/api': 'http://10.178.68.29:7105',
+    '/userapi': 'http://10.178.68.29:7105',
+    '/friendapi': 'http://172.19.35.151:7510',
   },
   styleResources: {
     scss: './styles/variables.scss',

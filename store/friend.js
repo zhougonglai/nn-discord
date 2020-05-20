@@ -15,7 +15,6 @@ const mutations = {
 const actions = {
   // 更新好友列表
   update_list({ rootGetters, commit }) {
-    // console.log($axios)
     this.$axios.get(`friends/${rootGetters.USER_ID}`).then((db) => {
       commit('setlist', db.data)
       return db
@@ -25,7 +24,10 @@ const actions = {
   // 申请添加好友
   apply({ rootGetters, dispatch }, uid) {
     return this.$axios
-      .post(`friend/apply/${rootGetters.USER_ID}/${uid}`)
+      .post(`friend/apply/`, {
+        applyUid: rootGetters.USER_ID,
+        toUserId: uid,
+      })
       .then((db) => {
         dispatch('update_list')
         return db

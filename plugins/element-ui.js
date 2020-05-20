@@ -1,6 +1,13 @@
 import Vue from 'vue'
 import '~/styles/element-variables.scss'
-import { Button, Select, Option, Checkbox, InfiniteScroll } from 'element-ui'
+import {
+  Button,
+  Select,
+  Option,
+  Checkbox,
+  InfiniteScroll,
+  Message,
+} from 'element-ui'
 ;[Button, Select, Option, Checkbox, InfiniteScroll].forEach((element) => {
   Vue.use(element)
 })
@@ -145,4 +152,33 @@ import { Button, Select, Option, Checkbox, InfiniteScroll } from 'element-ui'
 // Vue.prototype.$confirm = MessageBox.confirm
 // Vue.prototype.$prompt = MessageBox.prompt
 // Vue.prototype.$notify = Notification
-// Vue.prototype.$message = Message
+const $Message = (options) => {
+  if (typeof options === 'string') {
+    options = {
+      message: options,
+    }
+  }
+  return Message(
+    Object.assign(
+      {
+        // duration: 0,
+        duration: 2000,
+        customClass: 'v-toast',
+      },
+      options
+    )
+  )
+}
+;['success', 'warning', 'info', 'error'].forEach((type) => {
+  $Message[type] = (options) => {
+    if (typeof options === 'string') {
+      options = {
+        message: options,
+      }
+    }
+    options.type = type
+    return $Message(options)
+  }
+})
+Vue.prototype.$message = $Message
+export const message = $Message
