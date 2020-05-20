@@ -24,6 +24,7 @@ import { mapState, mapActions } from 'vuex'
 import chatItem from '~/components/channel/chat-item'
 import chatTool from '~/components/channel/chat-tool'
 import MembersItem from '~/components/channel/MembersItem'
+import RTC from '~/services/agora-rtc'
 
 export default {
   name: 'AudioRoom',
@@ -51,6 +52,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['user']),
     ...mapState('chat', ['msgList']),
   },
   methods: {
@@ -64,10 +66,17 @@ export default {
     menuClick(e) {
       console.log('menuClick', e)
     },
+    initClient() {
+      RTC.getInstance().join(this.$route.params.audioId, this.user.userId)
+    },
     ...mapActions('chat', ['send-text']),
   },
   mounted() {
     this.$nextTick(this.scrollEnd)
+    this.initClient()
+  },
+  destroyed() {
+    RTC.getInstance().leave()
   },
 }
 </script>
