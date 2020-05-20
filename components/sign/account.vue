@@ -8,8 +8,8 @@
         User
       input#username.form-input(
         required
-        type="email"
-        name="email"
+        type="text"
+        name="text"
         ref="mail"
         autocomplete="emall"
         placeholder="NN号/邮箱号"
@@ -79,6 +79,7 @@ export default {
         },
       },
       sign: {
+        type: 'nn',
         mail: '',
         password: '',
       },
