@@ -1,6 +1,13 @@
 import Vue from 'vue'
 import '~/styles/element-variables.scss'
-import { Button, Select, Option, Checkbox, InfiniteScroll } from 'element-ui'
+import {
+  Button,
+  Select,
+  Option,
+  Checkbox,
+  InfiniteScroll,
+  Loading,
+} from 'element-ui'
 ;[Button, Select, Option, Checkbox, InfiniteScroll].forEach((element) => {
   Vue.use(element)
 })
@@ -137,7 +144,7 @@ import { Button, Select, Option, Checkbox, InfiniteScroll } from 'element-ui'
 // Vue.use(Main)
 // Vue.use(Footer)
 
-// Vue.use(Loading.directive)
+Vue.use(Loading.directive)
 
 // Vue.prototype.$loading = Loading.service
 // Vue.prototype.$msgbox = MessageBox

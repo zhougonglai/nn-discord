@@ -1,6 +1,7 @@
 <template lang="pug">
     .community-main
         .community-main-left
+          .community-main-left-main
             HotNews
             .community-users-list( v-infinite-scroll="load" :class="'infinite-list'" )
               NewsItem( v-for="(item, i) in newsList" :key="i" :item="item" )
@@ -14,8 +15,11 @@
                   i.iconfont.iconretry
                 .community-users-list-none( v-if="getNewsStatus.none" ) 
                   span 已经是最后一条内容拉...
-              
+          .community-add-news-btn
+            n-link( :to="'/channels/FIFA18/publish'" )
+              i.iconfont.iconedit        
         .community-main-right 热门社区
+        
             
 </template>
 <script>
@@ -45,9 +49,34 @@ export default {
     flex-grow: 1;
     flex-shrink: 222;
     background: #36393f;
-    padding: 20px;
-    height: calc(100vh - 248px);
-    overflow-y: auto;
+    position: relative;
+    .community-main-left-main {
+      height: calc(100vh - 248px);
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .community-add-news-btn {
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      border-radius: 50%;
+      background: #dcddde;
+      position: absolute;
+      bottom: 40px;
+      right: 20px;
+      color: #202225;
+      cursor: pointer;
+      a {
+        color: #202225;
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+      i {
+        font-size: 32px;
+      }
+    }
     ul {
       height: 90px;
       overflow-y: auto;
