@@ -66,8 +66,19 @@ export default {
     menuClick(e) {
       console.log('menuClick', e)
     },
-    initClient() {
-      RTC.getInstance().join(this.$route.params.audioId, this.user.userId)
+    async initClient() {
+      const rtc = RTC.getInstance()
+      await rtc.join(this.$route.params.audioId, this.user.userId)
+      await rtc.publish({ audio: true, video: false })
+      await rtc.networkQuality(this.qualityCB)
+    },
+    qualityCB(status) {
+      console.log(status)
+    },
+    async publishCB(user, mediaType) {
+      const rtc = RTC.getInstance()
+      await rtc.client.subscribe(user)
+      console.log(mediaType)
     },
     ...mapActions('chat', ['send-text']),
   },

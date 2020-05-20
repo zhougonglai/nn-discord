@@ -76,7 +76,7 @@ export default class RTC {
   async publish(type = { audio: true, video: true }) {
     const publish = []
     if (type.audio) {
-      this.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack({})
+      this.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack()
       publish.push(this.localAudioTrack)
     }
     if (type.video) {
@@ -88,6 +88,10 @@ export default class RTC {
     } else {
       throw new Error('请填写使用正确的参数!')
     }
+  }
+
+  publishCB(callback) {
+    this.client.on('user-published', callback)
   }
 
   async leave() {
@@ -146,6 +150,10 @@ export default class RTC {
    *  0 = '网络质量未知。'
    *  1 = '网络质量极好。'
    *  2 = '用户主观感觉和极好差不多，但码率可能略低于极好。'
+   *  3 = '用户主观感受有瑕疵但不影响沟通。'
+   *  4 = '勉强能沟通但不顺畅。'
+   *  5 = '网络质量非常差，基本不能沟通。'
+   *  6 = '完全无法沟通。'
    * }
    * @param {*} callback
    */
