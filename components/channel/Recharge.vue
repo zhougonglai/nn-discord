@@ -33,7 +33,7 @@ export default {
   mounted() {
     const token = ''
     // TODO 需要获取sso token
-    this.src = `${process.env.Recharge_URL}${token}`
+    this.src = `${process.env.Recharge_URL}recharge?account_token=${token}`
     // eslint-disable-next-line nuxt/no-env-in-hooks
     if (process.client) {
       window.RechargeClose = () => {

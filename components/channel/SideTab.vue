@@ -51,7 +51,7 @@
     n-link(:to="{name: 'friends'}" v-slot="{ href, isActive }")
       a.tab-bar(:href="href" :class="{active: isActive}" v-click-outside="()=>{contextmenu.friends.status=false}"
         @contextmenu.prevent="()=>{contextmenu.friends.status=true}")
-        i.bx.bxs-group        
+        i.bx.bxs-group
         transition(name="scale")
           .tab-bar-content(v-if="isActive") 好友
         transition(name="scale")
@@ -185,6 +185,7 @@ export default {
     &s {
       display: flex;
     }
+    user-select: none;
     height: 52px;
     flex: 1;
     display: flex;

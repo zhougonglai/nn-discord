@@ -17,26 +17,31 @@ export default class RTC {
    * codec { 'h264', 'vp8' }
    * Safari < 12.1  codec = 'h264'
    */
-  config
+  config = {
+    mode: 'rtc',
+    codec: 'vp8',
+  }
 
   /**
    * 不要直接用new来使用
    * @param {*} config
    */
-  constructor(config) {
-    this.config = config
-    this.client = AgoraRTC.createClient(config)
+  constructor() {
+    this.client = AgoraRTC.createClient(this.config)
   }
 
   /**
    * 单例
-   * @param {config} config
    */
-  static getInstance(config) {
+  static getInstance() {
     if (!RTC.instance) {
-      RTC.instance = new RTC(config)
+      RTC.instance = new RTC()
     }
     return RTC.instance
+  }
+
+  setConfig(config) {
+    this.config = config
   }
 
   destroy() {

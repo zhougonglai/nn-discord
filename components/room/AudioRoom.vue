@@ -6,19 +6,25 @@
     chat-tool(@send="sendText")
   .room-sider.flex.column
     .tools
-      nn-dropdown(:label="type.label" v-model="type.value")
+      nn-dropdown.flex-3(:label="type.value === 'microphone' ? '麦序模式' : '自由模式'" v-model="type.value")
         nn-dropitem(v-for="item in types" :key="item.value" :value="item.value") {{item.label}}
-      .tap 控麦
-      .tap 上麦
-      .tap 下麦
+      .tap.spacer 控麦
+      .tap.spacer 上麦
+      .tap.spacer 下麦
     div.flex-sub
-        MembersItem(v-for="a in 30" :key="a")
+      template(v-for="a in 30")
+        nn-context-menus(:key="a" @menuClick="menuClick")
+          MembersItem
+          template(v-slot:menus)
+            nn-context-menu(v-for="b in 5" :key="b" :name="b")
+              | {{b}}
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import chatItem from '~/components/channel/chat-item'
 import chatTool from '~/components/channel/chat-tool'
 import MembersItem from '~/components/channel/MembersItem'
+
 export default {
   name: 'AudioRoom',
   components: {
@@ -54,6 +60,9 @@ export default {
     sendText(e) {
       this['send-text'](e.text)
       this.$nextTick(this.scrollEnd)
+    },
+    menuClick(e) {
+      console.log('menuClick', e)
     },
     ...mapActions('chat', ['send-text']),
   },

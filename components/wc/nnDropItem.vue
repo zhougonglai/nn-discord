@@ -1,5 +1,7 @@
 <template lang="pug">
-.nn-dropdown-menu(:class="[dropdown.value === value ? 'active': '']")
+.nn-dropdown-menu(
+  :class="[dropdown.value === value ? 'active': '']"
+  @click="change")
   slot
 </template>
 <script>
@@ -10,6 +12,11 @@ export default {
     value: {
       type: [String, Number],
       default: '',
+    },
+  },
+  methods: {
+    change() {
+      this.$parent.onChange(this.value)
     },
   },
 }

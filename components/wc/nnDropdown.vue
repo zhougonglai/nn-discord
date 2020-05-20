@@ -45,6 +45,10 @@ export default {
     }
   },
   methods: {
+    onChange(value) {
+      this.$emit('input', value)
+      this.$emit('change', value)
+    },
     showDropdown() {
       if (!this.drop) {
         this.drop = 1

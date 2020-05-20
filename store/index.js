@@ -171,5 +171,8 @@ export const mutations = {
 
 export const getters = {
   // 当前用户的ID
-  USER_ID: (s) => 1, // s.user&&s.user.id
+  USER_ID: (s) => {
+    const id = s.user && s.user.userId
+    return id === undefined ? 0 : id
+  },
 }
