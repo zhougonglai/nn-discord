@@ -21,7 +21,6 @@ export const actions = {
   },
   async loginByPhoneSms({ commit }, form) {
     const user = await this.$axios.$post('/loginByPhoneSms', form)
-    console.log(user)
     commit(types('SET_USER'), user)
     return user
   },
