@@ -1,5 +1,6 @@
 <style scoped lang="scss">
 .dialog-Recharge {
+  z-index: 99;
   iframe {
     width: 1056px;
     height: 660px;
