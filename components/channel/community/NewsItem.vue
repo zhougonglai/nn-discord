@@ -35,6 +35,7 @@ import NewsItemFront from '~/components/channel/community/NewsItemFront'
 import NewsItemBox from '~/components/channel/community/NewsItemBox'
 import NewsItemTranspond from '~/components/channel/community/NewsItemTranspond'
 import NewsItemNum from '~/components/channel/community/NewsItemNum'
+import toolboxMixin from '~/mixins/toolboxMixin'
 export default {
   name: 'CommunityNewsItem',
   props: ['item'],
@@ -48,59 +49,8 @@ export default {
     NewsItemNum,
     NewsItemTranspond,
   },
-  methods: {
-    formateTime(time) {
-      time = new Date(time).getTime()
-      const date_now = new Date()
-      const date_time = new Date(time)
-      const distance = date_now.getTime() - time
-
-      const days = parseInt(distance / (1000 * 60 * 60 * 24))
-      let d_hours = date_time.getHours()
-      if (d_hours < 10) {
-        d_hours = '0' + d_hours
-      }
-      let d_minutes = date_time.getMinutes()
-      if (d_minutes < 10) {
-        d_minutes = '0' + d_minutes
-      }
-      if (days == 1) {
-        return '昨天' + d_hours + ':' + d_minutes
-      } else if (days == 2) {
-        return days + '天前' + d_hours + ':' + d_minutes
-      } else if (days >= 2) {
-        const year = date_time.getFullYear()
-        let month = date_time.getMonth() + 1
-        if (month < 10) {
-          month = '0' + month
-        }
-        let day = date_time.getDate()
-        if (day < 10) {
-          day = '0' + day
-        }
-        if (date_now.getFullYear() == year) {
-          return month + '月' + day + '日' + d_hours + ':' + d_minutes
-        } else {
-          return (
-            year + '年' + month + '月' + day + '日' + d_hours + ':' + d_minutes
-          )
-        }
-      }
-
-      const hours = parseInt(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      )
-      if (hours > 0) {
-        return hours + '小时前'
-      }
-
-      const minutes = parseInt((distance % (1000 * 60 * 60)) / (1000 * 60))
-      if (minutes > 0) {
-        return minutes + '分钟前'
-      }
-      return '刚刚'
-    },
-  },
+  mixins: [toolboxMixin],
+  methods: {},
 }
 </script>
 <style lang="scss" scoped>

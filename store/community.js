@@ -82,7 +82,7 @@ const getters = {}
 const actions = {
   searchCommunity({ commit, state }, searchKey) {
     // todo
-    console.log('搜索社区', searchKey)
+    // console.log('搜索社区', searchKey)
   },
   getNewsList({ commit, state }, params) {
     // todo
