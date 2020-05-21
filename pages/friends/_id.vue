@@ -104,7 +104,7 @@
         <div class="label">创建时间</div>
         <div class="info ccc">2020-04-29 17:00</div>
         <div class="btns">
-          <el-button round type="primary" @click="send_message"
+          <el-button @click="send_message" round type="primary"
             >发消息</el-button
           >
         </div>
@@ -125,10 +125,10 @@
           <img
             v-for="a in 15"
             :key="a"
+            @click="click_admin(a)"
             class="item"
             src="http://placekitten.com/32/32"
             title="姓名2"
-            @click="click_admin(a)"
           />
         </div>
         <div class="title">成员状况</div>
