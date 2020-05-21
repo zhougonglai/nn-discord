@@ -63,6 +63,7 @@ export default {
     flex-shrink: 222;
     background: #36393f;
     position: relative;
+    height: calc(100vh - 248px);
     .community-main-left-main {
       height: calc(100vh - 248px);
       overflow-y: auto;
@@ -136,6 +137,8 @@ export default {
   .community-main-right {
     width: 254px;
     padding: 15px 15px;
+    height: calc(100vh - 248px);
+    overflow-y: auto;
   }
 }
 @keyframes turn {

@@ -22,15 +22,15 @@ const state = () => ({
   hotNews: [
     {
       title: '【游戏教程】4--5月份交易集中贴（单开一律删除）',
-      to: '/channels/FIFA18/news/10000',
+      to: '/channels/FIFA18/article/10000',
     },
     {
       title: '【游戏教程】4--5月份交易集中贴（单开一律删除）',
-      to: '/channels/FIFA18/news/10000',
+      to: '/channels/FIFA18/article/10000',
     },
     {
       title: '【游戏教程】4--5月份交易集中贴（单开一律删除）',
-      to: '/channels/FIFA18/news/10000',
+      to: '/channels/FIFA18/article/10000',
     },
   ],
   newsList: [
@@ -41,7 +41,7 @@ const state = () => ({
       thumb: require('~/assets/imgs/user_bg@2x.png'), // 缩列图
       content:
         '2020年KPL夏季赛选手阵容确定！5月1日晚上20:30， NN平台EDG粉丝社区直播大厅，线上粉丝见面会...', // 内容
-      to: '/channels/FIFA18/news/10000',
+      to: '/channels/FIFA18/article/10000',
       likes: 189, // 点赞数
       comments: 210, // 评论数
       forwards: 319, // 转发数

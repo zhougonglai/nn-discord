@@ -1,10 +1,12 @@
 <template>
-  <div class="comment-editor" ref="container">
-    <div class="input-wrapper" :class="{ inline }">
+  <div
+    ref="container"
+    :class="{ 'comment-editor1': inputClass === 'content2' }"
+    class="comment-editor"
+  >
+    <div :class="{ inline }" class="input-wrapper">
       <InputBox
         ref="inputBox"
-        :type="inline ? 'text' : 'textarea'"
-        content-type="rich"
         :rows="2"
         @focus="onInputFocus"
         @blur="onInputBlur"
@@ -13,47 +15,55 @@
         v-model="inputContent"
         :placeholder="placeholder"
         :focused="showInlineButton"
-        :inputStyle="inputStyle"
+        :inputClass="inputClass"
+        :type="inline ? 'text' : 'textarea'"
+        content-type="rich"
         class="input-box"
       >
         <div
+          slot="append"
           v-if="inline"
           :class="['input-append', { hasbg: !showInlineButton }]"
-          slot="append"
         >
           <EmojiPicker
             ref="emojiPicker"
-            trigger-pick="click"
             @activated="inputBoxFocused = true"
             @selected="handlerEmojiSelected"
-            picker-position="left"
             :button-text-visible="false"
+            trigger-pick="click"
+            picker-position="left"
           ></EmojiPicker>
         </div>
       </InputBox>
       <transition name="button">
         <div
+          ref="button"
+          :disabled="!inputContent"
+          v-show="showInlineButton && inline"
           @click="handlerSubmit"
           class="submit-button inline"
-          :disabled="!inputContent"
-          ref="button"
-          v-show="showInlineButton && inline"
         >
           {{ buttonText }}
         </div>
       </transition>
     </div>
-    <div class="footer-action" v-if="!inline">
+    <div
+      v-if="!inline"
+      :class="{ 'footer-action1': inputClass === 'content2' }"
+      class="footer-action"
+    >
       <EmojiPicker
-        trigger-pick="click"
         @activated="$refs.inputBox.focus()"
         @selected="handlerEmojiSelected"
-      ></EmojiPicker>
-      <span class="submit-tiptext"></span>
+        trigger-pick="click"
+      >
+        <slot></slot>
+      </EmojiPicker>
+      <span class="submit-tiptext"><slot></slot></span>
       <div
         @click="handlerSubmit"
-        class="submit-button"
         :disabled="!inputContent"
+        class="submit-button"
       >
         {{ buttonText }}
       </div>
@@ -66,13 +76,6 @@ import EmojiPicker from '~/components/nnediter/NnEditerEmoji'
 export default {
   name: 'NnEditer',
   components: { InputBox, EmojiPicker },
-  data() {
-    return {
-      active: false,
-      inputContent: '',
-      inputBoxFocused: false,
-    }
-  },
   props: {
     buttonText: {
       type: String,
@@ -82,14 +85,21 @@ export default {
       type: String,
       default: '说点什么吧...',
     },
-    inputStyle: {
-      type: Number,
-      default: 0,
+    inputClass: {
+      type: String,
+      default: undefined,
     },
     inline: {
       type: Boolean,
       default: false,
     },
+  },
+  data() {
+    return {
+      active: false,
+      inputContent: '',
+      inputBoxFocused: false,
+    }
   },
   computed: {
     showInlineButton() {
@@ -153,6 +163,9 @@ export default {
 .comment-editor {
   padding-left: 34px;
 }
+.comment-editor1 {
+  padding-left: 0px;
+}
 .input-wrapper {
   &.inline {
     display: flex;
@@ -173,7 +186,16 @@ export default {
     }
   }
 }
-
+.footer-action1 {
+  .submit-button {
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+  padding-bottom: 10px;
+}
 .footer-action {
   margin-top: 10px;
   display: flex;

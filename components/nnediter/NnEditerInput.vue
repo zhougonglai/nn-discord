@@ -2,11 +2,17 @@
   <div class>
     <div type="text" class="input-box-wrapper">
       <div
-        :class="['content', { focused }, type, { content1: inputStyle }]"
         ref="richText"
+        :class="[
+          { focused },
+          type,
+          { content1: inputClass === 'content1' },
+          { content2: inputClass === 'content2' },
+        ]"
         v-on="listeners"
         v-bind="$attrs"
         :contenteditable="contenteditable"
+        class="content"
       ></div>
       <div class="append-wrapper">
         <slot name="append"></slot>
@@ -17,6 +23,33 @@
 <script>
 export default {
   name: 'input-box',
+  props: {
+    focused: {
+      type: Boolean,
+      default: false,
+    },
+    contentType: {
+      type: String,
+      default: 'plain',
+      validator(value) {
+        return ['plain', 'rich'].includes(value)
+      },
+    },
+    inputClass: {
+      type: String,
+      default: undefined,
+    },
+    type: {
+      type: String,
+      default: 'text',
+      validator(value) {
+        return ['text', 'textarea'].includes(value)
+      },
+    },
+    // rows: {
+    //   type: Number,
+    // },
+  },
   data() {
     return {
       contenteditable: true,
@@ -34,32 +67,6 @@ export default {
         }.bind(this),
       })
     },
-  },
-  props: {
-    focused: {
-      type: Boolean,
-      default: false,
-    },
-    contentType: {
-      type: String,
-      default: 'plain',
-      validator(value) {
-        return ['plain', 'rich'].includes(value)
-      },
-    },
-    inputStyle: {
-      type: Number,
-      default: 0,
-    },
-
-    type: {
-      type: String,
-      default: 'text',
-      validator(value) {
-        return ['text', 'textarea'].includes(value)
-      },
-    },
-    rows: Number,
   },
   methods: {
     focus() {
@@ -144,6 +151,37 @@ export default {
     color: #72767d;
     border: 1px solid #36393f;
     background: #36393f;
+  }
+}
+.content2 {
+  color: #72767d;
+  background: rgba(48, 51, 57, 1);
+  border: 1px solid rgba(34, 36, 40, 1);
+  height: 176px;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+  &.text {
+    min-height: 1.2em;
+  }
+
+  &:empty:before {
+    content: attr(placeholder);
+    color: #72767d;
+    left: 10px;
+    top: 7px;
+    font-size: 14px;
+  }
+  &.focused {
+    color: #72767d;
+    background: rgba(48, 51, 57, 1);
+    border: 1px solid rgba(34, 36, 40, 1);
+  }
+  &:focus {
+    color: #72767d;
+    background: rgba(48, 51, 57, 1);
+    border: 1px solid rgba(34, 36, 40, 1);
+    outline: none;
   }
 }
 
