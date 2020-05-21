@@ -16,7 +16,7 @@ PageHead
             .list-item-brief
               .tap TA的社区
             .list-item-actions
-              button.nn-btn.text.small ➕关注
+              button.nn-btn.text.small + 关注
       VerticalTabPanel(label="收到点赞" icon="iconzan")
         .sub-header
           .tap.active 新点赞(99)
@@ -60,6 +60,8 @@ PageHead
       VerticalTabPanel(label="角色管理" icon="iconcomment")
         .sub-header
           .tap.active 新评论&回复(2)
+        .list
+
       VerticalTabPanel(label="定时任务补偿" icon="iconChannelcollection") 定时任务补偿
 </template>
 <script>

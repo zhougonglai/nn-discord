@@ -109,7 +109,9 @@ module.exports = {
     ['@nuxtjs/proxy', { pathRewrite: { '^/userapi': '', '^/friendapi': '' } }],
     '@nuxtjs/pwa',
   ],
-  axios: {},
+  axios: {
+    // proxy: true,
+  },
   proxy: {
     '/userapi': 'http://10.178.68.29:7105',
     '/friendapi': 'http://172.19.35.151:7510',
