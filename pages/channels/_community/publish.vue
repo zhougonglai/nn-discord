@@ -3,15 +3,16 @@
     .publish-left
         .publish-header
             .publish-header-title 编辑文章
-              .publish-header-title-back 返回首页
-                .publish-header-title-back-icon1
-                .publish-header-title-back-icon2
+              n-link( :to="'/channels/FIFA18'" )
+                .publish-header-title-back 返回首页
+                  .publish-header-title-back-icon1
+                  .publish-header-title-back-icon2
         .publish-body
             .publish-tit 标题文本
             el-input( type="textarea", :rows="3",  placeholder="请输入标题"  v-model="textarea" )
 
             .publish-tit 编辑正文
-
+            Editor
             .publish-tit 封面设置
             .publish-uploader
               el-upload( class="publish-uploader-box", action="https://jsonplaceholder.typicode.com/posts/", :show-file-list="false", :on-success="handleSuccess", :before-upload="beforeUpload")
@@ -77,17 +78,20 @@
 </template>
 <script>
 import { Input, Upload } from 'element-ui'
+import Editor from '~/components/editor/Editor'
 export default {
   name: 'publish',
   data() {
     return {
       textarea: '',
       imageUrl: '',
+      content: '1111',
     }
   },
   components: {
     [Input.name]: Input,
     [Upload.name]: Upload,
+    Editor,
   },
   methods: {
     handleSuccess(res, file) {
@@ -119,6 +123,9 @@ export default {
     padding: 0 20px 20px;
     height: calc(100vh - 248px);
     overflow-y: auto;
+    .el-textarea__inner {
+      background: #303339;
+    }
     .publish-header-title {
       text-align: center;
       position: relative;

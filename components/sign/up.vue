@@ -123,10 +123,6 @@ export default {
         pwdEncry: '',
         server_status: '',
         smsCode: '',
-        smscode_key: '',
-        package_id: '',
-        price_id: '',
-        refer_code: '',
       },
       geetest: {
         geetest_challenge: '',

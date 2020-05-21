@@ -97,7 +97,7 @@ const actions = {
     // setTimeout(() => {
     //   commit('resetGetNesStatus')
     // }, 2000)
-    console.log('获取更多', state.getNewsStatus)
+    // console.log('获取更多', state.getNewsStatus)
   },
 }
 

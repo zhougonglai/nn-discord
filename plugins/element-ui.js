@@ -6,6 +6,7 @@ import {
   Option,
   Checkbox,
   InfiniteScroll,
+  Loading,
   Message,
 } from 'element-ui'
 ;[Button, Select, Option, Checkbox, InfiniteScroll].forEach((element) => {
@@ -144,7 +145,7 @@ import {
 // Vue.use(Main)
 // Vue.use(Footer)
 
-// Vue.use(Loading.directive)
+Vue.use(Loading.directive)
 
 // Vue.prototype.$loading = Loading.service
 // Vue.prototype.$msgbox = MessageBox

@@ -20,10 +20,10 @@ export const actions = {
     return data
   },
   async loginByPhoneSms({ commit }, form) {
-    const res = await this.$axios.$post('/loginByPhoneSms', form)
-    console.log(res)
-    // commit(types('SET_USER'), data)
-    return res
+    const user = await this.$axios.$post('/loginByPhoneSms', form)
+    console.log(user)
+    commit(types('SET_USER'), user)
+    return user
   },
   async loginByPwd({ commit }, form) {
     const user = await this.$axios.$post('/loginByPwd', form)
@@ -31,10 +31,21 @@ export const actions = {
     return user
   },
   async getUser({ commit }, form) {
-    const { data } = await this.$axios.$post('/getUserByuserid', {
-      ...form,
-    })
-    return data
+    const user = await this.$axios.$post('/getUserByuserid', form)
+    commit(types('SET_USER'), user)
+    return user
+  },
+  async editPwd({ commit }, form) {
+    return await this.$axios.$post('/editPwd', form)
+  },
+  async checkOldTelnum({ commit }, form) {
+    return await this.$axios.$post('/checkOldTelnum', form)
+  },
+  async changeBindTelnum({ commit }, form) {
+    return await this.$axios.$post('/changeBindTelnum', form)
+  },
+  async reportGameAccountInfo({ commit }, form) {
+    return await this.$axios.$post('/reportGameAccountInfo', form)
   },
   getCommunityGroup({ commit }) {
     const friensGroup = [

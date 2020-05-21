@@ -1,17 +1,17 @@
 <template lang="pug">
-.channel 
+.channel
   .channel-item
     .channel-left
       HeaderInfo
     .channel-center
       .channel-banner
-        img( :src="channelBanner" )
+        img(:src="channelBanner")
   .channel-item.flex-sub
     .channel-left
       .community-search
         Search
       .community-nav
-        Nav( v-for="(item, index) in mainNav" :key="index"  :nav='item' )
+        Nav(v-for="(item, index) in mainNav" :key="index" :nav='item')
     .channel-center
       nuxt-child
 </template>

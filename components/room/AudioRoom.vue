@@ -20,10 +20,11 @@
               | {{b}}
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import chatItem from '~/components/channel/chat-item'
 import chatTool from '~/components/channel/chat-tool'
 import MembersItem from '~/components/channel/MembersItem'
+import RTC from '~/services/agora-rtc'
 
 export default {
   name: 'AudioRoom',
@@ -51,6 +52,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['user']),
     ...mapState('chat', ['msgList']),
   },
   methods: {
@@ -64,10 +66,37 @@ export default {
     menuClick(e) {
       console.log('menuClick', e)
     },
+    async initClient() {
+      if (process.client) {
+        const rtc = RTC.getInstance()
+        await rtc.join(this.$route.params.audioId, this.user.userId)
+        await rtc.publish({ audio: true, video: false })
+        await rtc.networkQuality(this.qualityCB)
+      }
+    },
+    qualityCB(status) {
+      // const { downlinkNetworkQuality, uplinkNetworkQuality } = status
+      this.SET_STATUS(status)
+    },
+    async publishCB(user, mediaType) {
+      const rtc = RTC.getInstance()
+      await rtc.client.subscribe(user)
+      if (mediaType === 'audio' || mediaType === 'all') {
+        // 当订阅完成后，就可以从 `user` 中获取远端音视频轨道对象了
+        const remoteAudioTrack = user.audioTrack
+        // 播放音频因为不会有画面，不需要提供 DOM 元素的信息
+        remoteAudioTrack.play()
+      }
+    },
     ...mapActions('chat', ['send-text']),
+    ...mapMutations('rtc', ['SET_STATUS']),
   },
   mounted() {
     this.$nextTick(this.scrollEnd)
+    this.initClient()
+  },
+  destroyed() {
+    RTC.getInstance().leave()
   },
 }
 </script>

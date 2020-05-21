@@ -89,8 +89,9 @@ module.exports = {
       ssr: false,
     },
     '~/plugins/axios',
+    { src: '~/plugins/ws/' },
     {
-      src: '~/plugins/ws/',
+      src: '~plugins/nuxt-quill-plugin.js',
       ssr: false,
     },
   ],
