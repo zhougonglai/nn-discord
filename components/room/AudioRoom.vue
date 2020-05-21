@@ -55,6 +55,13 @@ export default {
     ...mapState(['user']),
     ...mapState('chat', ['msgList']),
   },
+  mounted() {
+    this.$nextTick(this.scrollEnd)
+    this.initClient()
+  },
+  destroyed() {
+    RTC.getInstance().leave()
+  },
   methods: {
     scrollEnd() {
       this.$refs.message.scrollTo(0, this.$refs.message.scrollHeight)
@@ -90,13 +97,6 @@ export default {
     },
     ...mapActions('chat', ['send-text']),
     ...mapMutations('rtc', ['SET_STATUS']),
-  },
-  mounted() {
-    this.$nextTick(this.scrollEnd)
-    this.initClient()
-  },
-  destroyed() {
-    RTC.getInstance().leave()
   },
 }
 </script>

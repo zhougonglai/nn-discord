@@ -1,5 +1,4 @@
 import Vue from 'vue'
-// import 'web-animations-js'
 import vClickOutside from 'v-click-outside'
 import NNWC from '~/components/wc/install'
 

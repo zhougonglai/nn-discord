@@ -65,6 +65,22 @@
   overflow: auto;
 }
 
+.d-inline {
+  display: inline;
+}
+
+.d-block {
+  display: block;
+}
+
+.text-gray {
+  color: gray;
+}
+
+.text-indent {
+  text-indent: $n;
+}
+
 .sub-title {
   color: #72767d;
   font-size: 14px;
