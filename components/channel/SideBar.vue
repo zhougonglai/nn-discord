@@ -26,9 +26,9 @@ export default {
   display: flex;
   flex-direction: column;
   &-header {
-    height: 130px;
+    height: 136px;
     display: grid;
-    background-image: url('http://placekitten.com/240/130');
+    background-image: url('http://placekitten.com/240/136');
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     .panel {

@@ -1,7 +1,7 @@
 <style scoped lang="scss">
 // 居中显示的广告图,高度固定
 .nnBanner {
-  height: 130px;
+  height: 136px;
   background-repeat: no-repeat;
   background-position-x: center;
   background-size: cover;

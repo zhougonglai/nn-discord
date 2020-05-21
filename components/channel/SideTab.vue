@@ -166,7 +166,7 @@ export default {
     flex-direction: column;
     flex: 1;
     background-color: var(--background-secondary);
-    height: calc(100% - 130px);
+    height: calc(100% - 136px);
     max-height: 100%;
   }
   &-body {
