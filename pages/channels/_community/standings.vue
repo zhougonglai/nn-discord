@@ -6,14 +6,13 @@
     height: 100%;
   }
 }
-.nodata {
-  //
-}
 </style>
 <template>
   <div class="Record-query">
     <iframe :src="src" v-if="src" frameborder="0"></iframe>
-    <div v-else class="nodata">暂无</div>
+    <noData v-else>
+      当前游戏的战绩只支持在客户端中查看
+    </noData>
   </div>
 </template>
 <script>

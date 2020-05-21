@@ -14,7 +14,7 @@
           :class="{active: dialog.community.channel.value === 'text'}"
           @click="dialog.community.channel.value = 'text'")
           nn-radio(v-model="dialog.community.channel.value" label="text" name="text")
-            | 文 文字
+            | 文 文字      
       nn-select.my-2(v-model="dialog.community.channel.game_targer" placeholder="关联游戏")
         nn-option(v-for="game of games" :key="game.label" :label="game.label") {{game.label}}
       h4.sub-title 频道名称
@@ -166,7 +166,7 @@ export default {
     flex-direction: column;
     flex: 1;
     background-color: var(--background-secondary);
-    height: calc(100% - 130px);
+    height: calc(100% - 136px);
     max-height: 100%;
   }
   &-body {

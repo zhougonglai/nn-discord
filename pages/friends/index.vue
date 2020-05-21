@@ -63,7 +63,7 @@ $border-color: #222428;
   <div class="page spacer flex column">
     <NnBanner
       href="//www.baidu.com"
-      img="http://placekitten.com/1280/130"
+      img="http://placekitten.com/1280/136"
     ></NnBanner>
     <div class="head-search flex aic jcc">
       <div class="v-ofh flex">

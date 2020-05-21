@@ -11,18 +11,18 @@ import ForgetPassword from './forgetPassword'
 
 export default {
   name: 'SignBox',
-  props: {
-    type: {
-      type: String,
-      default: 'SignIn',
-    },
-  },
   components: {
     SignIn,
     SignUp,
     SignVerify,
     SignAccount,
     ForgetPassword,
+  },
+  props: {
+    type: {
+      type: String,
+      default: 'SignIn',
+    },
   },
   methods: {
     closeDialog() {

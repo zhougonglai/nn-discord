@@ -71,11 +71,15 @@ button.nn-btn {
 .tap {
   color: lightgray;
   cursor: pointer;
+  display: inline-block;
   font-size: small;
   user-select: none;
   line-height: 2.2;
   text-decoration: none;
-  &:hover {
+  &.active,
+  &:hover,
+  &:focus,
+  &:active {
     color: whitesmoke;
   }
 }

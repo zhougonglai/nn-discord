@@ -8,7 +8,7 @@ section#container
         .user-item.user-fans {{user.fans}}粉丝
         .user-item.user-follow {{user.follow}}关注
         .user-item.user-nickname {{user.nickName}}
-        .user-item.user-memberNo NNID：{{user.id}}
+        .user-item.user-memberNo NNID：{{user.nnNumber}}
         p.user-descript {{user.signature}}
       nn-btn.user-editor(rund type="text" size="small") 编辑资料
   slot

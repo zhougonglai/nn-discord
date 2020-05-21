@@ -1,5 +1,16 @@
 <style scoped lang="scss">
+.Rechargemask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
 .dialog-Recharge {
+  position: relative;
+  z-index: 99;
   iframe {
     width: 1056px;
     height: 660px;
@@ -8,13 +19,24 @@
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  // border: 1px solid #222428;
-  clip: rect(29px 1049px 654px 15px);
+  clip: rect(29px 1052px 658px 14px);
+
+  .close {
+    width: 50px;
+    height: 50px;
+    right: 8px;
+    top: 30px;
+    position: absolute;
+    cursor: pointer;
+  }
 }
 </style>
 <template>
-  <div class="dialog-Recharge">
-    <iframe :src="src" frameborder="0"></iframe>
+  <div class="Rechargemask">
+    <div class="dialog-Recharge">
+      <iframe :src="src" frameborder="0"></iframe>
+      <div @click="$emit('close')" class="close"></div>
+    </div>
   </div>
 </template>
 <script>

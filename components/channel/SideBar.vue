@@ -1,17 +1,22 @@
 <template lang="pug">
 .sidebar-header(v-bind="$attrs")
   .panel.left
-    .text 亚龙的社区
+    .text {{user.nickName}}的社区
     .subtext 153.2W 成员
   .panel.right
-    .subtext NN号 236584
+    .subtext NN号 {{user.nnNumber}}
     .subtext 153.2W 关注
   .panel.bottom
     nn-btn(rund size="small") +加入
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'SideBar',
+  computed: {
+    ...mapState(['user']),
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -21,11 +26,14 @@ export default {
   display: flex;
   flex-direction: column;
   &-header {
-    height: 130px;
+    height: 136px;
     display: grid;
-    background-image: url('http://placekitten.com/240/130');
+    background-image: url('http://placekitten.com/240/136');
+    background-color: #00000080;
+    background-blend-mode: color-dodge;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
+    color: #fff;
     .panel {
       padding: 10px;
       display: flex;

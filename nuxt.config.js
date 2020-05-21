@@ -81,7 +81,7 @@ module.exports = {
     },
     {
       src: '~/plugins/nn-wc',
-      ssr: false,
+      ssr: true,
     },
     '~/plugins/element-ui.js',
     {
@@ -89,6 +89,7 @@ module.exports = {
       ssr: false,
     },
     '~/plugins/axios',
+    { src: '~/plugins/ws/' },
     {
       src: '~plugins/nuxt-quill-plugin.js',
       ssr: false,
@@ -117,8 +118,6 @@ module.exports = {
     scss: './styles/variables.scss',
   },
   build: {
-    cache: true,
-    parallel: true,
     transpile: [/^element-ui/],
     /*
      ** You can extend webpack config here
