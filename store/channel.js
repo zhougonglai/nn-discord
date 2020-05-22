@@ -12,34 +12,59 @@ const r = (params, uri, schemas, i = 0) => {
 const state = () => ({})
 
 const apis = {
+  /** ----- 公告留言板 ----- **/
+  /**
+   * 获取层级内容
+   */
+  findNextNoticRemark: {
+    method: '$get',
+    url: 'channel/business/findNextNoticRemark/{serverId}/',
+    schemas: ['serverId'],
+  },
+  /**
+   * 查询第一层的留言
+   */
+  findNoticeRemarkOne: {
+    method: '$get',
+    url: '/channel/business/findNoticeRemarkOne/{serverId}/{userId}',
+    schemas: ['serverId', 'userId'],
+  },
+  /**
+   * 添加公告留言
+   */
+  findVerifyTypeByChannelId: {
+    method: '$post',
+    url: '/channel/business/findVerifyTypeByChannelId/{channelId}',
+    schemas: ['channelId'],
+  },
   /** ----- 社区 ----- **/
   /**
    * 添加个人社区
    */
   addPrivateServer: {
     method: '$post',
-    url: '/channel/business/addPrivateServer',
+    url: 'channel/business/addPrivateServer',
   },
   /**
    * 加入社区
    */
   enterServer: {
     method: '$put',
-    url: '/channel/business/enterServer',
+    url: 'channel/business/enterServer',
   },
   /**
    * 退出社区
    */
   exitServer: {
     method: '$delete',
-    url: '/channel/business/exitServer',
+    url: 'channel/business/exitServer',
   },
   /**
    * 根据社区id查询社区基础信息(名称,类型)
    */
   findServerById: {
     method: '$get',
-    url: '/channel/business/findServerById/{serverId}',
+    url: 'channel/business/findServerById/{serverId}',
     schemas: ['serverId'],
   },
   /**
@@ -47,7 +72,7 @@ const apis = {
    */
   findServerByName: {
     method: '$get',
-    url: '/channel/business/findServerByName/{serverName}',
+    url: 'channel/business/findServerByName/{serverName}',
     schemas: ['serverName'],
   },
   /**
@@ -55,7 +80,7 @@ const apis = {
    */
   findServerChannel: {
     method: '$get',
-    url: '/channel/business/findServerChannel/{serverId}',
+    url: 'channel/business/findServerChannel/{serverId}',
     schemas: ['serverId'],
   },
   /**
@@ -63,7 +88,7 @@ const apis = {
    */
   findServerGroup: {
     method: '$get',
-    url: '/channel/business/findServerGroup/{serverId}',
+    url: 'channel/business/findServerGroup/{serverId}',
     schemas: ['serverId'],
   },
   /**
@@ -71,7 +96,7 @@ const apis = {
    */
   findServerInfoById: {
     method: '$get',
-    url: '/channel/business/findServerInfoById/{serverId}',
+    url: 'channel/business/findServerInfoById/{serverId}',
     schemas: ['serverId'],
   },
   /**
@@ -79,7 +104,7 @@ const apis = {
    */
   findServerInfoByUserId: {
     method: '$get',
-    url: '/channel/business/findServerInfoByUserId/{userId}',
+    url: 'channel/business/findServerInfoByUserId/{userId}',
     schemas: ['userId'],
   },
   /**
@@ -87,7 +112,7 @@ const apis = {
    */
   findServerMember: {
     method: '$get',
-    url: '/channel/business/findServerMember/{serverId}',
+    url: 'channel/business/findServerMember/{serverId}',
     schemas: ['serverId'],
   },
   /**
@@ -95,7 +120,7 @@ const apis = {
    */
   findServerNotice: {
     method: '$get',
-    url: '/channel/business/findServerNotice/{serverId}',
+    url: 'channel/business/findServerNotice/{serverId}',
     schemas: ['serverId'],
   },
   /**
@@ -103,7 +128,7 @@ const apis = {
    */
   findUserServers: {
     method: '$get',
-    url: '/channel/business/findUserServers/{userId}',
+    url: 'channel/business/findUserServers/{userId}',
     schemas: ['userId'],
   },
   /**
@@ -111,14 +136,14 @@ const apis = {
    */
   modifyServerIntor: {
     method: '$put',
-    url: '/channel/business/modifyServerIntor',
+    url: 'channel/business/modifyServerIntor',
   },
   /**
    * 修改社区公告
    */
   modifyServerNotice: {
     method: '$put',
-    url: '/channel/business/modifyServerNotice',
+    url: 'channel/business/modifyServerNotice',
   },
   /** ----- 频道 ----- **/
   /**
@@ -126,28 +151,28 @@ const apis = {
    */
   addTextChannel: {
     method: '$post',
-    url: '/channel/business/addTextChannel',
+    url: 'channel/business/addTextChannel',
   },
   /**
    * 创建语音频道
    */
   addVoiceChannel: {
     method: '$post',
-    url: '/channel/business/addVoiceChannel',
+    url: 'channel/business/addVoiceChannel',
   },
   /**
    * 取消订阅频道
    */
   cancelSubChannel: {
     method: '$put',
-    url: '/channel/business/cancelSubChannel',
+    url: 'channel/business/cancelSubChannel',
   },
   /**
    * 根据频道id查询频道
    */
   findChannelById: {
     method: '$get',
-    url: '/channel/business/findChannelById/{channelId}',
+    url: 'channel/business/findChannelById/{channelId}',
     schemas: ['channelId'],
   },
   /**
@@ -155,7 +180,7 @@ const apis = {
    */
   findChannelInfoMapById: {
     method: '$get',
-    url: '/channel/business/findChannelInfoMapById/{channelId}/{channelTypeId}',
+    url: 'channel/business/findChannelInfoMapById/{channelId}/{channelTypeId}',
     schemas: ['channelId', 'channelTypeId'],
   },
   /**
@@ -163,7 +188,7 @@ const apis = {
    */
   findLinkChannelUsers: {
     method: '$get',
-    url: '/channel/business/findLinkChannelUsers/{channelId}',
+    url: 'channel/business/findLinkChannelUsers/{channelId}',
     schemas: ['channelId'],
   },
   /**
@@ -171,55 +196,59 @@ const apis = {
    */
   modifyChannelGroupRealation: {
     method: '$put',
-    url: '/channel/business/modifyChannelGroupRealation',
+    url: 'channel/business/modifyChannelGroupRealation',
   },
   /**
    * 修改语音频道模式
    */
   modifyChannelVoiceSchema: {
     method: '$put',
-    url: '/channel/business/modifyChannelVoiceSchema',
+    url: 'channel/business/modifyChannelVoiceSchema',
   },
   /**
    * 删除频道
    */
   removeChannel: {
     method: '$delete',
-    url: '/channel/business/removeChannel',
+    url: 'channel/business/removeChannel',
   },
   /**
    * 订阅频道
    */
   subChannel: {
     method: '$put',
-    url: '/channel/business/subChannel',
+    url: 'channel/business/subChannel',
   },
   /** ----- 频道组 ----- **/
   addGroup: {
     method: '$post',
-    url: '/channel/business/addGroup',
+    url: 'channel/business/addGroup',
   },
   modifyGroup: {
     method: '$put',
-    url: '/channel/business/modifyGroup',
+    url: 'channel/business/modifyGroup',
   },
   removeGroup: {
     method: '$delete',
-    url: '/channel/business/removeGroup',
+    url: 'channel/business/removeGroup',
   },
 }
 
 const actions = {}
 
+/**
+ * 配置 API
+ */
 for (const api in apis) {
   actions[api] = async function (_, params) {
-    if (apis[api].schemas) {
-      return await this.$axios[apis[api].method](
-        r(params, apis[api].url, apis[api].schemas),
+    const prop = apis[api]
+    if (prop.schemas) {
+      return await this.$axios[prop.method](
+        r(params, prop.url, prop.schemas),
         params
       )
     } else {
-      return await this.$axios[apis[api].method](apis[api].url, params)
+      return await this.$axios[prop.method](prop.url, params)
     }
   }
 }
