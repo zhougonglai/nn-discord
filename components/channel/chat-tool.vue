@@ -163,7 +163,8 @@ export default {
     },
     send() {
       this.$emit('send', {
-        text: this.input,
+        data: this.input,
+        type: 0,
       })
       this.input = ''
     },

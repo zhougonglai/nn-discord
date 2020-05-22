@@ -24,7 +24,7 @@
       ></chat-item>
     </div>
     <!-- 输入框 -->
-    <chat-tool @send="send_text"></chat-tool>
+    <chat-tool @send="send"></chat-tool>
   </div>
 </template>
 <script>
@@ -59,14 +59,24 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['chat/send-text']),
+    ...mapActions({ sendp2p: 'chat/send-p2p' }),
     add_friend() {
       this.$axios.get('friend/is/1/2').then(({ data, code, msg }) => {
         //
       })
     },
-    send_text(data) {
-      this['chat/send-text'](data.text)
+    send(data) {
+      const { type } = data
+      data.uid = 4945 // TODO 私聊用户id
+      switch (type) {
+        case 0:
+          // 文字
+          this.sendp2p(data)
+          break
+        default:
+          break
+      }
+      // this['chat/send-text'](data.text)
     },
   },
 }

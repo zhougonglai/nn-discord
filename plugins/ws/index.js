@@ -127,15 +127,16 @@ export default function ({ app: { store, $axios } }, inject) {
       }
     }, 10000)
   }
-  function sendMsg(uid, data) {
+  /**
+  发送私聊消息(
+    to_user_id
+    ,msg消息
+    ,类型:{0:文字,1:图片,2:语音}
+    )
+    */
+  function sendMsg(uid, data, type) {
     try {
-      const msg = codec.encodeP2pMsg(
-        argv.u,
-        argv.d,
-        uid,
-        `msg from ${argv.u} to ${uid}  ${data}`
-      )
-      console.log('send  msg to  ' + uid + ':' + data)
+      const msg = codec.encodeP2pMsg(argv.u, argv.d, uid, data, type)
       client.send(msg)
     } catch (execp) {
       console.error('send msg catch exception ' + execp)
@@ -151,7 +152,6 @@ export default function ({ app: { store, $axios } }, inject) {
   }
   inject('ws', obj)
   setTimeout(() => {
-    // TODO 开始测试
-    // obj.start()
+    obj.start()
   }, 0)
 }
