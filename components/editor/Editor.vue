@@ -60,7 +60,11 @@ export default {
             handlers: {
               image() {
                 this.quill.format('image', false) // 禁用quill内部上传图片方法
-                self.imgHandler(this)
+                self.uploadHandler(this, 'img')
+              },
+              video() {
+                this.quill.format('video', false) // 禁用quill内部上传图片方法
+                self.uploadHandler(this, 'video')
               },
             },
           },
@@ -69,6 +73,7 @@ export default {
       content: '',
       isLoading: '',
       progress: '',
+      uploadType: '',
     }
   },
   mounted() {
@@ -102,37 +107,51 @@ export default {
       // console.log('editor change!', editor, html, text)
       this.content = html
     },
-    imgHandler(handle) {
+    uploadHandler(handle, type) {
       this.quill = handle.quill
+      this.uploadType = type
       const inputfile = document.getElementById('file')
+      inputfile.value = ''
       inputfile.click()
     },
     doUpload() {
       const file = document.getElementById('file').files[0]
       const formdata = new FormData() // 创建form对象
-      formdata.append('file', file, file.name)
-    },
-    update() {
-      // const params = {
-      //   title: this.form.title,
-      //   publish_time: this.form.publish_time,
-      //   content: this.content,
-      //   event_id: this.event_id,
-      // }
-      // console.log(params)
-      // let res = await axios.post('/api/createEvent', params)
-      // if (res.data.ret) {
-      //   this.$notify.error({
-      //     message: res.data.errorMsg,
-      //     title: '错误',
-      //   })
-      // } else {
-      //   this.$notify({
-      //     message: res.data.errorMsg,
-      //     title: '成功',
-      //     type: 'success',
-      //   })
-      // }
+      formdata.append('multiFile', file)
+      const config = {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        onUploadProgress: (progressEvent) => {
+          const complete =
+            (((progressEvent.loaded / progressEvent.total) * 100) | 0) + '%'
+          this.progress = complete
+        },
+      } // 添加请求头
+      this.isLoading = true
+      this.$axios
+        .post('pgc/fastdfs/upload', formdata, config)
+        .then((res) => {
+          if (res.code === '100') {
+            this.isLoading = false
+            const url = res.data.url
+            const addImageRange = this.quill.getSelection()
+            const newRange =
+              0 + (addImageRange !== null ? addImageRange.index : 0)
+            if (this.uploadType === 'img') {
+              this.quill.insertEmbed(newRange, 'image', url)
+            } else {
+              this.quill.insertEmbed(newRange, 'simpleVideo', {
+                url,
+                controls: 'controls',
+                width: '',
+                height: '',
+              })
+            }
+            this.quill.setSelection(1 + newRange)
+          }
+        })
+        .catch(() => {
+          this.isLoading = false
+        })
     },
   },
 }

@@ -4,22 +4,22 @@
         CommunityPublicHeader( :to="'/channels/FIFA18'" )
         .publish-body
             .publish-tit 标题文本
-            el-input( type="textarea", :rows="3",  placeholder="请输入标题"  v-model="textarea" )
+            el-input( type="textarea", :rows="3",  placeholder="请输入标题"  v-model="title" )
 
             .publish-tit 编辑正文
             Editor
             .publish-tit 封面设置
             .publish-uploader
               el-upload( class="publish-uploader-box", action="/pgcapi/pgc/fastdfs/upload", name="multiFile" :show-file-list="false", :on-success="handleSuccess", :before-upload="beforeUpload")
-                img( v-if="imageUrl", :src="imageUrl", class="publish-upload-img" )
-                i( v-if="!imageUrl" class="iconfont iconUploadpicture" )
+                img( v-if="thumb", :src="thumb", class="publish-upload-img" )
+                i( v-if="!thumb" class="iconfont iconUploadpicture" )
               .publish-upload-font
                 p 图片比列:16:9 
                 p 仅支持png、jpg图片，不大于20Mb
         .publish-footer
           el-button( round ) 预览
-          el-button( round ) 保存
-          el-button( type="primary" round ) 下一步
+          el-button( round @click="saveDarft" ) 保存
+          el-button( type="primary" round @click="onNext" ) 下一步
     .publish-right
       .publish-draft-title 草稿箱 (6/30)
       .publish-draft-add + 添加新文章
@@ -69,32 +69,52 @@
         .publish-draft-item
           i.iconfont.iconshanchu
           span 这是编辑的草稿箱1
-    
+    CommunityDialog( title="转发动态" :visible.sync="forwardsFlag" width="30%" :close-on-click-modal="false" :destroy-on-close="true"  )
+      NnEditer( :buttonText="'发布'" :placeholder="'把文章分享给粉丝们吧！'" :inputClass="'content2'" @submit="saveArticle" )
+        NewsItemTranspondList( @updata="onTranspondUpdata" )
 </template>
 <script>
 import { Input, Upload } from 'element-ui'
+import { mapState } from 'vuex'
 import Editor from '~/components/editor/Editor'
 import CommunityPublicHeader from '~/components/channel/community/CommunityPublicHeader'
+import CommunityDialog from '~/components/channel/community/CommunityDialog'
+import NewsItemTranspondList from '~/components/channel/community/NewsItemTranspondList'
+import NnEditer from '~/components/nnediter/NnEditer'
 export default {
-  name: 'publish',
-  data() {
-    return {
-      textarea: '',
-      imageUrl: '',
-      content: '1111',
-    }
-  },
+  name: 'Publish',
   components: {
     [Input.name]: Input,
     [Upload.name]: Upload,
     Editor,
     CommunityPublicHeader,
+    CommunityDialog,
+    NnEditer,
+    NewsItemTranspondList,
+  },
+  data() {
+    return {
+      title: '',
+      thumb: '',
+      frontCover: '',
+      content: '1111',
+      forwardComment: '',
+      transpond: [],
+      forwardsFlag: false,
+    }
+  },
+  computed: {
+    ...mapState('community', ['darft']),
+    ...mapState(['user']),
+  },
+  watch: {
+    darftId() {},
   },
   methods: {
     handleSuccess(res, file) {
-      console.log(res, 'res')
       if (res.retCode === '100') {
-        this.imageUrl = res.retData.thumb
+        this.thumb = res.retData.thumbUrl
+        this.frontCover = res.retData.url
       }
     },
     beforeUpload(file) {
@@ -102,12 +122,48 @@ export default {
       const isLt2M = file.size / 1024 / 1024 < 2
 
       if (!isJPG) {
-        console.error('上传头像图片只能是 JPG 格式!')
+        // console.error('上传头像图片只能是 JPG 格式!')
       }
       if (!isLt2M) {
-        console.error('上传头像图片大小不能超过 2MB!')
+        // console.error('上传头像图片大小不能超过 2MB!')
       }
       return isJPG && isLt2M
+    },
+    // 下一步
+    onNext() {
+      this.saveDarft().then(() => {
+        this.forwardsFlag = true
+      })
+    },
+    onTranspondUpdata(data) {
+      this.transpond = data
+    },
+    buildArticleParams() {
+      if (!this.user.userId) {
+        return
+      }
+      return {
+        communityId: 1,
+        content: this.content,
+        draftId: this.darft.id || null,
+        forwardComment: this.forwardComment,
+        frontCover: this.thumb,
+        publishUid: this.user.userId,
+        thumb: this.thumb,
+        title: this.title,
+      }
+    },
+    // 保存草稿
+    saveDarft() {
+      const params = this.buildArticleParams()
+      return this.$store.dispatch('community/saveDarft', params)
+    },
+    // 发布文章
+    saveArticle(data) {
+      this.forwardComment = data
+      this.forwardsFlag = false
+      const params = this.buildArticleParams()
+      this.$store.dispatch('community/articlePublish', params)
     },
   },
 }

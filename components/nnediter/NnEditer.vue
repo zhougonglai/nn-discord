@@ -144,7 +144,7 @@ export default {
     handlerKeydown(e) {
       if (e.keyCode === 13) {
         e.preventDefault()
-        if (!e.target.hasAttribute('disabled')) {
+        if (this.inputContent) {
           this.$emit('submit', this.inputContent)
         }
       }

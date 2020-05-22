@@ -31,7 +31,7 @@ export default {
   methods: {
     onSubmit(inputContent) {
       // todo
-      console.log(inputContent, 'inputContent')
+      // console.log(inputContent, 'inputContent')
     },
   },
 }

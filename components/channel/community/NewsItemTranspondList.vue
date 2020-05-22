@@ -3,7 +3,7 @@
     span( @click="onShow" ) 同时转发到&nbsp;&gt;
     .news-item-transpond-list-mian( v-if="show" )
         el-input( placeholder="输入频道名检索" v-model="input" size="small" class="news-item-transpond-list-mian-input" clearable )
-        el-checkbox-group( v-model="checkedCities" class="news-item-transpond-list-mian-group" )
+        el-checkbox-group( v-model="checkedCities" class="news-item-transpond-list-mian-group" @change="onGroupChange" )
             el-checkbox( v-for="city in cities" :label="city" :key="city" class="news-item-transpond-list-mian-item" ) {{city}}
     
 </template>
@@ -39,6 +39,9 @@ export default {
   methods: {
     onShow() {
       this.show = !this.show
+    },
+    onGroupChange() {
+      this.$emit('updata', this.checkedCities)
     },
   },
 }

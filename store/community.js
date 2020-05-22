@@ -1,4 +1,13 @@
 const state = () => ({
+  darft: {
+    communityId: 1,
+    content: '',
+    frontCover: '',
+    id: null,
+    publishUid: 1,
+    thumb: '',
+    title: '',
+  }, // 草稿id
   headerInfo: {
     name: '守望先锋',
     code: '266354',
@@ -106,25 +115,20 @@ const actions = {
     // }, 2000)
     // console.log('获取更多', state.getNewsStatus)
   },
-  upload({ commit, state }, params) {
-    // let config = {
-    //   headers: { 'Content-Type': 'multipart/form-data' },
-    //   onUploadProgress: (progressEvent) => {
-    //     let complete =
-    //       (((progressEvent.loaded / progressEvent.total) * 100) | 0) + '%'
-    //     this.progress = complete
-    //   },
-    // } // 添加请求头
-    // this.isLoading = true
-    // let res = await axios.post('http://10.96.153.89:5000/', formdata, config)
-    // this.isLoading = false
-    // console.log(res)
-    // this.quill.insertEmbed(
-    //   length,
-    //   'image',
-    //   'http://10.96.153.89:5000' + res.data
-    // )
-    // this.$axios
+  // 发布文章
+  articlePublish({ commit, state }, params) {
+    return this.$axios.post('pgc/article/publish', params)
+  },
+  // 保存草稿
+  saveDarft({ commit, state }, params) {
+    return this.$axios
+      .post('pgc/draft/save', params)
+      .then((res) => {
+        // 更新草稿
+      })
+      .catch(() => {
+        console.log('保存草稿失败')
+      })
   },
 }
 
