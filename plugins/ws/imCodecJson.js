@@ -73,7 +73,7 @@ function encodeKickoff(usrid, devId) {
 //     uint32  sliceid = 12;             // 包序列
 //     uint32  slice_end = 13;         // 包结束标识
 // }
-function encodeP2pMsg(fromUsrId, fromDevId, toUserId, msg) {
+function encodeP2pMsg(fromUsrId, fromDevId, toUserId, msg, messageType = 0) {
   const head = {}
   // head.size = 0;
   head.serialNo = SerialNo++
@@ -89,7 +89,7 @@ function encodeP2pMsg(fromUsrId, fromDevId, toUserId, msg) {
   const msgContent = {
     direction: 0,
     status: 0,
-    messageType: 0,
+    messageType,
     tId: `${MsgSeq}`,
     sequence: MsgSeq,
     prevMsgId: MsgSeq - 1 > 0 ? MsgSeq - 1 : 0,

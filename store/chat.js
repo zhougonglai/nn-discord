@@ -34,8 +34,10 @@ const state = () => ({
 const getters = {}
 
 const actions = {
-  'send-text'({ state, commit }, data) {
-    commit('message-add', data)
+  // 发送私聊消息
+  'send-p2p'({ state, commit }, { uid, data, type }) {
+    this.$ws.sendMsg(uid, data, type)
+    // commit('message-add', data)
   },
   'send-img'({ state, commit }, file) {
     // commit('message-add', data)
@@ -49,12 +51,12 @@ const mutations = {
   SET_state(state, data) {
     state.state = data
   },
-  'message-add'(state, data) {
-    state.msgList.push({
-      id: Math.random(),
-      type: 'TEXT',
-      src: data,
-    })
+  'message-add'(state, { uid, data, type }) {
+    // state.msgList.push({
+    //   id: Math.random(),
+    //   type: 'TEXT',
+    //   src: data,
+    // })
   },
 }
 
