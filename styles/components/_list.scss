@@ -51,14 +51,19 @@
     cursor: pointer;
     user-select: none;
     color: var(--text-muted);
+    flex-wrap: wrap;
 
     &.active,
     &.nuxt-link-active,
-    &:hover,
-    &:active,
-    &:focus {
+    &:not(.normore, .nohover):hover,
+    &:not(.normore, .nohover):active,
+    &:not(.normore, .nohover):focus {
       color: var(--header-primary);
       background-color: var(--background-modifier-hover);
+    }
+
+    &.normore {
+      color: #dcddde;
     }
 
     &-pre {
@@ -72,6 +77,14 @@
       .avatar {
         margin: 0;
       }
+    }
+    &-child {
+      width: 100%;
+      margin-top: 10px;
+      padding-left: 50px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
     }
     &-brief {
       min-width: 40px;

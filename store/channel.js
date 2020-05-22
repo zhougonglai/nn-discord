@@ -220,17 +220,64 @@ const apis = {
     url: 'channel/business/subChannel',
   },
   /** ----- 频道组 ----- **/
+  /**
+   * 添加频道组
+   */
   addGroup: {
     method: '$post',
     url: 'channel/business/addGroup',
   },
+  /**
+   * 查询频道组下频道
+   */
+  findGroupChannel: {
+    method: '$get',
+    url: '/channel/business/findGroupChannel/{groupId}',
+    schemas: ['groupId'],
+  },
+  /**
+   * 修改频道组名称
+   */
   modifyGroup: {
     method: '$put',
     url: 'channel/business/modifyGroup',
   },
+  /**
+   * 删除频道组
+   */
   removeGroup: {
     method: '$delete',
     url: 'channel/business/removeGroup',
+  },
+  /** ----- 频道验证 ----- **/
+  /**
+   * 频道同意申请接口
+   */
+  applyResult: {
+    method: '$post',
+    url: '/channel/business/applyResult/',
+  },
+  /**
+   * 命名重复
+   * 根据频道id查询验证列表
+   */
+  findVerifyTypeByChannelId_G: {
+    method: '$get',
+    url: '/channel/business/findVerifyTypeByChannelId/{channelId}',
+    schemas: ['channelId'],
+  },
+  modifyChannelVerify: {
+    method: '$put',
+    url: '/channel/business/modifyChannelVerify/',
+  },
+  validateAnswer: {
+    method: '$post',
+    url: '/channel/business/validateAnswer/',
+  },
+  validateArrow: {
+    method: '$get',
+    url: '/channel/business/validateArrow/{channelId}',
+    schemas: ['channelId'],
   },
 }
 
