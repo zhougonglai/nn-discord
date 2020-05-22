@@ -2,14 +2,14 @@
 .news-item-comment-edit
     .news-item-comment-edit-photo
         img(src="~/assets/imgs/xbox@2x.jpg", alt="alt")
-    NnEditer( :inline="false" :buttonText="buttonText" :placeholder="placeholder" :inputStyle="inputStyle" @submit="onSubmit" )
+    NnEditer( :inline="false" :buttonText="buttonText" :placeholder="placeholder" :inputClass="inputClass" @submit="onSubmit" )
 </template>
 <script>
 import NnEditer from '~/components/nnediter/NnEditer'
 export default {
   name: 'NewsItemCommentEdit',
-  data() {
-    return {}
+  components: {
+    NnEditer,
   },
   props: {
     buttonText: {
@@ -20,13 +20,13 @@ export default {
       type: String,
       default: '说点什么吧...',
     },
-    inputStyle: {
-      type: Number,
-      default: 0,
+    inputClass: {
+      type: String,
+      default: undefined,
     },
   },
-  components: {
-    NnEditer,
+  data() {
+    return {}
   },
   methods: {
     onSubmit(inputContent) {

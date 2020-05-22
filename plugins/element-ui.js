@@ -8,10 +8,13 @@ import {
   InfiniteScroll,
   Loading,
   Message,
+  Input,
 } from 'element-ui'
-;[Button, Select, Option, Checkbox, InfiniteScroll].forEach((element) => {
-  Vue.use(element)
-})
+;[Button, Select, Input, Option, Checkbox, InfiniteScroll].forEach(
+  (element) => {
+    Vue.use(element)
+  }
+)
 // import {
 //   Pagination,
 //   Dialog,

@@ -23,20 +23,21 @@
       .spacer
       n-link.nav-item(to="/" exact-active-class="active")
         .avatar.large
-          i.bx.bxs-widget
+          SvgIcon(icon-class="iconmore")
         | 更多社区
     nuxt
   footer#app-footer
     .tools
       .item
-        i.bx.bxs-microphone
+        SvgIcon(icon-class="iconmicvol")
       .item
-        i.bx.bxs-music
+        SvgIcon(icon-class="iconbanzou")
       .item
-        i.bx.bx-headphone
-      .item 自由
+        SvgIcon(icon-class="iconsystemvolume")
       .item
-        i.bx.bxs-cog
+        SvgIcon(icon-class="iconfree")
+      .item
+        SvgIcon(icon-class="iconTurnoffvoice")
   nn-dialog(:open.sync="sign.in.status" clear)
     Box(v-if="sign.in.status")
 </template>

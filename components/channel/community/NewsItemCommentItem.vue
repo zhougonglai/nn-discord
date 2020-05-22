@@ -14,19 +14,19 @@
                     span 20
                 b( @click="onReply" :class="{ cur: show }" ) 回复
     .comment-item-editer( v-if="show" )
-        NewsItemCommentEdit( :buttonText="'回复'" :placeholder="'回复 Leisefw：'" :inputStyle="1")
+        NewsItemCommentEdit( :buttonText="'回复'" :placeholder="'回复 Leisefw：'" :inputClass="'content1'")
 </template>
 <script>
 import NewsItemCommentEdit from '~/components/channel/community/NewsItemCommentEdit'
 export default {
   name: 'NewsItemCommentItem',
+  components: {
+    NewsItemCommentEdit,
+  },
   data() {
     return {
       show: false,
     }
-  },
-  components: {
-    NewsItemCommentEdit,
   },
   methods: {
     onReply() {
