@@ -2,7 +2,9 @@ import { message } from './element-ui'
 function getbaseURL(cmd) {
   const cf = {
     '/userapi/': [],
-    '/friendapi/': ['friend', 'friends', 'channel', 'apply'],
+    '/friendapi/': ['friend', 'friends', 'apply'],
+    '/channelapi/': ['channel'],
+    '/pgcapi/': ['pgc'],
   }
   const Controller = cmd.split('/')[0]
   let baseURL = '/userapi/'

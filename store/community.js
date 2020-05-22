@@ -94,10 +94,37 @@ const actions = {
         none: true,
       },
     ])
+    this.$axios.post('pgc/article/query', {
+      communityId: 1,
+      page: {
+        currentPage: 1,
+        pageSize: 20,
+      },
+    })
     // setTimeout(() => {
     //   commit('resetGetNesStatus')
     // }, 2000)
     // console.log('获取更多', state.getNewsStatus)
+  },
+  upload({ commit, state }, params) {
+    // let config = {
+    //   headers: { 'Content-Type': 'multipart/form-data' },
+    //   onUploadProgress: (progressEvent) => {
+    //     let complete =
+    //       (((progressEvent.loaded / progressEvent.total) * 100) | 0) + '%'
+    //     this.progress = complete
+    //   },
+    // } // 添加请求头
+    // this.isLoading = true
+    // let res = await axios.post('http://10.96.153.89:5000/', formdata, config)
+    // this.isLoading = false
+    // console.log(res)
+    // this.quill.insertEmbed(
+    //   length,
+    //   'image',
+    //   'http://10.96.153.89:5000' + res.data
+    // )
+    // this.$axios
   },
 }
 
