@@ -10,7 +10,7 @@
             Editor
             .publish-tit 封面设置
             .publish-uploader
-              el-upload( class="publish-uploader-box", action="https://jsonplaceholder.typicode.com/posts/", :show-file-list="false", :on-success="handleSuccess", :before-upload="beforeUpload")
+              el-upload( class="publish-uploader-box", action="/pgcapi/pgc/fastdfs/upload", name="multiFile" :show-file-list="false", :on-success="handleSuccess", :before-upload="beforeUpload")
                 img( v-if="imageUrl", :src="imageUrl", class="publish-upload-img" )
                 i( v-if="!imageUrl" class="iconfont iconUploadpicture" )
               .publish-upload-font
@@ -92,8 +92,10 @@ export default {
   },
   methods: {
     handleSuccess(res, file) {
-      console.log(res, file, '11111111')
-      this.imageUrl = URL.createObjectURL(file.raw)
+      console.log(res, 'res')
+      if (res.retCode === '100') {
+        this.imageUrl = res.retData.thumb
+      }
     },
     beforeUpload(file) {
       const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'

@@ -14,19 +14,19 @@
           :class="{active: dialog.community.channel.value === 'text'}"
           @click="dialog.community.channel.value = 'text'")
           nn-radio(v-model="dialog.community.channel.value" label="text" name="text")
-            | 文 文字      
-      nn-select.my-2(v-model="dialog.community.channel.game_targer" placeholder="关联游戏")
+            | 文 文字
+      nn-select.my-2(v-model="dialog.community.channel.linkServerId" placeholder="关联游戏")
         nn-option(v-for="game of games" :key="game.label" :label="game.label") {{game.label}}
       h4.sub-title 频道名称
-      nn-input(v-model="dialog.community.channel.name" placeholder="请输入")
+      nn-input(v-model="dialog.community.channel.channelName" placeholder="请输入")
       .flex.align-center.space-between.my-2
         nn-radio(v-model="dialog.community.channel.guard" label="free") 自由进入
         nn-radio(v-model="dialog.community.channel.guard" label="link") 链接
         nn-radio(v-model="dialog.community.channel.guard" label="question") 问答
         nn-radio(v-model="dialog.community.channel.guard" label="invite") 邀请
-      .flex.align-center.space-between.my-2.question
-        nn-input(v-model="dialog.community.channel.question.title" placeholder="问题")
-        nn-input(v-model="dialog.community.channel.question.answer" placeholder="答案")
+      .flex.align-center.space-between.my-2.question(v-if="dialog.community.channel.guard === 'question'")
+        nn-input(v-model="dialog.community.channel.question" placeholder="问题")
+        nn-input(v-model="dialog.community.channel.answer" placeholder="答案")
     template(v-slot:footer)
       .footer
         nn-btn(rund type="text" @click="dialog.community.channel.status = false") 取消
@@ -73,8 +73,8 @@ export default {
           channel: {
             status: false,
             value: 'audio',
-            name: '',
-            game_targer: '',
+            channelName: '',
+            linkServerId: '',
             guard: 'free',
             guards: ['free', 'link', 'question', 'invite'],
             types: [
@@ -87,10 +87,8 @@ export default {
                 label: '文字',
               },
             ],
-            question: {
-              title: '',
-              answer: '',
-            },
+            question: '',
+            answer: '',
           },
           fold: {
             status: false,

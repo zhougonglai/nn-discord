@@ -106,7 +106,17 @@ module.exports = {
   },
   modules: [
     '@nuxtjs/axios',
-    ['@nuxtjs/proxy', { pathRewrite: { '^/userapi': '', '^/friendapi': '' } }],
+    [
+      '@nuxtjs/proxy',
+      {
+        pathRewrite: {
+          '^/userapi': '',
+          '^/friendapi': '',
+          '^/channelapi': '',
+          '^/pgcapi': '',
+        },
+      },
+    ],
     '@nuxtjs/pwa',
   ],
   axios: {
@@ -115,6 +125,8 @@ module.exports = {
   proxy: {
     '/userapi': 'http://10.178.68.29:7105',
     '/friendapi': 'http://172.19.35.151:7510',
+    '/channelapi': 'http://172.19.35.151:7401',
+    '/pgcapi': 'http://10.178.68.22:8086',
   },
   styleResources: {
     scss: './styles/variables.scss',

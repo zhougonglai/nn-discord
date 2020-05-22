@@ -111,23 +111,6 @@ export default {
       const file = document.getElementById('file').files[0]
       const formdata = new FormData() // 创建form对象
       formdata.append('file', file, file.name)
-      // let config = {
-      //   headers: { 'Content-Type': 'multipart/form-data' },
-      //   onUploadProgress: (progressEvent) => {
-      //     let complete =
-      //       (((progressEvent.loaded / progressEvent.total) * 100) | 0) + '%'
-      //     this.progress = complete
-      //   },
-      // } // 添加请求头
-      // this.isLoading = true
-      // let res = await axios.post('http://10.96.153.89:5000/', formdata, config)
-      // this.isLoading = false
-      // console.log(res)
-      // this.quill.insertEmbed(
-      //   length,
-      //   'image',
-      //   'http://10.96.153.89:5000' + res.data
-      // )
     },
     update() {
       // const params = {
