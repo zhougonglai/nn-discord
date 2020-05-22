@@ -80,6 +80,10 @@ module.exports = {
       ssr: false,
     },
     {
+      src: '~/plugins/idb',
+      ssr: false,
+    },
+    {
       src: '~/plugins/nn-wc',
       ssr: true,
     },
