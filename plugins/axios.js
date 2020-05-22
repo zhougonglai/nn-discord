@@ -1,4 +1,3 @@
-import { message } from './element-ui'
 function getbaseURL(cmd) {
   const cf = {
     '/userapi/': [],
@@ -13,7 +12,7 @@ function getbaseURL(cmd) {
   })
   return baseURL
 }
-export default function ({ app: { store, $axios, redirect } }) {
+export default function ({ app: { store, $axios, redirect, $message } }) {
   $axios.defaults.baseURL = process.env.BASE_URL
   $axios.defaults.timeout = 30000
   $axios.interceptors.request.use((config) => {
@@ -46,7 +45,7 @@ export default function ({ app: { store, $axios, redirect } }) {
           // response.retMsg
           // response.retData
           // redirect('/sign')//需要登陆
-          message.warning(data.msg)
+          $message.warning(data.msg)
           return Promise.reject(new Error(data.msg))
       }
     },
@@ -55,10 +54,10 @@ export default function ({ app: { store, $axios, redirect } }) {
       switch (err.response.status) {
         case 404:
         case 500:
-          message.error(`服务器开小差了:【${err.response.status}】`)
+          $message.error(`服务器开小差了:【${err.response.status}】`)
           break
         default:
-          message.error(err.message)
+          $message.error(err.message)
           break
       }
       return Promise.reject(err)

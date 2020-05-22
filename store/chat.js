@@ -2,6 +2,10 @@
 // 高频更新是界面数据使用节流减少更新
 
 const state = () => ({
+  // 是否禁止输入
+  disabled: false,
+  state: 'INIT', // 状态
+  // 消息列表
   msgList: [
     {
       id: 1,
@@ -33,11 +37,17 @@ const actions = {
   'send-text'({ state, commit }, data) {
     commit('message-add', data)
   },
+  'send-img'({ state, commit }, file) {
+    // commit('message-add', data)
+  },
 }
 
 const mutations = {
-  update(state) {
-    //
+  update(state, data) {
+    Object.assign(state, data)
+  },
+  SET_state(state, data) {
+    state.state = data
   },
   'message-add'(state, data) {
     state.msgList.push({
