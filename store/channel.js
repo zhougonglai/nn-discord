@@ -1,6 +1,125 @@
+import { replace } from 'lodash'
+
+const r = (params, uri, schemas, i = 0) => {
+  if (i < schemas.length) {
+    const prop = schemas[i]
+    return r(params, replace(uri, `{${prop}}`, params[prop]), schemas, i + 1)
+  } else {
+    return uri
+  }
+}
+
 const state = () => ({})
 
 const apis = {
+  /** ----- 社区 ----- **/
+  /**
+   * 添加个人社区
+   */
+  addPrivateServer: {
+    method: '$post',
+    url: '/channel/business/addPrivateServer',
+  },
+  /**
+   * 加入社区
+   */
+  enterServer: {
+    method: '$put',
+    url: '/channel/business/enterServer',
+  },
+  /**
+   * 退出社区
+   */
+  exitServer: {
+    method: '$delete',
+    url: '/channel/business/exitServer',
+  },
+  /**
+   * 根据社区id查询社区基础信息(名称,类型)
+   */
+  findServerById: {
+    method: '$get',
+    url: '/channel/business/findServerById/{serverId}',
+    schemas: ['serverId'],
+  },
+  /**
+   * 根据社区名查询社区
+   */
+  findServerByName: {
+    method: '$get',
+    url: '/channel/business/findServerByName/{serverName}',
+    schemas: ['serverName'],
+  },
+  /**
+   * 根据社区ID查询频道
+   */
+  findServerChannel: {
+    method: '$get',
+    url: '/channel/business/findServerChannel/{serverId}',
+    schemas: ['serverId'],
+  },
+  /**
+   * 根据社区ID查询频道组
+   */
+  findServerGroup: {
+    method: '$get',
+    url: '/channel/business/findServerGroup/{serverId}',
+    schemas: ['serverId'],
+  },
+  /**
+   * 根据社区id查询社区详情
+   */
+  findServerInfoById: {
+    method: '$get',
+    url: '/channel/business/findServerInfoById/{serverId}',
+    schemas: ['serverId'],
+  },
+  /**
+   * 根据userId查询社区详情
+   */
+  findServerInfoByUserId: {
+    method: '$get',
+    url: '/channel/business/findServerInfoByUserId/{userId}',
+    schemas: ['userId'],
+  },
+  /**
+   * 查询社区成员
+   */
+  findServerMember: {
+    method: '$get',
+    url: '/channel/business/findServerMember/{serverId}',
+    schemas: ['serverId'],
+  },
+  /**
+   * 根据社区id查询社区公告
+   */
+  findServerNotice: {
+    method: '$get',
+    url: '/channel/business/findServerNotice/{serverId}',
+    schemas: ['serverId'],
+  },
+  /**
+   * 查询成员加入的社区
+   */
+  findUserServers: {
+    method: '$get',
+    url: '/channel/business/findUserServers/{userId}',
+    schemas: ['userId'],
+  },
+  /**
+   * 修改社区简介
+   */
+  modifyServerIntor: {
+    method: '$put',
+    url: '/channel/business/modifyServerIntor',
+  },
+  /**
+   * 修改社区公告
+   */
+  modifyServerNotice: {
+    method: '$put',
+    url: '/channel/business/modifyServerNotice',
+  },
   /** ----- 频道 ----- **/
   /**
    * 创建文字频道
@@ -22,6 +141,30 @@ const apis = {
   cancelSubChannel: {
     method: '$put',
     url: '/channel/business/cancelSubChannel',
+  },
+  /**
+   * 根据频道id查询频道
+   */
+  findChannelById: {
+    method: '$get',
+    url: '/channel/business/findChannelById/{channelId}',
+    schemas: ['channelId'],
+  },
+  /**
+   * 根据频道id查询频道详情
+   */
+  findChannelInfoMapById: {
+    method: '$get',
+    url: '/channel/business/findChannelInfoMapById/{channelId}/{channelTypeId}',
+    schemas: ['channelId', 'channelTypeId'],
+  },
+  /**
+   * 根据频道id查询订阅用户
+   */
+  findLinkChannelUsers: {
+    method: '$get',
+    url: '/channel/business/findLinkChannelUsers/{channelId}',
+    schemas: ['channelId'],
   },
   /**
    * 更换频道组频道关系
@@ -66,42 +209,18 @@ const apis = {
   },
 }
 
-const actions = {
-  /**
-   * @param {*} params
-   * @description 根据频道id查询频道
-   */
-  async findChannelById(_, params) {
-    return await this.$axios.$get(
-      `/channel/business/findChannelById/${params.channelId}`,
-      params
-    )
-  },
-  /**
-   * @param {*} params
-   * @description 根据频道id查询频道详情
-   */
-  async findChannelInfoMapById(_, params) {
-    return await this.$axios.$get(
-      `/channel/business/findChannelInfoMapById/${params.channelId}/${params.channelTypeId}`,
-      params
-    )
-  },
-  /**
-   * @param {*} params
-   * @description 根据频道id查询订阅用户
-   */
-  async findLinkChannelUsers(_, params) {
-    return await this.$axios.$get(
-      `/channel/business/findLinkChannelUsers/${params.channelId}`,
-      params
-    )
-  },
-}
+const actions = {}
 
 for (const api in apis) {
-  actions[api] = async function (_, form) {
-    return await this.$axios[apis[api].method](apis[api].url, form)
+  actions[api] = async function (_, params) {
+    if (apis[api].schemas) {
+      return await this.$axios[apis[api].method](
+        r(params, apis[api].url, apis[api].schemas),
+        params
+      )
+    } else {
+      return await this.$axios[apis[api].method](apis[api].url, params)
+    }
   }
 }
 

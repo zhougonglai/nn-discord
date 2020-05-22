@@ -148,8 +148,18 @@ export default {
   },
   methods: {
     insert(emoji) {
-      this.input += emoji
-      this.$refs.txt.focus()
+      // this.input += emoji
+      const txt = this.$refs.txt.$el.querySelector('input')
+      const startPos = txt.selectionStart
+      const endPos = txt.selectionEnd
+      this.input =
+        txt.value.substring(0, startPos) +
+        emoji +
+        txt.value.substring(endPos, txt.value.length)
+      setTimeout(() => {
+        txt.setSelectionRange(startPos + 1, startPos + 1)
+        txt.focus()
+      }, 10)
     },
     send() {
       this.$emit('send', {

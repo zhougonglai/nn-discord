@@ -44,6 +44,21 @@ const PktType = {
 //     E_CMD_CHATGROUPMSG =3;
 //     E_CMD_MSGACK = 4;
 // }
+// typedef enum _CChatRoomUserActionType
+// {
+// CHART_ROOM_USER_ACTION_ENTER=1,
+// CHART_ROOM_USER_ACTION_EXIT=2,
+// CHART_ROOM_USER_ACTION_NOTALK=3,//禁言
+// CHART_ROOM_USER_ACTION_BLACK=4,//拉黑
+// CHART_ROOM_USER_ACTION_KICKOFF=5,//踢出
+// }CChatRoomUserActionType;
+const CChatRoomUserActionType = {
+  enter: 1, // 进入
+  exit: 1, // 退出
+  notalk: 3, // 禁言
+  black: 4, // 拉黑
+  kickoff: 5, // 踢出
+}
 
 const MsgType = {
   p2pMsg: 1,
@@ -56,4 +71,8 @@ module.exports = {
   PktType,
   // 请求头消息类型
   MsgType,
+  /**
+  聊天室消息类型
+  */
+  CChatRoomUserActionType,
 }

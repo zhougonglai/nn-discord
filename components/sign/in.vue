@@ -122,10 +122,11 @@ export default {
       if (!this.pwdValidity()) return
       if (this.$refs.form.checkValidity()) {
         this.$nuxt.$loading.start()
-        await this.loginByPwd({
+        const user = await this.loginByPwd({
           ...this.sign,
           pwdEncry: md5(this.sign.pwdEncry),
         })
+        await this.findServerInfoByUserId(user)
         await this.getCommunityGroup()
         await this.getFriendsGroup()
         this.$parent.closeDialog()
@@ -146,6 +147,7 @@ export default {
       this.dropdown = 0
     },
     ...mapActions(['loginByPwd', 'getCommunityGroup', 'getFriendsGroup']),
+    ...mapActions('channel', ['findServerInfoByUserId']),
   },
 }
 </script>

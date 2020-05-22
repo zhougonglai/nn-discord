@@ -184,5 +184,8 @@ const $Message = (options) => {
     return $Message(options)
   }
 })
-Vue.prototype.$message = $Message
-export const message = $Message
+export default function ({ app }, inject) {
+  // Vue.prototype.$message = $Message
+  inject('message', $Message)
+  // app.$message = $Message
+}
