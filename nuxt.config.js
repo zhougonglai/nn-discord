@@ -1,4 +1,5 @@
-module.exports = {
+import config from './config/config'
+export default {
   mode: 'universal',
   env: {
     NUXT_ENV_a: 'b',
@@ -79,10 +80,10 @@ module.exports = {
       src: '~/plugins/persistedstate',
       ssr: false,
     },
-    {
-      src: '~/plugins/idb',
-      ssr: false,
-    },
+    // {
+    //   src: '~/plugins/idb',
+    //   ssr: false,
+    // },
     {
       src: '~/plugins/nn-wc',
       ssr: true,
@@ -127,10 +128,10 @@ module.exports = {
     // proxy: true,
   },
   proxy: {
-    '/userapi': 'http://10.178.68.29:7105',
-    '/friendapi': 'http://172.19.35.151:7510',
-    '/channelapi': 'http://172.19.35.151:7401',
-    '/pgcapi': 'http://10.178.68.22:8086',
+    '/userapi': config.userapi,
+    '/friendapi': config.friendapi,
+    '/channelapi': config.channelapi,
+    '/pgcapi': config.pgcapi,
   },
   styleResources: {
     scss: './styles/variables.scss',

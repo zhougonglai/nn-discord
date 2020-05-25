@@ -30,6 +30,12 @@
 
 <script>
 export default {
+  props: {
+    value: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     const self = this
     return {
@@ -76,6 +82,11 @@ export default {
       uploadType: '',
     }
   },
+  watch: {
+    value() {
+      this.content = this.value
+    },
+  },
   mounted() {
     this.event_id = this.$route.query.event_id
     // const params = {
@@ -106,6 +117,7 @@ export default {
     onEditorChange({ editor, html, text }) {
       // console.log('editor change!', editor, html, text)
       this.content = html
+      this.$emit('updata', html)
     },
     uploadHandler(handle, type) {
       this.quill = handle.quill

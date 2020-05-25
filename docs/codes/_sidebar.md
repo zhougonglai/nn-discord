@@ -1,5 +1,6 @@
 - [说明](/codes/)
 - [网络请求](/codes/request)
+- [聊天相关](/codes/chat)
 - [第三方依赖](/codes/Third)
 - [公共混入](/codes/mixins)
 - [演示](/codes/demo1)
