@@ -5,6 +5,7 @@ const state = () => ({
   // 是否禁止输入
   disabled: false,
   state: 'INIT', // 状态
+  type: 0, // 0不在聊天窗口
   // 消息列表
   msgList: [
     {
@@ -33,17 +34,6 @@ const state = () => ({
 
 const getters = {}
 
-const actions = {
-  // 发送私聊消息
-  'send-p2p'({ state, commit }, { uid, data, type }) {
-    this.$ws.sendMsg(uid, data, type)
-    // commit('message-add', data)
-  },
-  'send-img'({ state, commit }, file) {
-    // commit('message-add', data)
-  },
-}
-
 const mutations = {
   update(state, data) {
     Object.assign(state, data)
@@ -58,6 +48,46 @@ const mutations = {
     //   src: data,
     // })
   },
+}
+const actions = {
+  /**
+  进入聊天室
+  type:0未进入聊天 1:私聊 2:
+  id:4945//相关id 比如
+  */
+  enter({ state, commit }, { type, id }) {
+    commit('update', {
+      type,
+      id,
+    })
+  },
+  /**
+  离开聊天室
+  type:0未进入聊天 1:私聊 2:
+  id:4945//相关id 比如
+  */
+  exit({ state, commit }) {
+    commit('update', {
+      type: 0,
+      id: 0,
+    })
+  },
+  // 发送私聊消息
+  send({ state, commit }, { data, type }) {
+    this.$ws.sendMsg(state.id, data, type)
+    // switch (state.type) {
+    //   case 0: // 私聊
+    //     break
+    //   case 1:
+    //   default:
+    //     break
+    // }
+
+    // commit('message-add', data)
+  },
+  // 'send-img'({ state, commit }, file) {
+  //   // commit('message-add', data)
+  // },
 }
 
 export default {

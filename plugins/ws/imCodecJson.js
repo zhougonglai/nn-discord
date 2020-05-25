@@ -58,21 +58,24 @@ function encodeKickoff(usrid, devId) {
   return encodeUsrIdMsg(usrid, devId, PktType.kickoff)
 }
 
-// message CP2PMsg {
-//     uint32  direction = 1;          // 消息方向  0发送， 1接收
-//     uint32  status = 2;             // 状态             0发送中 1未读 2已读 3拒收消息
-//     MsgContentType  messageType = 3;        // 消息类型  文字/图片/语音等
-//     uint64  tid = 4;                // 客户端时间戳
-//     uint32  sequence = 5;                  // 客户端序列
-//     uint32  prev_msgid = 6;               // 上一条消息id
-//     uint32  current_msgid = 7;            // 下一条消息id
-//     string  createTime = 8;         // 发送时间
-//     string  messageId = 9;         // 消息id     发送的时候为空
-//     string  content = 10;           // 消息内容
-//     uint32  client_fileid = 11;     // 上传文件的标识，文件分包用
-//     uint32  sliceid = 12;             // 包序列
-//     uint32  slice_end = 13;         // 包结束标识
-// }
+/**
+ message CP2PMsg {
+  uint32  direction = 1;          // 消息方向  0发送， 1接收
+  uint32  status = 2;             // 状态   0发送中 1未读 2已读 3拒收消息
+  MsgContentType  msgContType = 3;        // 消息内容类型  文字/图片/语音等
+  uint64  tId = 4;                // 客户端时间戳
+  uint32  sequence = 5;                  // 客户端序列
+  uint32  prevMsgId = 6;               // 上一条消息id
+  uint32  nextMsgId = 7;            // 下一条消息id
+  uint64  createTime = 8;         // 客户端发送时间
+  string  msgId = 9;         // 消息id     发送的时候为空
+  string  content = 10;           // 消息内容
+  uint32  clientFileId = 11;     // 上传文件的标识，文件分包用
+  uint32  sliceId = 12;             // 包序列
+  uint32  sliceEnd = 13;         // 包结束标识
+ }
+*/
+// 私聊消息
 function encodeP2pMsg(fromUsrId, fromDevId, toUserId, msg, messageType = 0) {
   const head = {}
   // head.size = 0;
@@ -89,7 +92,7 @@ function encodeP2pMsg(fromUsrId, fromDevId, toUserId, msg, messageType = 0) {
   const msgContent = {
     direction: 0,
     status: 0,
-    messageType,
+    msgContType: messageType,
     tId: `${MsgSeq}`,
     sequence: MsgSeq,
     prevMsgId: MsgSeq - 1 > 0 ? MsgSeq - 1 : 0,
@@ -108,7 +111,7 @@ function encodeP2pMsg(fromUsrId, fromDevId, toUserId, msg, messageType = 0) {
     body,
   })
 }
-
+//
 function encodeUsrIdMsg(fromUid, deviceId, msgType) {
   const head = {}
   // head.size = 0;
@@ -139,8 +142,12 @@ function encodeAck(pkt, ackType_) {
   }
   const ack = JSON.parse(JSON.stringify(pkt))
   ack.head.msgType = ackType
-  ack.body.msgType = ackType
-  ack.body.timestamp = new Date().getTime()
+  ack.body = {
+    ackType,
+    timestamp: new Date().getTime(),
+  }
+  // ack.body.msgType = ackType
+  // ack.body.timestamp = new Date().getTime()
   return JSON.stringify(ack)
 }
 
