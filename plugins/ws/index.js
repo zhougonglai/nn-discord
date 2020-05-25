@@ -151,7 +151,7 @@ export default function ({ app: { store, $axios } }, inject) {
     sendMsg,
   }
   inject('ws', obj)
-  setTimeout(() => {
-    obj.start()
-  }, 0)
+  // setTimeout(() => {
+  //   obj.start()
+  // }, 0)
 }

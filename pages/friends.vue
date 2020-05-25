@@ -5,12 +5,12 @@ section#friends
     SideTab
       .list.padding.my-1
         n-link(:to="{name: 'friends'}" v-slot="{ href, isExactActive }")
-          a.list-item(:href="href" :class="[isExactActive && 'active']")
+          a.list-item(:href="href" :class="[isExactActive && 'active']" @click.prevent="()=>{$router.push({name:'friends'})}")
             .list-item-pre
               i.bx.bxs-home-circle
             .list-item-content 添加好友
         n-link(:to="{name: 'friends-pass'}" v-slot="{ href, isActive }")
-          a.list-item(:href="href" :class="[isActive && 'active']")
+          a.list-item(:href="href" :class="[isActive && 'active']" @click.prevent="()=>{$router.push({name:'friends-pass'})}")
             .list-item-pre
               i.bx.bxs-home-circle
             .list-item-content 好友申请

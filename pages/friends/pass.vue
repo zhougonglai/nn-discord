@@ -129,10 +129,24 @@ export default {
       const { data } = await this.$axios.get(`apply/list/${this.USER_ID}`)
       this.list = data
     },
+    // 频道 channel 好友 friend
     // 拒绝
-    Refuse({ dbId }) {
+    Refuse({ type, dbId }) {
+      let cmdType = ''
+      switch (type) {
+        case 1: // 频道
+          cmdType = 'channel'
+          break
+        case 2: // 群
+          cmdType = 'group'
+          break
+        case 0: // 好友
+        default:
+          cmdType = 'friend'
+          break
+      }
       this.$axios
-        .put('friend/apply/ignored', {
+        .put(`${cmdType}/apply/ignored`, {
           applyId: dbId,
         })
         .then(({ msg }) => {
@@ -141,9 +155,22 @@ export default {
         })
     },
     // 接受
-    accept({ dbId }) {
+    accept({ type, dbId }) {
+      let cmdType = ''
+      switch (type) {
+        case 1: // 频道
+          cmdType = 'channel'
+          break
+        case 2: // 群
+          cmdType = 'group'
+          break
+        case 0: // 好友
+        default:
+          cmdType = 'friend'
+          break
+      }
       this.$axios
-        .put('friend/apply/agree', {
+        .put(`${cmdType}/apply/agree`, {
           alias: '周公来',
           applyId: dbId,
         })

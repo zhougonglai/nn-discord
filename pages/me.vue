@@ -5,7 +5,7 @@ section#me
     SideTab
       .list.padding.my-1
         n-link(:to="{name: 'me'}" v-slot="{ href }")
-          a.list-item(:href="href" :class="[['/me','/me/Dynamic', '/me/notice', '/me/Setup', '/me/member', '/me/author'].some(path => $route.path.includes(path)) ? 'active': '']")
+          a.list-item(:href="href" :class="[['/me','/me/Dynamic', '/me/notice', '/me/Setup', '/me/member', '/me/author'].some(path => $route.path.includes(path)) ? 'active': '']" @click.prevent="()=>{$router.push({name:'me'})}")
             .list-item-pre
               i.bx.bxs-home-circle
             .list-item-content 个人首页
@@ -19,15 +19,15 @@ section#me
               i.bx.bxs-chevron-down
             | {{group.label}}
           template(v-if="activeCommunityGroup.includes(group.id)")
-            n-link.list-item(
-              v-if="index==0"
-              :to="`/me/chat/robot`")
-              .list-item-pre
-                template
-                  .avatar(:style="{'background-image':`url(http://placekitten.com/40/40)`}")
-              .list-item-content 机器人
-              .list-item-brief
-                span.bage.error 9
+            //- n-link.list-item(
+            //-   v-if="index==0"
+            //-   :to="`/me/chat/robot`")
+            //-   .list-item-pre
+            //-     template
+            //-       .avatar(:style="{'background-image':`url(http://placekitten.com/40/40)`}")
+            //-   .list-item-content 机器人
+            //-   .list-item-brief
+            //-     span.bage.error 9
             n-link.list-item(
               v-for="item in group.children"
               :to="`/me/${item.type}/${item.id}`"
