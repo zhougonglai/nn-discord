@@ -86,6 +86,7 @@ section#me {
     display: flex;
     flex-direction: column;
     width: 240px;
+    min-width: 240px;
   }
 }
 </style>

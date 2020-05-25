@@ -74,12 +74,19 @@ button.nn-btn {
   display: inline-block;
   font-size: small;
   user-select: none;
-  line-height: 2.2;
   text-decoration: none;
   &.active,
   &:hover,
   &:focus,
   &:active {
     color: whitesmoke;
+  }
+  .icon,
+  .iconfont {
+    margin-right: 4px;
+  }
+
+  + .tap {
+    margin-left: 20px;
   }
 }

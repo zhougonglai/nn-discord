@@ -11,7 +11,7 @@ export const state = () => ({
 })
 
 export const actions = {
-  async sendCode({ commit }, form) {
+  async sendSms({ commit }, form) {
     const { data } = await this.$axios.$post('/sendSms', form)
     return data
   },
