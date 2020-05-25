@@ -31,7 +31,7 @@
       img="http://placekitten.com/1280/128"
     ></NnBanner>
     <div class="flex-sub pass-list">
-      <div v-for="item in list" :key="item" class="item flex aic">
+      <div v-for="item in list" :key="item.dbId" class="item flex aic">
         <n-link :to="'/friends/' + item.applyUserId">
           <img alt class="Avatar" src="http://placekitten.com/42/42" />
         </n-link>
@@ -119,9 +119,7 @@ export default {
     }
   },
   mounted() {
-    setTimeout(() => {
-      this.getlist()
-    }, 0)
+    this.getlist()
   },
   methods: {
     // 查询用户所有申请列表
