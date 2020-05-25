@@ -106,6 +106,20 @@ PageHead
                       nn-btn(rund size="small") 回复
       VerticalTabPanel(label="定时任务补偿" icon="iconChannelcollection")
         .list
+          .list-item.nohover
+            .list-item-pre
+              .avatar(style="background-image: url(https://api.adorable.io/avatars/285/3.png);")
+            .list-item-content
+              .list-item-title
+                .d-inline.large 守望先锋
+                SvgIcon(icon-class="iconofficial")
+                small.text-gray 守望先锋官方
+              .list-item-subtitle
+                | 5分钟前  来自NN客户端编辑
+            .list-item-brief
+              nn-btn(type="text" size="small") + 关注
+            .list-item-actions
+              i.el-icon-arrow-down.el-icon--right
 </template>
 <script>
 import PageHead from '~/components/channel/PageHead'
