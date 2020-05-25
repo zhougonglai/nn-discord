@@ -4,10 +4,10 @@
         CommunityPublicHeader( :to="'/channels/FIFA18'" )
         .publish-body
             .publish-tit 标题文本
-            el-input( type="textarea", :rows="3",  placeholder="请输入标题"  v-model="title" )
-
+            el-input( type="textarea", :rows="3",  placeholder="请输入标题" v-model="title" )
+            
             .publish-tit 编辑正文
-            Editor
+            Editor( @updata="editorUpdata" :value="darftCurrent.content" )
             .publish-tit 封面设置
             .publish-uploader
               el-upload( class="publish-uploader-box", action="/pgcapi/pgc/fastdfs/upload", name="multiFile" :show-file-list="false", :on-success="handleSuccess", :before-upload="beforeUpload")
@@ -21,66 +21,25 @@
           el-button( round @click="saveDarft" ) 保存
           el-button( type="primary" round @click="onNext" ) 下一步
     .publish-right
-      .publish-draft-title 草稿箱 (6/30)
-      .publish-draft-add + 添加新文章
+      .publish-draft-title 草稿箱 ({{ darftList.length || 0 }}/{{darftMaxLength}})
+      .publish-draft-add( @click="onAddArticle" ) + 添加新文章
       .publish-draft-list
-        .publish-draft-item
+        .publish-draft-item( v-for="item in darftList" :key="item.id" )
           i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
-        .publish-draft-item
-          i.iconfont.iconshanchu
-          span 这是编辑的草稿箱1
+          span( @click="onSelectDarft(item)" ) {{ item.title }}
     CommunityDialog( title="转发动态" :visible.sync="forwardsFlag" width="30%" :close-on-click-modal="false" :destroy-on-close="true"  )
       NnEditer( :buttonText="'发布'" :placeholder="'把文章分享给粉丝们吧！'" :inputClass="'content2'" @submit="saveArticle" )
         NewsItemTranspondList( @updata="onTranspondUpdata" )
 </template>
 <script>
 import { Input, Upload } from 'element-ui'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import Editor from '~/components/editor/Editor'
 import CommunityPublicHeader from '~/components/channel/community/CommunityPublicHeader'
 import CommunityDialog from '~/components/channel/community/CommunityDialog'
 import NewsItemTranspondList from '~/components/channel/community/NewsItemTranspondList'
 import NnEditer from '~/components/nnediter/NnEditer'
+import config from '~/config/config'
 export default {
   name: 'Publish',
   components: {
@@ -101,14 +60,29 @@ export default {
       forwardComment: '',
       transpond: [],
       forwardsFlag: false,
+      time: null,
+      darftMaxLength: config.darftMaxLength,
     }
   },
   computed: {
-    ...mapState('community', ['darft']),
+    ...mapState('community', ['darftList', 'darftId']),
+    ...mapGetters('community', ['darftCurrent']),
     ...mapState(['user']),
   },
   watch: {
-    darftId() {},
+    darftCurrent() {
+      this.thumb = this.darftCurrent.thumb
+      this.frontCover = this.darftCurrent.frontCover
+      this.title = this.darftCurrent.title
+    },
+  },
+  created() {
+    this.init()
+    this.autoSave()
+  },
+  beforeDestroy() {
+    this.$store.commit('community/setState', ['darftId', null])
+    clearInterval(this.time)
   },
   methods: {
     handleSuccess(res, file) {
@@ -117,15 +91,20 @@ export default {
         this.frontCover = res.retData.url
       }
     },
+    autoSave() {
+      this.time = setInterval(() => {
+        this.saveDarft('auto')
+      }, config.darftAutoSaveTime * 1000)
+    },
     beforeUpload(file) {
       const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'
       const isLt2M = file.size / 1024 / 1024 < 2
 
       if (!isJPG) {
-        // console.error('上传头像图片只能是 JPG 格式!')
+        this.$message.error('上传头像图片只能是 JPG 格式!')
       }
       if (!isLt2M) {
-        // console.error('上传头像图片大小不能超过 2MB!')
+        this.$message.error('上传头像图片大小不能超过 2MB!')
       }
       return isJPG && isLt2M
     },
@@ -138,25 +117,50 @@ export default {
     onTranspondUpdata(data) {
       this.transpond = data
     },
+    // 构建保存参数
     buildArticleParams() {
-      if (!this.user.userId) {
-        return
-      }
       return {
         communityId: 1,
-        content: this.content,
-        draftId: this.darft.id || null,
-        forwardComment: this.forwardComment,
-        frontCover: this.thumb,
         publishUid: this.user.userId,
+        forwardComment: this.forwardComment || null,
+        content: this.content,
+        id: this.darftId,
+        frontCover: this.frontCover,
         thumb: this.thumb,
         title: this.title,
       }
     },
+    editorUpdata(html) {
+      this.content = html
+    },
+    init() {
+      this.$store.dispatch('community/getDarftList', 1)
+    },
+    onAddArticle() {
+      this.$store.commit('community/setState', ['darftId', null])
+    },
     // 保存草稿
-    saveDarft() {
+    saveDarft(flag) {
+      if (this.darftList.length >= this.darftMaxLength) {
+        this.$message.error(
+          `您的草稿超过了${this.darftMaxLength}条，无法保存！`
+        )
+      }
       const params = this.buildArticleParams()
-      return this.$store.dispatch('community/saveDarft', params)
+      if (
+        !params.publishUid ||
+        !params.title ||
+        !params.content ||
+        !params.thumb
+      ) {
+        if (!flag) {
+          this.$message.error('标题、正文、封面不能为空！')
+        }
+        return
+      }
+      this.$store.dispatch('community/saveDarft', params).then(() => {
+        this.init()
+      })
     },
     // 发布文章
     saveArticle(data) {
@@ -164,6 +168,10 @@ export default {
       this.forwardsFlag = false
       const params = this.buildArticleParams()
       this.$store.dispatch('community/articlePublish', params)
+    },
+    // 选择编辑草稿
+    onSelectDarft(item) {
+      this.$store.commit('community/setState', ['darftId', item.id])
     },
   },
 }
@@ -267,6 +275,7 @@ export default {
         }
         span {
           cursor: pointer;
+          display: inline-block;
         }
         &:hover {
           background: rgba(57, 60, 67, 1);

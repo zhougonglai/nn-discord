@@ -1,13 +1,6 @@
 const state = () => ({
-  darft: {
-    communityId: 1,
-    content: '',
-    frontCover: '',
-    id: null,
-    publishUid: 1,
-    thumb: '',
-    title: '',
-  }, // 草稿id
+  darftId: null, // 草稿id
+  darftList: [], // 草稿列表
   headerInfo: {
     name: '守望先锋',
     code: '266354',
@@ -86,7 +79,17 @@ const state = () => ({
   channelBanner: require('~/assets/imgs/user_bg@2x.png'),
 })
 
-const getters = {}
+const getters = {
+  darftCurrent(state) {
+    let obj = {}
+    state.darftList.forEach((item) => {
+      if (item.id === state.darftId) {
+        obj = item
+      }
+    })
+    return obj
+  },
+}
 
 const actions = {
   searchCommunity({ commit, state }, searchKey) {
@@ -125,6 +128,21 @@ const actions = {
       .post('pgc/draft/save', params)
       .then((res) => {
         // 更新草稿
+        commit('setState', ['darftId', res.data])
+      })
+      .catch(() => {
+        console.log('保存草稿失败')
+      })
+  },
+  // 查询草稿
+  getDarftList({ commit, state }, communityId) {
+    return this.$axios
+      .get(`pgc/draft/communityId/${communityId}`)
+      .then((res) => {
+        // 更新草稿
+        if (res.code === '100') {
+          commit('setState', ['darftList', res.data])
+        }
       })
       .catch(() => {
         console.log('保存草稿失败')
@@ -140,6 +158,9 @@ const mutations = {
   },
   setState(state, item) {
     state[item[0]] = item[1]
+  },
+  setDarftItem(state, item) {
+    state.darftCurrent[item[0]] = item[1]
   },
 }
 
