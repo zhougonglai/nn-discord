@@ -1,4 +1,4 @@
-# websocket
+## websocket
 
 ```
 codecCommon/PktType
@@ -25,12 +25,35 @@ E_CMD_CHATROOM_USERLISTACK =18,//聊天室用户列表ACK
 
 ```
 
-### 1.1.1.   通讯头(Head)结构：
+## 数据存储
 
-| **字段** | **描述**   | **长度**                                                     |
-| -------- | ---------- | :----------------------------------------------------------- |
-| msgLen   | 消息长  度 | 定长，2字节，表示总长度                                      |
-| msgType  | 消息类型   | 定长，1字节                                                  |
-| serialNo | 消息流水号 | 定长，1字节                                                  |
-| flag     | 标记值     | 定长，1字节   <br />0000 0000    不加密消息  <br />0000 0001    rc4加密消息   <br />0000 0011    加密+上行客户端版本号参数   <br />0000 0111    加密+上行客户端版本号+添加网络状态参数 |
-| body     | 消息内容   | 变长，由size可计算出长度。                                   |
+> 聊天记录存储在indexedDB
+>
+> 状态在vuex chat.js
+
+#### vuex事件
+
+```js
+ /**
+  进入聊天室
+  type:0未进入聊天 1:私聊 2:
+  id:4945//相关id
+  */
+this.$store.dispatch("chat/enter",{type:1,id:4945})
+
+  /**
+  离开聊天室
+  type:0未进入聊天 1:私聊 2:
+  id:4945//相关id 比如
+  */
+this.$store.dispatch("chat/exit",{type:1,id:4945})
+```
+
+#### 获取当前聊天的聊天记录
+
+```js
+私聊:存储位置在 "当前用户id|对方用户id","chat-p2p"
+this.$idb("${store.getters.USER_ID}|${uid}","chat-p2p").keys()
+群聊:存储位置在 "当前用户id|聊天室id","chat-group"
+```
+

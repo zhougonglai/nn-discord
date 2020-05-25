@@ -1,22 +1,14 @@
-// 简单的IndexedDB封装
 /**
 用法
-let db=this.$idb("表名","库名"=default)
-db.set(id,{name:"222"})
-let db=await db.get(id)
+
 */
-import { Store, keys, get, set, del } from 'idb-keyval'
+import Dexie from 'dexie'
+
+const version = 1 // 修改结构需要增加版本号
 export default function ({ app: { store, $axios } }, inject) {
-  function init(tabName, storeName = 'default') {
-    const db = new Store(storeName, tabName)
-    return {
-      get: async (key) => await get(key, db),
-      del: async (key) => await del(key, db),
-      keys: async () => await keys(db),
-      set: async (key, value) => await set(key, value, db),
-    }
-  }
-  inject('idb', init)
+  const $db = new Dexie('default')
+  // $db.version(version).stores({ chat: '++id,timestamp,fromUid,msgType,messageId' })
+  inject('idb', $db)
 
   /**
   缓存
@@ -26,10 +18,18 @@ export default function ({ app: { store, $axios } }, inject) {
   let user= await this.$icache("user").get(id,getuser(id))
   */
   function icache(tabName, ExpiredTime = 600000) {
-    const db = init(tabName, 'cache')
+    const dbcache = new Dexie('cache')
+    dbcache.version(version).stores({ db: 'key,Expired' })
+    const db = $db.cache
     const set = (key, data) =>
-      db.set(key, { data, Expired: new Date() - 0 + ExpiredTime })
+      db.put({
+        key: `${tabName}}${key}`,
+        tabName,
+        data,
+        Expired: new Date() - 0 + ExpiredTime,
+      })
     return {
+      db,
       /**
       key
       ,funGet 获取值的函数
@@ -37,17 +37,16 @@ export default function ({ app: { store, $axios } }, inject) {
       */
       get: async (key, funGet, Refresh = false) => {
         // eslint-disable-next-line prefer-const
-        let _data = await db.get(key)
+        let _data = await db.get(`${tabName}}${key}`)
         let data = _data && _data.data
         if (Refresh || _data === undefined || new Date() - 0 > _data.Expired) {
           data = await funGet()
-          set(key, data)
+          set(`${tabName}}${key}`, data)
         }
         return Promise.resolve(data)
       },
       set,
-      del: db.del,
-      keys: db.keys,
+      delete: db.delete,
       /**
       数组混合数据,防止重复请求
       */
