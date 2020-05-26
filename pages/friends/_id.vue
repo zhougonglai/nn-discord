@@ -190,6 +190,11 @@ export default {
     },
     click_admin(db) {
       // this.$router.push('/friends/2')
+      // 查看好友状态
+      // this.$axios.get('friend/status/4889/4945', {}).then(({ data }) => {
+      //   console.log(data)
+      //   // this.data = data;
+      // })
     },
   },
 }

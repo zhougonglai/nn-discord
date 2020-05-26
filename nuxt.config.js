@@ -80,10 +80,10 @@ export default {
       src: '~/plugins/persistedstate',
       ssr: false,
     },
-    // {
-    //   src: '~/plugins/idb',
-    //   ssr: false,
-    // },
+    {
+      src: '~/plugins/idb',
+      ssr: false,
+    },
     {
       src: '~/plugins/nn-wc',
       ssr: true,

@@ -8,7 +8,7 @@
   main#app-main
     nav#app-nav(aria-label="侧边栏")
       n-link(v-if="user" to="/me/" v-slot="{ href }")
-        a.nav-item(:href="href" :class="[['/friends', '/me'].some(path => $route.path.includes(path))? 'active' : '']")
+        a.nav-item(:href="href" :class="[['/friends', '/me'].some(path => $route.path.includes(path))? 'active' : '']" @click.prevent="()=>$router.push('/me/')")
           .avatar.large(:style="{'background-image':`url(${user.imageUrl})`}")
           | {{user.nickName}}
       template(v-if="helpNav.length")
@@ -17,7 +17,7 @@
           v-for="nav in helpNav"
           :key="nav.id"
           v-slot="{href}")
-          a.nav-item(:href="href" :class="[ nav.label === $route.params.community ? 'active' : '']")
+          a.nav-item(:href="href" :class="[ nav.label === $route.params.community ? 'active' : '']" @click.prevent="()=>$router.push(`/channels/${nav.label}`)")
             .avatar.large(:style="{'background-image':`url(${nav.url})`}")
             | {{nav.label}}
       .spacer
