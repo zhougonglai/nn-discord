@@ -1003,3 +1003,10 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .el-progress-circle svg path:first-child {
   stroke: #24262a;
 }
+.el-dialog__title {
+  color: #ffffff;
+  font-size: 15px;
+}
+.el-dialog__header {
+  text-align: left;
+}

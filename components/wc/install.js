@@ -10,7 +10,7 @@ import nnDropdown from './nnDropdown.vue'
 import nnDropitem from './nnDropitem.vue'
 import nnContextMenus from './nnContextMenus.vue'
 import nnCOntextMenu from './nnContextMenu.vue'
-
+import NnRightMenu from './NnRightMenu'
 import noData from './noData.vue'
 
 export default {
@@ -28,5 +28,6 @@ export default {
     vue.component(nnDropitem.name, nnDropitem)
     vue.component(nnContextMenus.name, nnContextMenus)
     vue.component(nnCOntextMenu.name, nnCOntextMenu)
+    vue.component(NnRightMenu.name, NnRightMenu)
   },
 }
