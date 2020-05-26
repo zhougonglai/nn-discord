@@ -171,14 +171,18 @@ export default {
       if (!this.verifyValidity()) return
       if (!this.codeValidity()) return
       this.$nuxt.$loading.start()
-      await this.loginByPhoneSms(this.sign).catch((err) => {
+      const res = await this.loginByPhoneSms(this.sign).catch((err) => {
         this.error.msg = err
         this.error.status = true
+        return false
       })
-      await this.getCommunityGroup()
-      await this.getFriendsGroup()
-      this.$parent.closeDialog()
-      this.$router.push({ name: 'me' }, this.$nuxt.$loading.finish)
+      if (res) {
+        await this.getCommunityGroup()
+        await this.getFriendsGroup()
+        this.$parent.closeDialog()
+        this.$router.push({ name: 'me' }, this.$nuxt.$loading.finish)
+      }
+      this.$nuxt.$loading.finish()
     },
     showDropdown() {
       if (!this.dropdown) {

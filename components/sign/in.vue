@@ -122,23 +122,30 @@ export default {
       if (!this.pwdValidity()) return
       if (this.$refs.form.checkValidity()) {
         this.$nuxt.$loading.start()
-        await this.loginByPwd({
+        const user = await this.loginByPwd({
           ...this.sign,
           pwdEncry: md5(this.sign.pwdEncry),
+        }).catch((e) => {
+          this.error.msg = e
+          this.error.status = true
+          return false
         })
-          .catch((e) => {
+        if (user) {
+          const res = await this.findServerInfoByUserId(user).catch((e) => {
             this.error.msg = e
             this.error.status = true
+            return false
           })
-          .then(this.findServerInfoByUserId)
-          .catch((e) => {
-            this.error.msg = e
-            this.error.status = true
-          })
-        await this.getCommunityGroup()
-        await this.getFriendsGroup()
-        this.$parent.closeDialog()
-        this.$router.push({ path: '/me/' }, this.$nuxt.$loading.finish)
+          if (res) {
+            await this.getCommunityGroup()
+            await this.getFriendsGroup()
+            this.$parent.closeDialog()
+            this.$router.push({ path: '/me/' }, this.$nuxt.$loading.finish)
+          }
+          this.$parent.closeDialog()
+          this.$router.push({ path: '/me/' }, this.$nuxt.$loading.finish)
+        }
+        this.$nuxt.$loading.finish()
       }
     },
     showDropdown() {
