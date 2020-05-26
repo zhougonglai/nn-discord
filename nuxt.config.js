@@ -6,6 +6,9 @@ export default {
     NUXT_ENV_Recharge_URL: process.env.Recharge_URL,
     NUXT_ENV_ws: process.env.ws,
   },
+  router: {
+    base: '/nuxt/',
+  },
   head: {
     title: process.env.npm_package_name || '',
     htmlAttrs: {
@@ -107,7 +110,8 @@ export default {
     '@nuxtjs/style-resources',
   ],
   server: {
-    host: '0.0.0.0',
+    host: config.host,
+    port: config.port,
   },
   modules: [
     '@nuxtjs/axios',
