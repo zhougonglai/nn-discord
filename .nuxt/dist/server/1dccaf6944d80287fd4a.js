@@ -1,0 +1,1 @@
+exports.ids=[4],exports.modules={395:function(t,e,n){"use strict";n.r(e);var l={name:"CommunityBlock"},r=n(1),component=Object(r.a)(l,(function(){var t=this.$createElement;return(this._self._c||t)("nuxt-child")}),[],!1,null,null,"8b65bd1a");e.default=component.exports}};

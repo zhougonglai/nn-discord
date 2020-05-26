@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[10],{594:function(n,t,e){"use strict";e.r(t);var c={name:"CommunityBlockInfo"},l=e(2),component=Object(l.a)(c,(function(){var n=this.$createElement;return(this._self._c||n)("div",{staticClass:"community-news"},[this._v("板块")])}),[],!1,null,null,null);t.default=component.exports}}]);

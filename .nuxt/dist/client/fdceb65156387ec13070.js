@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[26],{614:function(t,n,e){"use strict";e.r(n);var l=e(2),component=Object(l.a)({},(function(){var t=this.$createElement;return(this._self._c||t)("div",{staticClass:"channel"},[this._v(this._s(this.$route.params.channel))])}),[],!1,null,null,null);n.default=component.exports}}]);

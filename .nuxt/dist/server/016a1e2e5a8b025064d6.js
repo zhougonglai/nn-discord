@@ -1,0 +1,1 @@
+exports.ids=[7],exports.modules={397:function(t,e,n){"use strict";n.r(e);var r={name:"CommunityNews"},l=n(1),component=Object(l.a)(r,(function(){var t=this.$createElement;return(this._self._c||t)("nuxt-child")}),[],!1,null,null,"04d3915d");e.default=component.exports}};

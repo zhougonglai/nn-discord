@@ -1,0 +1,1 @@
+exports.ids=[1],exports.modules={393:function(t,e,n){"use strict";n.r(e);var r={name:"Community"},l=n(1),component=Object(l.a)(r,(function(){var t=this.$createElement;return(this._self._c||t)("nuxt-child")}),[],!1,null,null,"6fb484b4");e.default=component.exports}};

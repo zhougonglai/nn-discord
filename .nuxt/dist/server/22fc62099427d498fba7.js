@@ -1,0 +1,1 @@
+exports.ids=[5],exports.modules={396:function(t,e,n){"use strict";n.r(e);var o={name:"CommunityBlockInfo"},r=n(1),component=Object(r.a)(o,(function(){var t=this.$createElement;return(this._self._c||t)("div",{staticClass:"community-news"},[this._ssrNode("板块")])}),[],!1,null,null,"787e60d1");e.default=component.exports}};

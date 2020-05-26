@@ -107,7 +107,8 @@ export default {
     '@nuxtjs/style-resources',
   ],
   server: {
-    host: '0.0.0.0',
+    host: config.host,
+    port: config.port,
   },
   modules: [
     '@nuxtjs/axios',

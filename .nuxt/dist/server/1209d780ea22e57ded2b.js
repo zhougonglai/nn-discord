@@ -1,0 +1,1 @@
+exports.ids=[16],exports.modules={414:function(e,t,l){"use strict";l.r(t);var n={name:"PlaceHolderCon"},r=l(1),component=Object(r.a)(n,(function(){var e=this.$createElement;return(this._self._c||e)("nuxt-child")}),[],!1,null,null,"953ce0c4");t.default=component.exports}};

@@ -1,0 +1,1 @@
+exports.ids=[10],exports.modules={394:function(e,t,n){"use strict";n.r(t);var l={name:"Channel"},r=n(1),component=Object(r.a)(l,(function(){var e=this.$createElement;return(this._self._c||e)("div",{staticClass:"channel"},[this._ssrNode("频道index")])}),[],!1,null,null,"744ed2ac");t.default=component.exports}};
