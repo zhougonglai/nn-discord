@@ -76,7 +76,8 @@ export default {
     async initClient() {
       if (process.client) {
         const rtc = RTC.getInstance()
-        await rtc.join(this.$route.params.audioId, this.user.userId)
+        // , this.user.userId
+        await rtc.join(this.$route.params.audioId)
         await rtc.publish({ audio: true, video: false })
         await rtc.networkQuality(this.qualityCB)
       }

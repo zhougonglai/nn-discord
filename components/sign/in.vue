@@ -122,11 +122,19 @@ export default {
       if (!this.pwdValidity()) return
       if (this.$refs.form.checkValidity()) {
         this.$nuxt.$loading.start()
-        const user = await this.loginByPwd({
+        await this.loginByPwd({
           ...this.sign,
           pwdEncry: md5(this.sign.pwdEncry),
         })
-        await this.findServerInfoByUserId(user)
+          .catch((e) => {
+            this.error.msg = e
+            this.error.status = true
+          })
+          .then(this.findServerInfoByUserId)
+          .catch((e) => {
+            this.error.msg = e
+            this.error.status = true
+          })
         await this.getCommunityGroup()
         await this.getFriendsGroup()
         this.$parent.closeDialog()

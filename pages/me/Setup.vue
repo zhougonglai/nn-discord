@@ -25,13 +25,17 @@
                 .flex-1.pa-2.asc 昵称
                 .flex-6.pa-2(v-if="profile")
                   .edit(v-if="profile.nickName.edit")
-                    el-input(:value="user.nickName" @change="nickNameChange")
+                    el-input(v-model="profile.nickName.value" @change="nickNameChange")
                   .read(v-else @click="profile.nickName.edit = true")
-                    | {{user.nickName}}
+                    | {{profile.nickName.value}}
             .full-width
               .flex
                 .flex-1.pa-2  NN号
-                .flex-6.pa-2(v-if="profile") {{user.nnNumber}}
+                .flex-6.pa-2(v-if="profile")
+                  .edit(v-if="profile.nnNumber.edit")
+                    el-input(v-model="profile.nnNumber.value" @change="nnNumberChange")
+                  .read(v-else)
+                    | {{profile.nnNumber.value}}
             .full-width
               .flex
                 .flex-1.pa-2 社区介绍
@@ -84,9 +88,11 @@ export default {
           edit: false,
         },
         nickName: {
+          value: '',
           edit: false,
         },
         nnNumber: {
+          value: '',
           edit: false,
         },
         communityInfo: {
@@ -99,14 +105,20 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.profile.nickName.value = this.user.nickName
-      this.profile.nnNumber.value = this.user.nnNumber
+      setTimeout(() => {
+        this.profile.nickName.value = this.user.nickName
+        this.profile.nnNumber.value = this.user.nnNumber
+      }, 65)
     })
   },
   methods: {
     nickNameChange(e) {
       this.profile.nickName.value = e
       this.profile.nickName.edit = false
+    },
+    nnNumberChange(e) {
+      this.profile.nnNumber.value = e
+      this.profile.nnNumber.edit = false
     },
   },
 }
