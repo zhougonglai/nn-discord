@@ -218,6 +218,7 @@ export default {
           this.error.msg = error
           this.error.status = true
         })
+        this.$parent.switchSignForm()
         this.loading = false
       }
     },

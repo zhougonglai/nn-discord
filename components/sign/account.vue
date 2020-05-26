@@ -10,26 +10,26 @@
         required
         type="text"
         name="text"
-        ref="mail"
+        ref="username"
         autocomplete="emall"
         placeholder="NN号/邮箱号"
-        v-model.trim="sign.mail")
-      .dropdown-menus.top.start(v-if="error.mail.status")
-        small.dropdown-menu.nohover(v-text="error.mail.msg")
-      i.form-clear.el-icon-error(v-if="sign.mail" @click="sign.mail = ''")
+        v-model.trim="sign.username")
+      .dropdown-menus.top.start(v-if="error.username.status")
+        small.dropdown-menu.nohover(v-text="error.username.msg")
+      i.form-clear.el-icon-error(v-if="sign.username" @click="sign.username = ''")
     .form-contrl
       label(for="pwd")
         Lock
       input#pwd.form-input(
-        type="password"
-        name="password"
-        ref="password"
+        type="pwdEncry"
+        name="pwdEncry"
+        ref="pwdEncry"
         placeholder="密码"
         autocomplete="current-password"
-        v-model="sign.password")
-      .dropdown-menus.bottom.start(v-if="error.password.status")
-        small.dropdown-menu.nohover(v-text="error.password.msg")
-      i.form-clear.el-icon-error(v-if="sign.password" @click="sign.password = ''")
+        v-model="sign.pwdEncry")
+      .dropdown-menus.bottom.start(v-if="error.pwdEncry.status")
+        small.dropdown-menu.nohover(v-text="error.pwdEncry.msg")
+      i.form-clear.el-icon-error(v-if="sign.pwdEncry" @click="sign.pwdEncry = ''")
   .flex.full-width.my-2
     el-checkbox(v-model="remember") 记住我
     .spacer
@@ -52,6 +52,8 @@
         .dropdown-menu(@click="$parent.switchSignForm()") 短信验证登录
 </template>
 <script>
+import { mapActions } from 'vuex'
+import md5 from 'js-md5'
 import User from '~/assets/icons/user.svg'
 import Lock from '~/assets/icons/lock.svg'
 
@@ -69,19 +71,19 @@ export default {
       error: {
         status: false,
         msg: '',
-        mail: {
+        username: {
           status: false,
           msg: '',
         },
-        password: {
+        pwdEncry: {
           status: false,
           msg: '',
         },
       },
       sign: {
         type: 'nn',
-        mail: '',
-        password: '',
+        username: '',
+        pwdEncry: '',
       },
     }
   },
@@ -100,40 +102,55 @@ export default {
       this.dropdown = 0
     },
     accountValidity() {
-      if (this.$refs.mail.checkValidity()) {
-        this.error.mail.status = false
+      if (this.$refs.username.checkValidity()) {
+        this.error.username.status = false
         return true
       } else {
-        this.error.mail.status = true
-        if (this.$refs.mail.validity.valueMissing) {
-          this.error.mail.msg = '请填写此字段'
+        this.error.username.status = true
+        if (this.$refs.username.validity.valueMissing) {
+          this.error.username.msg = '请填写此字段'
           return false
         }
-        if (this.$refs.mail.validity.typeMismatch) {
-          this.error.mail.msg = '请填写正确的邮箱'
+        if (this.$refs.username.validity.typeMismatch) {
+          this.error.username.msg = '请填写正确的邮箱'
           return false
         }
-        this.error.mail.msg = '请填写此字段'
+        this.error.username.msg = '请填写此字段'
         return false
       }
     },
     pwdValidity() {
-      if (this.$refs.password.checkValidity()) {
-        this.error.password.status = false
+      if (this.$refs.pwdEncry.checkValidity()) {
+        this.error.pwdEncry.status = false
         return true
       } else {
-        this.error.password.status = true
-        this.error.password.msg =
-          this.$refs.password.validationMessage || '请填写此字段'
+        this.error.pwdEncry.status = true
+        this.error.pwdEncry.msg =
+          this.$refs.pwdEncry.validationMessage || '请填写此字段'
         return false
       }
     },
-    login() {
+    async login() {
       if (!this.accountValidity()) return
       if (!this.pwdValidity()) return
       if (this.$refs.form.checkValidity()) {
+        this.$nuxt.$loading.start()
+        await this.loginByPwd({
+          ...this.sign,
+          pwdEncry: md5(this.sign.pwdEncry),
+        }).catch((e) => {
+          this.error.msg = e
+          this.error.status = true
+        })
+        // await this.findServerInfoByUserId(user)
+        await this.getCommunityGroup()
+        await this.getFriendsGroup()
+        this.$parent.closeDialog()
+        this.$router.push({ path: '/me/' }, this.$nuxt.$loading.finish)
       }
     },
+    ...mapActions(['loginByPwd', 'getCommunityGroup', 'getFriendsGroup']),
+    ...mapActions('channel', ['findServerInfoByUserId']),
   },
 }
 </script>

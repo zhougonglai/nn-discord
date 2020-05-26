@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     openSignForm(status = 1) {
+      console.log(status)
       this.dialog.status = status
     },
   },

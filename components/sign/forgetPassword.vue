@@ -29,9 +29,9 @@
           type="tel"
           autocomplete="off"
           name="safecode"
-          ref="safecode"
+          ref="code"
           placeholder="验证码"
-          v-model.trim="sign.smscode")
+          v-model.trim="sign.smsCode")
         el-button.mr-1(type="text" size="mini" @click="sendContrl" :disabled="!!sendCodeContrl.timer")
           | {{ sendCodeContrl.timer ? `(${sendCodeContrl.time})` : '发送验证码' }}
       .verify.pointer(v-else @click="verify")
@@ -39,7 +39,7 @@
         | 点击按钮进行验证
       .dropdown-menus.bottom.start(v-if="error.code.status")
         .dropdown-menu.nohover(v-text="error.code.msg")
-      i.form-clear.el-icon-error(v-if="sign.smscode" @click="sign.smscode = ''")
+      i.form-clear.el-icon-error(v-if="sign.smsCode" @click="sign.smsCode = ''")
     .form-contrl.dropdown-link(v-if="verifyed")
       label(for="pwd")
         Lock
@@ -61,6 +61,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import md5 from 'js-md5'
 import Phone from '~/assets/icons/phone.svg'
 import Safe from '~/assets/icons/safe.svg'
 import Lock from '~/assets/icons/lock.svg'
@@ -122,17 +123,6 @@ export default {
     sendSmscode() {
       this.sendSms(this.sign)
       this.verifyed -= 1
-      // const { code, msg, data } = await signService.smscode({
-      // 	...this.sign,
-      // 	...this.geetest,
-      // 	phone: this.sign.mobile_num,
-      // });
-      // if (code) {
-      // 	this.error.msg = msg;
-      // 	this.error.status = code;
-      // } else {
-      // 	this.sign.smscode_key = data.smscode_key;
-      // }
     },
     sendContrl() {
       if (!this.sendCodeContrl.timer) {
@@ -150,11 +140,11 @@ export default {
     },
     phoneValidity() {
       if (this.$refs.phone.checkValidity()) {
-        this.error.mobile_num.status = false
+        this.error.telNum.status = false
         return true
       } else {
-        this.error.mobile_num.status = true
-        this.error.mobile_num.msg =
+        this.error.telNum.status = true
+        this.error.telNum.msg =
           this.$refs.phone.validationMessage || '请填写此字段'
         return false
       }
@@ -197,13 +187,20 @@ export default {
       this.error.code.status = false
       this.error.password.status = false
     },
-    reset() {
+    async reset() {
       if (!this.phoneValidity()) return
       if (!this.verifyValidity()) return
       if (!this.codeValidity()) return
       if (!this.pwdValidity()) return
       if (this.$refs.form.checkValidity()) {
-        this.forgetPwd(this.sign)
+        await this.forgetPwd({
+          ...this.sign,
+          pwdEncry: md5(this.sign.pwdEncry),
+        }).catch((e) => {
+          this.error.msg = e
+          this.error.status = true
+        })
+        this.$parent.switchSignForm()
       }
     },
     ...mapActions(['forgetPwd', 'sendSms']),
