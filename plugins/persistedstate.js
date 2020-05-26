@@ -1,14 +1,19 @@
 import createPersistedState from 'vuex-persistedstate'
 
 export default ({ store }) => {
-  createPersistedState({
-    key: 'vuex',
-    reducer(state) {
-      return {
-        user: state.user,
-      }
-    },
-  })(store)
+  // createPersistedState({
+  //   key: 'vuex',
+  //   reducer(state) {
+  //     return {
+  //       user: state.user,
+  //     }
+  //   },
+  // })(store)
+  window.onNuxtReady(() => {
+    createPersistedState({
+      key: 'discord',
+    })(store)
+  })
 
   // if (process.client) {
   //   console.log("Inside Local Storage1", store, process.server, process.client);

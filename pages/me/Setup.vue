@@ -30,7 +30,7 @@
                     | {{profile.nickName.value}}
             .full-width
               .flex
-                .flex-1.pa-2  NN号
+                .flex-1.pa-2.asc NN号
                 .flex-6.pa-2(v-if="profile")
                   .edit(v-if="profile.nnNumber.edit")
                     el-input(v-model="profile.nnNumber.value" @change="nnNumberChange")
@@ -38,7 +38,7 @@
                     | {{profile.nnNumber.value}}
             .full-width
               .flex
-                .flex-1.pa-2 社区介绍
+                .flex-1.pa-2.asc 社区介绍
                 .flex-6.pa-2(v-if="profile")
                   .edit(v-if="profile.communityInfo.edit")
                     el-input(
@@ -49,33 +49,46 @@
                   .read(v-else @click="profile.communityInfo.edit = true") {{profile.communityInfo.value}}
             .full-width
               .flex
-                .flex-1.pa-2 个性签名
+                .flex-1.pa-2.asc 个性签名
                 .flex-6.pa-2(v-if="profile")
                   .edit(v-if="profile.signature.edit")
                     el-input(v-model="profile.signature.value" @change="signatureChange")
                   .read(v-else @click="profile.signature.edit = true") {{profile.signature.value}}
             .full-width
               .flex
-                .flex-1.pa-2 性别
+                .flex-1.pa-2.asc 性别
                 .flex-6.pa-2(v-if="profile")
                   .edit(v-if="profile.gender.edit")
-                    el-redio-group(v-model="profile.gender.value")
+                    el-radio-group(v-model="profile.gender.value" @change="genderChange")
                       el-radio(:label="1") 男
                       el-radio(:label="0") 女
                   .read(v-else @click="profile.gender.edit = true") {{profile.gender.value ? '男' : '女'}}
             .full-width
               .flex
-                .flex-1.pa-2 地址
-                .flex-6.pa-2(v-if="profile") 湖北省 武汉市 洪山区
+                .flex-1.pa-2.asc 地址
+                .flex-6.pa-2(v-if="profile")
+                  .edit(v-if="profile.address.edit")
+                    el-cascader(
+                      v-model="address.value"
+                      :options="address.options"
+                      @change="addressChange")
+                  .read(v-else @click="profile.address.edit = true") {{profile.address.province.label}} {{profile.address.city.label}}
             .full-width
               .flex
-                .flex-1.pa-2 生日
-                .flex-6.pa-2(v-if="profile") 2008年08月15日
+                .flex-1.pa-2.asc 生日
+                .flex-6.pa-2(v-if="profile")
+                  .edit(v-if="profile.birthday.edit")
+                    el-date-picker(
+                      type="date"
+                      value-format="yyyy-MM-dd"
+                      v-model="profile.birthday.value"
+                      @change="birthdayChange")
+                  .read(v-else @click="profile.birthday.edit = true") {{profile.birthday.value}}
         VerticalTabPanel(label="账号安全" icon="iconAccountsecurity") 账号安全
 </template>
 <script>
 import { mapState } from 'vuex'
-import { Radio, RadioGroup } from 'element-ui'
+import { Radio, RadioGroup, DatePicker, Cascader } from 'element-ui'
 import PageHead from '~/components/channel/PageHead'
 import MeTabs from '~/components/channel/MeTabs'
 import VerticalTabs from '~/components/channel/VerticalTabs'
@@ -90,6 +103,8 @@ export default {
     [VerticalTabPanel.name]: VerticalTabPanel,
     [Radio.name]: Radio,
     [RadioGroup.name]: RadioGroup,
+    [DatePicker.name]: DatePicker,
+    [Cascader.name]: Cascader,
   },
   computed: {
     ...mapState(['user']),
@@ -126,6 +141,44 @@ export default {
           value: 1,
           edit: false,
         },
+        address: {
+          province: {
+            value: 24,
+            label: '湖北省',
+          },
+          city: {
+            value: 24124,
+            label: '武汉市',
+          },
+          edit: false,
+        },
+        birthday: {
+          value: '2008-08-15',
+          edit: false,
+        },
+      },
+      address: {
+        value: [],
+        options: [
+          {
+            value: 24,
+            label: '湖北省',
+            children: [
+              {
+                value: 2412,
+                label: '武汉市',
+              },
+              {
+                value: 2414,
+                label: '金门',
+              },
+              {
+                value: 2413,
+                label: '黄石',
+              },
+            ],
+          },
+        ],
       },
     }
   },
@@ -153,6 +206,16 @@ export default {
     signatureChange(e) {
       this.profile.signature.value = e
       this.profile.signature.edit = false
+    },
+    genderChange(e) {
+      this.profile.gender.value = e
+      this.profile.gender.edit = false
+    },
+    birthdayChange(e) {
+      this.profile.birthday.edit = false
+    },
+    addressChange(e) {
+      this.profile.address.edit = false
     },
   },
 }

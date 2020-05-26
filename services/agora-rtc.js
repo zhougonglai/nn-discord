@@ -8,6 +8,7 @@ export default class RTC {
   remoteAudioTrack
   remoteVideoTrack
   appId = 'b45decf701cc4d6a91ba2ff7104e303c'
+  // appId = '921f058a58694b73b69f62a061d9d070'
 
   /**
    * 订阅频道
@@ -90,8 +91,15 @@ export default class RTC {
     }
   }
 
-  publishCB(callback) {
-    this.client.on('user-published', callback)
+  subscribe(callback) {
+    this.client.on('user-published', async (user, mediaType) => {
+      await this.client.subscribe(user)
+      callback(user, mediaType)
+    })
+  }
+
+  unpublished(callback) {
+    this.client.on('user-unpublished', callback)
   }
 
   async leave() {
