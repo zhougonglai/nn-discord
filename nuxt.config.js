@@ -6,6 +6,9 @@ export default {
     NUXT_ENV_Recharge_URL: process.env.Recharge_URL,
     NUXT_ENV_ws: process.env.ws,
   },
+  router: {
+    base: '/nuxt/',
+  },
   head: {
     title: process.env.npm_package_name || '',
     htmlAttrs: {
