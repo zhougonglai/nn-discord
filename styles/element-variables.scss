@@ -1000,3 +1000,6 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
   top: auto !important;
   bottom: 50px;
 }
+.el-progress-circle svg path:first-child {
+  stroke: #24262a;
+}

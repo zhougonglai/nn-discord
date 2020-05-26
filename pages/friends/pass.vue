@@ -33,13 +33,14 @@
     <div class="flex-sub pass-list">
       <div v-for="item in list" :key="item.dbId" class="item flex aic">
         <n-link :to="'/friends/' + item.applyUserId">
-          <img alt class="Avatar" src="http://placekitten.com/42/42" />
+          <img alt class="Avatar" src="item.user.userUrl" />
+          <!-- http://placekitten.com/42/42 -->
         </n-link>
         <n-link :to="'/friends/' + item.applyUserId">
-          <div class="name">1号粉丝昵称</div>
+          <div class="name">{{ item.user.nickName }}</div>
         </n-link>
-        <img v-if="true" alt src="~/assets/imgs/man.png" />
-        <img v-else alt src="~/assets/imgs/woman.png" />
+        <img v-if="item.sex == 'man'" alt src="~/assets/imgs/man.png" />
+        <img v-if="item.sex == 'female'" alt src="~/assets/imgs/woman.png" />
 
         <div class="info flex-1">申请成为好友</div>
         <!-- 待同意 -->
