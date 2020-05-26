@@ -1,1 +1,0 @@
-exports.ids=[30],exports.modules={412:function(e,t,n){"use strict";n.r(t);var r={name:"MoreCon"},l=n(1),component=Object(l.a)(r,(function(){var e=this.$createElement;return(this._self._c||e)("nuxt-child")}),[],!1,null,null,"d19d508e");t.default=component.exports}};
