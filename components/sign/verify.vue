@@ -125,7 +125,7 @@ export default {
       }
     },
     sendSmscode() {
-      this.sendCode(this.sign)
+      this.sendSms(this.sign)
       this.verifyed -= 1
     },
     phoneValidity() {
@@ -171,11 +171,10 @@ export default {
       if (!this.verifyValidity()) return
       if (!this.codeValidity()) return
       this.$nuxt.$loading.start()
-      const res = await this.loginByPhoneSms(this.sign).catch((err) => {
+      await this.loginByPhoneSms(this.sign).catch((err) => {
         this.error.msg = err
         this.error.status = true
       })
-      console.log(res)
       await this.getCommunityGroup()
       await this.getFriendsGroup()
       this.$parent.closeDialog()
@@ -196,7 +195,7 @@ export default {
     },
     ...mapActions([
       'loginByPhoneSms',
-      'sendCode',
+      'sendSms',
       'getCommunityGroup',
       'getFriendsGroup',
     ]),

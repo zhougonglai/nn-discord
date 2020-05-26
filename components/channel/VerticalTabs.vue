@@ -60,8 +60,7 @@ export default {
       }
     }
     &__item {
-      height: 60px;
-      color: #72767d;
+      min-width: 172px;
       height: 60px;
       color: #72767d;
       display: flex;

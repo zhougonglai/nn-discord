@@ -1,7 +1,19 @@
 // 好友相关
 const state = () => ({
   // 好友列表
-  list: [],
+  list: [
+    // {
+    //   "dbId": 88,
+    //   "userId": 4889,
+    //   "friendUid": 4945,
+    //   "alias": "周公来",
+    //   "extra": null,
+    //   "status": 0,
+    //   "updateTime": "2020-05-20T05:48:35.000+0000",
+    //   "createTime": "2020-05-20T18:48:35.000+0000"
+    // }
+  ],
+
   // original_list: [], // 好友列表原始数据
 })
 

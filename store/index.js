@@ -11,7 +11,7 @@ export const state = () => ({
 })
 
 export const actions = {
-  async sendCode({ commit }, form) {
+  async sendSms({ commit }, form) {
     const { data } = await this.$axios.$post('/sendSms', form)
     return data
   },
@@ -32,6 +32,11 @@ export const actions = {
   async getUser({ commit }, form) {
     const user = await this.$axios.$post('/getUserByuserid', form)
     commit(types('SET_USER'), user)
+    return user
+  },
+
+  async forgetPwd({ commit }, form) {
+    const user = await this.$axios.$post('/forgetPwd', form)
     return user
   },
   async editPwd({ commit }, form) {

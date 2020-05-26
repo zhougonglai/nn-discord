@@ -37,6 +37,7 @@
         :href="href"
         :class="{active: isActive}"
         v-click-outside="outClick"
+         @click.prevent="()=>{$router.push({name:'me'})}"
         @contextmenu.prevent="communityMenu")
         .tab-bar-pre
           i.bx.bxs-heart-circle
@@ -49,17 +50,17 @@
             .context-menu(@click.prevent="menuClick('fold')") 创建文件夹
             .context-menu(@click.prevent="menuClick('channel')") 创建频道
     n-link(:to="{name: 'friends'}" v-slot="{ href, isActive }")
-      a.tab-bar(:href="href" :class="{active: isActive}" v-click-outside="()=>{contextmenu.friends.status=false}"
+      a.tab-bar(:href="href" :class="{active: isActive}" @click.prevent="()=>{$router.push({name:'friends'})}" v-click-outside="()=>{contextmenu.friends.status=false}"
         @contextmenu.prevent="()=>{contextmenu.friends.status=true}")
         i.bx.bxs-group
         transition(name="scale")
           .tab-bar-content(v-if="isActive") 好友
-        transition(name="scale")
-          .tab-bar-after(v-if="isActive") +
-        transition(name="fade")
-          .context-menus.left.bottom(v-if="contextmenu.friends.status")
-            .context-menu(@click.prevent="menuClick('fold')") 创建文件夹
-            .context-menu(@click.prevent="menuClick('channel')") 创建频道
+        //- transition(name="scale")
+        //-   .tab-bar-after(v-if="isActive") +
+        //- transition(name="fade")
+        //-   .context-menus.left.bottom(v-if="contextmenu.friends.status")
+        //-     .context-menu(@click.prevent="menuClick('fold')") 创建文件夹
+        //-     .context-menu(@click.prevent="menuClick('channel')") 创建频道
   .tab-body
     slot
 </template>

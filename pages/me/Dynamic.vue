@@ -104,15 +104,15 @@ PageHead
                       | 😊
                       .spacer
                       nn-btn(rund size="small") 回复
-      VerticalTabPanel(label="定时任务补偿" icon="iconChannelcollection")
-        .list
+      VerticalTabPanel(label="我的收藏" icon="iconChannelcollection")
+        .list.space
           .list-item.nohover
             .list-item-pre
               .avatar(style="background-image: url(https://api.adorable.io/avatars/285/3.png);")
             .list-item-content
               .list-item-title
                 .d-inline.large 守望先锋
-                SvgIcon(icon-class="iconofficial")
+                SvgIcon.mx-1(icon-class="iconofficial")
                 small.text-gray 守望先锋官方
               .list-item-subtitle
                 | 5分钟前  来自NN客户端编辑
@@ -120,6 +120,70 @@ PageHead
               nn-btn(type="text" size="small") + 关注
             .list-item-actions
               i.el-icon-arrow-down.el-icon--right
+            .list-item-child
+              | 4月30日，守望先锋V1.0.2.365版本更新介绍
+            .list-item-child
+              .list.action
+                .list-item
+                  .list-item-content
+                    .list-item-title nn新版本6月1号上线与大家见面
+                    .list-item-subtitle 2020年KPL夏季赛选手阵容确定！5月1日晚上20:30，NN平台EDG粉丝社区直播大厅，线上粉丝见面会...
+                  .list-item-actions
+                    .thumbar
+                      img(src="https://api.adorable.io/avatars/285/3.png")
+            .list-item-child
+              .tap
+                i.iconfont.iconzan
+                | 999
+              .tap
+                i.iconfont.iconpinglun
+                | 999
+              .tap
+                i.iconfont.iconsharearticle
+                | 999
+              .tap
+                i.iconfont.iconFavoritetext
+                | 999
+          .list-item.nohover
+            .list-item-pre
+              .avatar(style="background-image: url(https://api.adorable.io/avatars/285/3.png);")
+            .list-item-content
+              .list-item-title
+                .d-inline.large 守望先锋
+                SvgIcon.mx-1(icon-class="iconofficial")
+                small.text-gray 守望先锋官方
+              .list-item-subtitle
+                | 5分钟前  来自NN客户端编辑
+            .list-item-brief
+              nn-btn(type="text" size="small") + 关注
+            .list-item-actions
+              i.el-icon-arrow-down.el-icon--right
+            .list-item-child
+              | 4月30日，守望先锋V1.0.2.365版本更新介绍
+            .list-item-child
+              .list.action
+                .list-item
+                  .list-item-content
+                    .list-item-title nn新版本6月1号上线与大家见面
+                    .list-item-subtitle 2020年KPL夏季赛选手阵容确定！5月1日晚上20:30，NN平台EDG粉丝社区直播大厅，线上粉丝见面会...
+                  .list-item-actions
+                    .thumbar
+                      img(src="https://api.adorable.io/avatars/285/3.png")
+            .list-item-child
+              .tap
+                i.iconfont.iconzan
+                | 999
+              .tap
+                i.iconfont.iconpinglun
+                | 999
+              .tap
+                i.iconfont.iconsharearticle
+                | 999
+              .tap
+                i.iconfont.iconFavoritetext
+                | 999
+
+
 </template>
 <script>
 import PageHead from '~/components/channel/PageHead'
@@ -160,6 +224,32 @@ export default {
     position: absolute;
     right: 62px;
     top: -15px;
+  }
+}
+.action {
+  height: 78px;
+  width: 445px;
+  background-color: #44474e;
+  border-radius: 4px;
+  overflow: hidden;
+  .list-item {
+    padding: 0;
+    &-content {
+      padding: 10px;
+    }
+    &-actions {
+      width: 138px;
+    }
+  }
+}
+
+.list {
+  &.space {
+    .list-item {
+      + .list-item {
+        margin-top: 20px;
+      }
+    }
   }
 }
 </style>

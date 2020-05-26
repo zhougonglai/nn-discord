@@ -31,7 +31,7 @@
       img="http://placekitten.com/1280/128"
     ></NnBanner>
     <div class="flex-sub pass-list">
-      <div v-for="item in list" :key="item" class="item flex aic">
+      <div v-for="item in list" :key="item.dbId" class="item flex aic">
         <n-link :to="'/friends/' + item.applyUserId">
           <img alt class="Avatar" src="http://placekitten.com/42/42" />
         </n-link>
@@ -119,9 +119,7 @@ export default {
     }
   },
   mounted() {
-    setTimeout(() => {
-      this.getlist()
-    }, 0)
+    this.getlist()
   },
   methods: {
     // 查询用户所有申请列表
@@ -129,10 +127,24 @@ export default {
       const { data } = await this.$axios.get(`apply/list/${this.USER_ID}`)
       this.list = data
     },
+    // 频道 channel 好友 friend
     // 拒绝
-    Refuse({ dbId }) {
+    Refuse({ type, dbId }) {
+      let cmdType = ''
+      switch (type) {
+        case 1: // 频道
+          cmdType = 'channel'
+          break
+        case 2: // 群
+          cmdType = 'group'
+          break
+        case 0: // 好友
+        default:
+          cmdType = 'friend'
+          break
+      }
       this.$axios
-        .put('friend/apply/ignored', {
+        .put(`${cmdType}/apply/ignored`, {
           applyId: dbId,
         })
         .then(({ msg }) => {
@@ -141,9 +153,22 @@ export default {
         })
     },
     // 接受
-    accept({ dbId }) {
+    accept({ type, dbId }) {
+      let cmdType = ''
+      switch (type) {
+        case 1: // 频道
+          cmdType = 'channel'
+          break
+        case 2: // 群
+          cmdType = 'group'
+          break
+        case 0: // 好友
+        default:
+          cmdType = 'friend'
+          break
+      }
       this.$axios
-        .put('friend/apply/agree', {
+        .put(`${cmdType}/apply/agree`, {
           alias: '周公来',
           applyId: dbId,
         })
