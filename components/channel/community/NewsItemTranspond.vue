@@ -13,13 +13,13 @@ import NewsItemFront from '~/components/channel/community/NewsItemFront'
 import NewsItemBox from '~/components/channel/community/NewsItemBox'
 export default {
   name: 'NewsItemTranspond',
-  props: ['item'],
-  data() {
-    return {}
-  },
   components: {
     NewsItemBox,
     NewsItemFront,
+  },
+  props: ['item'],
+  data() {
+    return {}
   },
   methods: {},
 }

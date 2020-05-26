@@ -20,12 +20,12 @@ import NewsItemCommentItem from '~/components/channel/community/NewsItemCommentI
 import NewsItemCommentEdit from '~/components/channel/community/NewsItemCommentEdit'
 export default {
   name: 'NewsItemComment',
-  data() {
-    return {}
-  },
   components: {
     NewsItemCommentItem,
     NewsItemCommentEdit,
+  },
+  data() {
+    return {}
   },
   methods: {},
 }

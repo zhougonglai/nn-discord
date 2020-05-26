@@ -11,12 +11,12 @@ export default {
   data() {
     return {}
   },
-  created() {},
   computed: {
     isCur() {
       return this.$route.fullPath === this.nav.to
     },
   },
+  created() {},
   methods: {},
 }
 </script>
