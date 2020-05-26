@@ -34,6 +34,11 @@ export const actions = {
     commit(types('SET_USER'), user)
     return user
   },
+
+  async forgetPwd({ commit }, form) {
+    const user = await this.$axios.$post('/forgetPwd', form)
+    return user
+  },
   async editPwd({ commit }, form) {
     return await this.$axios.$post('/editPwd', form)
   },

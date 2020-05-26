@@ -7,7 +7,7 @@
       label(for="phone")
         Phone
       .form-contrl__before
-        | + {{sign.country_code}}
+        | + {{sign.countryCode}}
       input#phone.form-input(
         required
         type="tel"
@@ -16,10 +16,10 @@
         pattern="^[0-9]*$"
         placeholder="手机号"
         autocomplete="tel"
-        v-model.number.trim="sign.mobile_num")
-      .dropdown-menus.top.start(v-if="error.mobile_num.status")
-        .dropdown-menu.nohover(v-text="error.mobile_num.msg")
-      i.form-clear.el-icon-error(v-if="sign.mobile_num" @click="sign.mobile_num = ''")
+        v-model.number.trim="sign.telNum")
+      .dropdown-menus.top.start(v-if="error.telNum.status")
+        .dropdown-menu.nohover(v-text="error.telNum.msg")
+      i.form-clear.el-icon-error(v-if="sign.telNum" @click="sign.telNum = ''")
     .form-contrl.with-after.dropdown-link
       label(for="smscode")
         Safe
@@ -50,16 +50,17 @@
         ref="password"
         placeholder="密码"
         autocomplete="current-password"
-        v-model.trim="sign.password")
+        v-model.trim="sign.pwdEncry")
       .dropdown-menus.bottom.start(v-if="error.password.status")
         .dropdown-menu.nohover(v-text="error.password.msg")
-      i.form-clear.el-icon-error(v-if="sign.password" @click="sign.password = ''")
+      i.form-clear.el-icon-error(v-if="sign.pwdEncry" @click="sign.pwdEncry = ''")
   .mt-5
     el-button.full-width(type="primary" @click="reset") 重置密码
   .full-width.v-tac.mt-2
     .tap(@click="$parent.switchSignForm()") 返回登录
 </template>
 <script>
+import { mapActions } from 'vuex'
 import Phone from '~/assets/icons/phone.svg'
 import Safe from '~/assets/icons/safe.svg'
 import Lock from '~/assets/icons/lock.svg'
@@ -73,11 +74,11 @@ export default {
   },
   data() {
     return {
-      verifyed: false,
+      verifyed: 2,
       error: {
         status: false,
         msg: '',
-        mobile_num: {
+        telNum: {
           status: false,
           msg: '',
         },
@@ -91,13 +92,12 @@ export default {
         },
       },
       sign: {
-        country_code: 86,
-        mobile_num: '',
+        countryCode: 86,
+        telNum: '',
         state: 1,
-        smscode: '',
-        smscode_key: '',
-        password: '',
-        server_status: '',
+        smsCode: '',
+        smsCodeKey: '',
+        pwdEncry: '',
       },
       sendCodeContrl: {
         sending: false,
@@ -119,7 +119,9 @@ export default {
         // this.captcha.verify();
       }
     },
-    async sendSmscode() {
+    sendSmscode() {
+      this.sendSms(this.sign)
+      this.verifyed -= 1
       // const { code, msg, data } = await signService.smscode({
       // 	...this.sign,
       // 	...this.geetest,
@@ -191,7 +193,7 @@ export default {
     },
     clearVerify() {
       this.error.status = false
-      this.error.mobile_num.status = false
+      this.error.telNum.status = false
       this.error.code.status = false
       this.error.password.status = false
     },
@@ -201,8 +203,10 @@ export default {
       if (!this.codeValidity()) return
       if (!this.pwdValidity()) return
       if (this.$refs.form.checkValidity()) {
+        this.forgetPwd(this.sign)
       }
     },
+    ...mapActions(['forgetPwd', 'sendSms']),
   },
 }
 </script>

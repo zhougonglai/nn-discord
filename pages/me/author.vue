@@ -1,6 +1,9 @@
 <template lang="pug">
 PageHead
-  MeTabs 游戏授权
+  MeTabs
+    #author
+      .block
+        nn-btn(type="text" rund size="small") + 添加账号
 </template>
 <script>
 import PageHead from '~/components/channel/PageHead'
@@ -14,3 +17,10 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+#author {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+</style>
