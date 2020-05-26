@@ -23,14 +23,14 @@
 </style>
 <template>
   <div class="friend-item1 flex">
-    <n-link :to="'/friends/' + data.id">
-      <img :src="data.avatar" alt class="Avatar mr-1" />
+    <n-link :to="'/friends/' + data.userId">
+      <img :src="data.userUrl" alt class="Avatar mr-1" />
     </n-link>
     <div class="flex column right">
-      <n-link :to="'/friends/' + data.id">
-        <div class="name">{{ data.name }}</div>
+      <n-link :to="'/friends/' + data.userId">
+        <div class="name">{{ data.nickName }}</div>
       </n-link>
-      <div class="text">{{ data.age }} | {{ data.game }}</div>
+      <div class="text">{{ data.birthday | age }} | {{ data.game }}</div>
       <slot></slot>
     </div>
   </div>
@@ -40,11 +40,6 @@ export default {
   name: 'Item1',
   props: {
     data: Object,
-    // id:1,
-    //  avatar:"http://placekitten.com/65/65",
-    //  name:"HEBE00",
-    //  age:18,
-    //  game:"英雄联盟-韩服"
   },
   data() {
     return {

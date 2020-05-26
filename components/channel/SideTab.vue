@@ -42,7 +42,7 @@
         .tab-bar-pre
           i.bx.bxs-heart-circle
         transition(name="scale")
-          .tab-bar-content(v-if="isActive")  社区
+          .tab-bar-content(:class="{active:isActive}")  社区
         transition(name="scale")
           .tab-bar-after(v-if="isActive") +
         transition(name="fade")
@@ -54,7 +54,7 @@
         @contextmenu.prevent="()=>{contextmenu.friends.status=true}")
         i.bx.bxs-group
         transition(name="scale")
-          .tab-bar-content(v-if="isActive") 好友
+          .tab-bar-content(:class="{active:isActive}") 好友
         //- transition(name="scale")
         //-   .tab-bar-after(v-if="isActive") +
         //- transition(name="fade")
@@ -218,6 +218,10 @@ export default {
       margin-left: 5px;
       font-size: small;
       font-weight: bold;
+      opacity: 0.5;
+      &.active {
+        opacity: 1;
+      }
     }
     &-after {
       position: absolute;

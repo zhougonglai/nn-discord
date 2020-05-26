@@ -23,8 +23,8 @@ export default {
   },
   methods: {
     _windowScrollHandler() {
-      let scrollHeight = this._scrollingElement.scrollHeight
-      let currentHeight =
+      const scrollHeight = this._scrollingElement.scrollHeight
+      const currentHeight =
         this._scrollingElement.scrollTop +
         this._scrollingElement.clientHeight +
         this.reachBottomDistance

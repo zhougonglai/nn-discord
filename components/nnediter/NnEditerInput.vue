@@ -22,7 +22,7 @@
 </template>
 <script>
 export default {
-  name: 'input-box',
+  name: 'InputBox',
   props: {
     focused: {
       type: Boolean,

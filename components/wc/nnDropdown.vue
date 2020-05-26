@@ -17,6 +17,9 @@ import BxsDownArrow from '~/assets/icons/BxsDownArrow.svg'
 
 export default {
   name: 'NnDropdown',
+  components: {
+    BxsDownArrow,
+  },
   props: {
     value: {
       type: [String, Number],
@@ -35,9 +38,6 @@ export default {
     return {
       dropdown: this,
     }
-  },
-  components: {
-    BxsDownArrow,
   },
   data() {
     return {

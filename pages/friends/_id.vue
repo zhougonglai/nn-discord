@@ -136,29 +136,35 @@
           <div class="situation">
             <el-progress
               :percentage="25"
-              :stroke-width="4"
+              :stroke-width="3"
               :width="60"
+              :show-text="false"
               type="circle"
+              color="#679AFF"
             ></el-progress>
             <div class="name">男-1527人</div>
           </div>
           <div class="situation">
             <el-progress
-              :percentage="25"
-              :stroke-width="4"
+              :percentage="45"
+              :stroke-width="3"
+              :show-text="false"
               :width="60"
+              color="#FF82F7"
               type="circle"
             ></el-progress>
-            <div class="name">男-1527人</div>
+            <div class="name">女-1527人</div>
           </div>
           <div class="situation">
             <el-progress
               :percentage="25"
-              :stroke-width="4"
+              :stroke-width="3"
               :width="60"
+              :show-text="false"
+              color="#BFBFBF"
               type="circle"
             ></el-progress>
-            <div class="name">男-1527人</div>
+            <div class="name">保密-1527人</div>
           </div>
         </div>
         <div class="title">加入的社区</div>

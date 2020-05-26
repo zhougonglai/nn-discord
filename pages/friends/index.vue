@@ -44,12 +44,39 @@ $border-color: #222428;
     }
   }
 }
-
+.search {
+  margin-top: 6px;
+  border-radius: 17px;
+  overflow: hidden;
+  background: #303339;
+  border: 1px solid #222428;
+  width: 287px;
+  ::v-deep {
+    // .el-input-group__append {
+    //   background-color: transparent;
+    //   border: none;
+    // }
+    input {
+      border: none;
+      background: none;
+    }
+  }
+}
 .h2 {
   color: #b9bbbe;
   padding: 37px 73px 0 73px;
   .addall {
     border: none;
+  }
+  .return {
+    color: #b9bbbe;
+    padding: 0 10px;
+    cursor: pointer;
+  }
+  .search-txt {
+    color: #72767d;
+    font-size: 12px;
+    margin-left: 10px;
   }
 }
 .content {
@@ -65,7 +92,26 @@ $border-color: #222428;
       href="//www.baidu.com"
       img="http://placekitten.com/1280/136"
     ></NnBanner>
+    <!-- 临时精确搜索 -->
     <div class="head-search flex aic jcc">
+      <div class="v-ofh flex aic">
+        <el-input
+          v-model="search.txt"
+          @keyup.enter.native="search_friend"
+          class="search"
+          style="width: 450px; height: 50px; line-height: 50px;"
+          placeholder="使用NN号搜索好友"
+          suffix-icon="el-icon-search"
+        />
+        <div class="btns flex aic">
+          <el-button @click="search_click" class="btn" type="primary"
+            >查找</el-button
+          >
+        </div>
+      </div>
+    </div>
+    <!-- 备用条件搜索 -->
+    <!-- <div class="head-search flex aic jcc">
       <div class="v-ofh flex">
         <div class="flex1 form">
           <el-input
@@ -127,8 +173,13 @@ $border-color: #222428;
           >
         </div>
       </div>
+    </div> -->
+    <div v-if="isSearch" class="h2 flex aic">
+      <svgReturn></svgReturn>
+      <div @click="getList" class="return">返回</div>
+      <span class="search-txt">搜索: {{ search.txt }}</span>
     </div>
-    <div class="h2 flex jcb">
+    <div v-else class="h2 flex jcb">
       <div><friends style="height: 20px;"></friends> 你可能感兴趣的好友</div>
       <el-button
         @click="add_onclick"
@@ -142,7 +193,7 @@ $border-color: #222428;
     </div>
     <div class="flex-sub content">
       <div class="list-friend flex wrap">
-        <item1 v-for="item in userList" :key="item.id" :data="item">
+        <item1 v-for="item in list" :key="item.dbId" :data="item">
           <div>
             <el-button @click="add(item)" plain round size="mini" type="default"
               >+好友</el-button
@@ -150,6 +201,7 @@ $border-color: #222428;
           </div>
         </item1>
       </div>
+      <noData v-if="list && list.length == 0">没有找到符合的用户</noData>
     </div>
   </div>
 </template>
@@ -160,10 +212,12 @@ import { mapActions } from 'vuex'
 import nnBanner from '~/components/wc/nnBanner'
 import item1 from '~/components/friends/item1'
 import friends from '~/assets/icons/Interested friends.svg'
+import svgReturn from '~/assets/icons/return.svg'
 export default {
   name: 'FriendSearch',
   components: {
     friends,
+    svgReturn,
     [nnBanner.name]: nnBanner,
     [Input.name]: Input,
     [item1.name]: item1,
@@ -176,6 +230,7 @@ export default {
           label: '无',
         },
       ],
+      isSearch: false, // 是否搜索
       search: {
         txt: '',
         game: '',
@@ -183,71 +238,44 @@ export default {
         sex: '',
         age: '',
       },
-      userList: [
-        {
-          id: 1,
-          avatar: 'http://placekitten.com/65/65',
-          name: 'HEBE00',
-          age: 18,
-          game: '英雄联盟-韩服',
-        },
-        {
-          id: 2,
-          avatar: 'http://placekitten.com/65/65',
-          name: 'HEBE00',
-          age: 18,
-          game: '英雄联盟-韩服',
-        },
-        {
-          id: 3,
-          avatar: 'http://placekitten.com/65/65',
-          name: 'HEBE00',
-          age: 18,
-          game: '英雄联盟-韩服',
-        },
-        {
-          id: 4,
-          avatar: 'http://placekitten.com/65/65',
-          name: 'HEBE00',
-          age: 18,
-          game: '英雄联盟-韩服',
-        },
-        {
-          id: 5,
-          avatar: 'http://placekitten.com/65/65',
-          name: 'HEBE00',
-          age: 18,
-          game: '英雄联盟-韩服',
-        },
-        {
-          id: 6,
-          avatar: 'http://placekitten.com/65/65',
-          name: 'HEBE00',
-          age: 18,
-          game: '英雄联盟-韩服',
-        },
-        {
-          id: 7,
-          avatar: 'http://placekitten.com/65/65',
-          name: 'HEBE00',
-          age: 18,
-          game: '英雄联盟-韩服',
-        },
-      ],
+      list: [],
     }
+  },
+  mounted() {
+    this.getList()
   },
   methods: {
     ...mapActions({
       apply: 'friend/apply',
     }),
+    getList() {
+      // 获取 你可能感兴趣的好友
+      this.isSearch = false
+      this.list = [
+        {
+          dbId: 1,
+          userId: 4945,
+          userUrl: 'http://placekitten.com/65/65',
+          nickName: '周公来的',
+          birthday: '2001-10-10',
+          game: '英雄联盟-韩服',
+        },
+      ]
+    },
     // 搜索好友
     search_click() {
-      console.log('搜索')
+      this.isSearch = true
+      this.$axios
+        .post('getUserBynn', {
+          nnNumber: this.search.txt,
+        })
+        .then(({ data }) => {
+          this.list = data ? [data] : []
+        })
     },
     // 一键添加
     add_onclick() {
       console.log('一键添加')
-      //
     },
     // 添加好友
     add(uid) {

@@ -64,13 +64,13 @@ div.video-btn {
           class="item-img"
         ></el-image>
       </div>
-      <div v-if="data.type == 'AUDIO'" class="msg" @click="handleEvent">
+      <div v-if="data.type == 'AUDIO'" @click="handleEvent" class="msg">
         <audio :src="data.src" class="item-audio" controls></audio>
       </div>
       <div
         @click.prevent="handleEvent"
-        class="msg item-video"
         v-if="data.type == 'VIDEO'"
+        class="msg item-video"
       >
         <video :src="data.src"></video>
         <div class="video-btn">
