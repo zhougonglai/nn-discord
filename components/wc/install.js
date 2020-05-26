@@ -7,7 +7,7 @@ import nnOption from './nnOption.vue'
 import nnRadio from './nnRadio.vue'
 import nnSelect from './nnSelect.vue'
 import nnDropdown from './nnDropdown.vue'
-import nnDropitem from './nnDropitem.vue'
+import nnDropitem from './nnDropItem.vue'
 import nnContextMenus from './nnContextMenus.vue'
 import nnCOntextMenu from './nnContextMenu.vue'
 
