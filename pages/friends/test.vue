@@ -1,51 +1,16 @@
-<style scoped lang="scss">
-.page {
-  background-color: #36393f;
-}
-.demo {
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin: 0 20px;
-  width: 100px;
-}
-</style>
+<style scoped lang="scss"></style>
 <template>
-  <div class="page spacer">
-    <div
-      v-for="a in 10"
-      @contextmenu.prevent="$refs.menu.open($event, a)"
-      v-click-outside="
-        () => {
-          $refs.menu && $refs.menu.close()
-        }
-      "
-      class="demo"
-    >
-      aaaaa
-    </div>
-    <nnRightMenu ref="menu">
-      <li>1111</li>
-      <li>1111</li>
-      <li>
-        1111 <i class="el-icon-arrow-right"></i>
-        <ul>
-          <li @click="test('sss')">
-            2222
-          </li>
-          <li>
-            2222
-          </li>
-        </ul>
-      </li>
-      <li>1111</li>
-      <li>1111</li>
-    </nnRightMenu>
+  <div>
+    ///
   </div>
 </template>
 <script>
+import pinyin from '@/plugins/pinyin'
 export default {
   data() {
-    return {}
+    return {
+      // id:1
+    }
   },
   computed: {
     // test() {
@@ -53,12 +18,12 @@ export default {
     // }
   },
   mounted() {
-    // console.log();
+    console.log(pinyin)
   },
   methods: {
-    test(name) {
-      console.log(name)
-    },
+    // test() {
+    //   return 0;
+    // }
   },
 }
 </script>

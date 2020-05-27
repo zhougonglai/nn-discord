@@ -16,13 +16,15 @@ section#friends
             .list-item-content 好友申请
       .list.group.padding.my-1(key="friends")
         .list-group(
+          v-for="group in list"
+          :key="group.key"
                     :class="{expand: expand}")
           .list-header(@click="expand=!expand")
             .list-header-pre
               i.bx.bxs-chevron-down
-            | 好友
+            | {{group.key}}
           template(v-if="expand")
-            div(v-for="item in list"
+            div(v-for="item in group.value"
               :key="item.dbId" @contextmenu.prevent="$refs.menu.open($event, item)"
         v-click-outside="() => {$refs.menu && $refs.menu.close()}"
   )
@@ -57,6 +59,7 @@ section#friends
           li(@click="Invite_community(1)") 社区1
       li(@click="dialog_del=true")  删除好友
     el-dialog(center title="删除提示"
+    width="510px"
   :visible.sync="dialog_del"
 )
       span 是否删除改好友？
@@ -92,8 +95,9 @@ export default {
   },
   mounted() {
     // apply
-
-    this.update_list()
+    setTimeout(() => {
+      this.update_list()
+    }, 0)
   },
   computed: {
     ...mapState({ list: (s) => s.friend.list }),

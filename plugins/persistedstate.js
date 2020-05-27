@@ -9,11 +9,9 @@ export default ({ store }) => {
   //     }
   //   },
   // })(store)
-  window.onNuxtReady(() => {
-    createPersistedState({
-      key: 'discord',
-    })(store)
-  })
+  createPersistedState({
+    key: 'discord',
+  })(store)
 
   // if (process.client) {
   //   console.log("Inside Local Storage1", store, process.server, process.client);

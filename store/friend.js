@@ -1,6 +1,7 @@
+import { groupby } from '../plugins/pinyin'
 // 好友相关
 const state = () => ({
-  // 好友列表
+  // 好友列表,首字母索引 [ {key:"A":value:[]}]
   list: [
     // {
     //   "dbId": 88,
@@ -21,7 +22,7 @@ const getters = {}
 
 const mutations = {
   setlist(state, data) {
-    state.list = data
+    state.list = groupby(data, (a) => a.alias)
   },
 }
 const actions = {
