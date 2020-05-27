@@ -211,18 +211,23 @@ export default {
       if (!this.pwdValidity()) return
       if (this.$refs.form.checkValidity()) {
         this.loading = true
-        await this.register({
+        const user = await this.register({
           ...this.sign,
           pwdEncry: md5(this.sign.pwdEncry),
-        }).catch((error) => {
-          this.error.msg = error
+        }).catch((e) => {
+          this.error.msg = e
           this.error.status = true
+          return false
         })
-        this.$parent.switchSignForm()
+        if (user) {
+          await this.addPrivateServer(user)
+          this.$parent.switchSignForm()
+        }
         this.loading = false
       }
     },
     ...mapActions(['sendCode', 'register']),
+    ...mapActions('channel', ['addPrivateServer']),
   },
 }
 </script>

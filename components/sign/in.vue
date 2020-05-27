@@ -131,17 +131,11 @@ export default {
           return false
         })
         if (user) {
-          const res = await this.findServerInfoByUserId(user).catch((e) => {
-            this.error.msg = e
-            this.error.status = true
-            return false
-          })
-          if (res) {
-            await this.getCommunityGroup()
-            await this.getFriendsGroup()
-            this.$parent.closeDialog()
-            this.$router.push({ path: '/me/' }, this.$nuxt.$loading.finish)
-          }
+          // 接口未完善
+          // await this.addPrivateServer(user)
+          // await this.findServerInfoByUserId(user)
+          await this.getCommunityGroup()
+          await this.getFriendsGroup()
           this.$parent.closeDialog()
           this.$router.push({ path: '/me/' }, this.$nuxt.$loading.finish)
         }
@@ -162,7 +156,7 @@ export default {
       this.dropdown = 0
     },
     ...mapActions(['loginByPwd', 'getCommunityGroup', 'getFriendsGroup']),
-    ...mapActions('channel', ['findServerInfoByUserId']),
+    ...mapActions('channel', ['addPrivateServer', 'findServerInfoByUserId']),
   },
 }
 </script>

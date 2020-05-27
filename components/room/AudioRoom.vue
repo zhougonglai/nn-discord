@@ -24,7 +24,6 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 import chatItem from '~/components/channel/chat-item'
 import chatTool from '~/components/channel/chat-tool'
 import MembersItem from '~/components/channel/MembersItem'
-import RTC from '~/services/agora-rtc'
 
 export default {
   name: 'AudioRoom',
@@ -60,7 +59,7 @@ export default {
     this.initClient()
   },
   destroyed() {
-    RTC.getInstance().leave()
+    this.$RTC.leave()
   },
   methods: {
     scrollEnd() {
@@ -70,25 +69,24 @@ export default {
       this['send-text'](e.text)
       this.$nextTick(this.scrollEnd)
     },
-    menuClick(e) {
-      console.log('menuClick', e)
-    },
+    menuClick(e) {},
     async initClient() {
       if (process.client) {
-        const rtc = RTC.getInstance()
         // , this.user.userId
-        await rtc.join(this.$route.params.audioId)
-        await rtc.publish({ audio: true, video: false })
-        await rtc.networkQuality(this.qualityCB)
+        await this.$RTC.join(this.$route.params.audioId)
+        await this.$RTC.publish({ audio: true, video: false })
+        await this.$RTC.subscribe(this.subscribeCB)
+        await this.$RTC.unpublished(this.unpublishedCB)
+        await this.$RTC.networkQuality(this.qualityCB)
       }
     },
     qualityCB(status) {
       // const { downlinkNetworkQuality, uplinkNetworkQuality } = status
       this.SET_STATUS(status)
     },
-    async publishCB(user, mediaType) {
-      const rtc = RTC.getInstance()
-      await rtc.client.subscribe(user)
+    async subscribeCB(user, mediaType) {
+      await this.$RTC.client.subscribe(user)
+      console.log(user, mediaType)
       if (mediaType === 'audio' || mediaType === 'all') {
         // 当订阅完成后，就可以从 `user` 中获取远端音视频轨道对象了
         const remoteAudioTrack = user.audioTrack
@@ -96,6 +94,7 @@ export default {
         remoteAudioTrack.play()
       }
     },
+    unpublishedCB(user) {},
     ...mapActions('chat', ['send-text']),
     ...mapMutations('rtc', ['SET_STATUS']),
   },

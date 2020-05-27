@@ -18,9 +18,11 @@ export default {
   props: {
     horizontal: {
       type: String,
+      default: '',
     },
     vertical: {
       type: String,
+      default: '',
     },
   },
   data() {

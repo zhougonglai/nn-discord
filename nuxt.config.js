@@ -73,11 +73,7 @@ export default {
     ],
   },
   loading: { color: '#fff' },
-  css: [
-    'modern-normalize/modern-normalize.css',
-    'dialog-polyfill/dialog-polyfill.css',
-    '~/styles/global.scss',
-  ],
+  css: ['modern-normalize/modern-normalize.css', '~/styles/global.scss'],
   plugins: [
     {
       src: '~/plugins/persistedstate',
@@ -101,6 +97,10 @@ export default {
     {
       src: '~plugins/nuxt-quill-plugin.js',
       ssr: false,
+    },
+    {
+      src: '~/plugins/agora-rtc-ng',
+      mode: 'client',
     },
   ],
 
