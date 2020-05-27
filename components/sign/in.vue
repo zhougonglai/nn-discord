@@ -131,8 +131,6 @@ export default {
           return false
         })
         if (user) {
-          // 接口未完善
-          // await this.addPrivateServer(user)
           // await this.findServerInfoByUserId(user)
           await this.getCommunityGroup()
           await this.getFriendsGroup()

@@ -81,16 +81,6 @@ export const actions = {
         id: '@id',
         label: '@cname',
         'type|1': ['messages', 'audio'],
-        'avatar|1': [
-          {
-            source: 'bxs-volume-full',
-            type: 'icon',
-          },
-          {
-            source: 'bxs-megaphone',
-            type: 'icon',
-          },
-        ],
         status: '',
       },
     ]
