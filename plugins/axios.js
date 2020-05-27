@@ -20,6 +20,8 @@ export default function ({ app: { store, $axios, redirect, $message } }) {
   $axios.interceptors.request.use((config) => {
     config.baseURL = getbaseURL(config.url)
     config.headers['Content-Type'] = 'application/json'
+    config.headers.reqChannel = '3'
+    config.headers.token = store.state.user.token
     config.headers.Accept = 'application/json'
     return config
   })

@@ -177,7 +177,7 @@ $border-color: #222428;
     <div v-if="isSearch" class="h2 flex aic">
       <svgReturn></svgReturn>
       <div @click="getList" class="return">返回</div>
-      <span class="search-txt">搜索: {{ search.txt }}</span>
+      <span class="search-txt">搜索: {{ search_txt.txt }}</span>
     </div>
     <div v-else class="h2 flex jcb">
       <div><friends style="height: 20px;"></friends> 你可能感兴趣的好友</div>
@@ -238,6 +238,14 @@ export default {
         sex: '',
         age: '',
       },
+      search_txt: {
+        // 显示用
+        txt: '',
+        game: '',
+        area: '',
+        sex: '',
+        age: '',
+      },
       list: [],
     }
   },
@@ -265,6 +273,7 @@ export default {
     // 搜索好友
     search_click() {
       this.isSearch = true
+      this.search_txt.txt = this.search.txt
       this.$axios
         .post('getUserBynn', {
           nnNumber: this.search.txt,
