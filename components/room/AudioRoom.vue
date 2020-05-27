@@ -32,6 +32,16 @@ export default {
     chatTool,
     [MembersItem.name]: MembersItem,
   },
+  props: {
+    channelId: {
+      type: [String, Number],
+      default: null,
+    },
+    userId: {
+      type: [String, Number],
+      default: null,
+    },
+  },
   data() {
     return {
       type: {
@@ -51,7 +61,6 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user']),
     ...mapState('chat', ['msgList']),
   },
   mounted() {
@@ -73,7 +82,8 @@ export default {
     async initClient() {
       if (process.client) {
         // , this.user.userId
-        await this.$RTC.join(this.$route.params.audioId)
+        // this.$route.params.audioId
+        await this.$RTC.join(this.channelId, this.userId)
         await this.$RTC.publish({ audio: true, video: false })
         await this.$RTC.subscribe(this.subscribeCB)
         await this.$RTC.unpublished(this.unpublishedCB)
