@@ -29,3 +29,51 @@ Vue.filter('sex', (sex) => {
       return '保密'
   }
 })
+// 获取剪切板粘贴图片
+Vue.directive('paste-img', {
+  bind: (el, { value }) => {
+    el.querySelector('input').addEventListener('paste', (e) => {
+      const items = event.clipboardData && event.clipboardData.items
+      let file = null
+      if (items && items.length) {
+        // 检索剪切板items
+        for (let i = 0; i < items.length; i++) {
+          if (items[i].type.includes('image')) {
+            file = items[i].getAsFile()
+            value && value(file)
+            break
+          }
+        }
+      }
+    })
+  },
+})
+// 获取拖放文件
+Vue.directive('drop-img', {
+  bind: (el, { value }) => {
+    el.addEventListener('drop', (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      const df = e.dataTransfer
+      const dropFiles = [] // 存放拖拽的文件对象
+      if (df.items !== undefined) {
+        // Chrome有items属性，对Chrome的单独处理
+        for (let i = 0; i < df.items.length; i++) {
+          const item = df.items[i]
+          // 用webkitGetAsEntry禁止上传目录
+          if (
+            item.kind === 'file' &&
+            item.webkitGetAsEntry().isFile &&
+            item.type.indexOf('image/') === 0
+          ) {
+            const file = item.getAsFile()
+            dropFiles.push(file)
+          }
+        }
+      }
+      dropFiles.forEach((img) => {
+        value && value(img)
+      })
+    })
+  },
+})
