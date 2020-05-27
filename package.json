@@ -8,8 +8,8 @@
     "doc": "docsify serve ./docs --open --port 300",
     "dev": "nuxt",
     "start": "nuxt start",
-    "build": "nuxt build",
-    "generate": "nuxt generate",
+    "build:ssr": "nuxt build",
+    "build": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "engines": {
