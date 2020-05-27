@@ -51,7 +51,7 @@ section#friends
     nnRightMenu(ref="menu")
       li(@click="editRemarks")  修改备注名
       li(@click="friend_link")  查看个人资料
-      li(@click="editRemarks")  邀请至社区
+      li 邀请至社区
         i.el-icon-arrow-right
         ul
           li(@click="Invite_community(1)") 社区1

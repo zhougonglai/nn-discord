@@ -24,7 +24,7 @@
 <template>
   <div class="friend-item1 flex">
     <n-link :to="'/friends/' + data.userId">
-      <img :src="data.userUrl" alt class="Avatar mr-1" />
+      <img :src="data.userUrl" :alt="data.nickName" class="Avatar mr-1" />
     </n-link>
     <div class="flex column right">
       <n-link :to="'/friends/' + data.userId">
