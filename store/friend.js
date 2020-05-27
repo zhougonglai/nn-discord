@@ -35,16 +35,11 @@ const actions = {
     // _.throttle(()=>{}, 100)
   },
   // 申请添加好友
-  apply({ rootGetters, dispatch }, uid) {
-    return this.$axios
-      .post(`friend/apply/`, {
-        applyUid: rootGetters.USER_ID,
-        toUserId: uid,
-      })
-      .then((db) => {
-        dispatch('update_list')
-        return db
-      })
+  apply({ rootGetters }, uid) {
+    return this.$axios.post(`friend/apply/`, {
+      applyUid: rootGetters.USER_ID,
+      toUserId: uid,
+    })
   },
 }
 
