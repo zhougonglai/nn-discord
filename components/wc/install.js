@@ -10,7 +10,7 @@ import nnDropdown from './nnDropdown.vue'
 import nnDropitem from './nnDropItem.vue'
 import nnContextMenus from './nnContextMenus.vue'
 import nnCOntextMenu from './nnContextMenu.vue'
-import NnRightMenu from './NnRightMenu.vue'
+import NnRightMenu from './nnRightMenu.vue'
 import noData from './noData.vue'
 
 export default {
